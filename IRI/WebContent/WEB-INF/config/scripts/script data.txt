@@ -1,0 +1,142 @@
+
+-- Tabla tm_error
+insert into tm_error values('E50000','No hay registrador disponible',2,0,null,null);
+insert into tm_error values('E50001','Usuario no autorizado',2,0,null,null);
+
+-- Tabla TM_SERVICIO
+insert into TM_SERVICIO (SERVICIO_ID, NOMBRE, ESTADO, FG_MULT) values (110,'Solc. de Copia Literal Certificada','1','1');
+insert into TM_SERVICIO (SERVICIO_ID, NOMBRE, ESTADO, FG_MULT) values (120,'Solc. de Cert. Negativo de Testamento','1','1');
+insert into TM_SERVICIO (SERVICIO_ID, NOMBRE, ESTADO, FG_MULT) values (121,'Solc. de Cert. Negativo de Sucesión Intestada','1','1');
+insert into TM_SERVICIO (SERVICIO_ID, NOMBRE, ESTADO, FG_MULT) values (122,'Solc. de Cert. Negativo de Registro de Personal','1','1');
+insert into TM_SERVICIO (SERVICIO_ID, NOMBRE, ESTADO, FG_MULT) values (123,'Solc. de Cert. Negativo de Persona Jurídica','1','1');
+insert into TM_SERVICIO (SERVICIO_ID, NOMBRE, ESTADO, FG_MULT) values (124,'Solc. de Cert. Negativo de Propiedad Inmueble','1','1');
+insert into TM_SERVICIO (SERVICIO_ID, NOMBRE, ESTADO, FG_MULT) values (125,'Solc. de Cert. Negativo de Propiedad Vehicular','1','1');
+insert into TM_SERVICIO (SERVICIO_ID, NOMBRE, ESTADO, FG_MULT) values (140, 'Tasa Registral de Envío a Domicilio',1,null);
+
+-- Tabla TARIFA
+insert into tarifa (TARIFA_ID, PORC_UIT, PREC_OFIC, SERVICIO_ID, USR_ULT_MODIF, USR_CREA, TS_ULT_MODIF, TS_CREA) values (22, 0, 4, 110, 'admin', 'admin', sysdate, sysdate);
+insert into tarifa (TARIFA_ID, PORC_UIT, PREC_OFIC, SERVICIO_ID, USR_ULT_MODIF, USR_CREA, TS_ULT_MODIF, TS_CREA) values (23, 0, 4, 120, 'admin', 'admin', sysdate, sysdate);
+insert into tarifa (TARIFA_ID, PORC_UIT, PREC_OFIC, SERVICIO_ID, USR_ULT_MODIF, USR_CREA, TS_ULT_MODIF, TS_CREA) values (24, 0, 4, 121, 'admin', 'admin', sysdate, sysdate);
+insert into tarifa (TARIFA_ID, PORC_UIT, PREC_OFIC, SERVICIO_ID, USR_ULT_MODIF, USR_CREA, TS_ULT_MODIF, TS_CREA) values (25, 0, 4, 122, 'admin', 'admin', sysdate, sysdate);
+insert into tarifa (TARIFA_ID, PORC_UIT, PREC_OFIC, SERVICIO_ID, USR_ULT_MODIF, USR_CREA, TS_ULT_MODIF, TS_CREA) values (26, 0, 4, 123, 'admin', 'admin', sysdate, sysdate);
+insert into tarifa (TARIFA_ID, PORC_UIT, PREC_OFIC, SERVICIO_ID, USR_ULT_MODIF, USR_CREA, TS_ULT_MODIF, TS_CREA) values (27, 0, 4, 124, 'admin', 'admin', sysdate, sysdate);
+insert into tarifa (TARIFA_ID, PORC_UIT, PREC_OFIC, SERVICIO_ID, USR_ULT_MODIF, USR_CREA, TS_ULT_MODIF, TS_CREA) values (28, 0, 4, 125, 'admin', 'admin', sysdate, sysdate);
+insert into tarifa (TARIFA_ID, PORC_UIT, PREC_OFIC, SERVICIO_ID, USR_ULT_MODIF, USR_CREA, TS_ULT_MODIF, TS_CREA) values (29, 0, 4, 140, 'admin', 'admin', sysdate, sysdate);
+
+
+-- Tabla TM_CERTIFICADOS 
+--select * from user1.tm_certificados;
+insert into user1.TM_CERTIFICADOS (CERTIFICADO_ID, TPO_CERTIFICADO, SERVICIO_ID, NOMBRE, ESTADO, TPO_PERSONA, AREA_REG_ID) values (0,'L',110,'No Disponible','1','A','00000');
+insert into user1.TM_CERTIFICADOS (CERTIFICADO_ID, TPO_CERTIFICADO, SERVICIO_ID, NOMBRE, ESTADO, TPO_PERSONA, AREA_REG_ID) values (1,'N',120,'Testamento','1','N','23000');
+insert into user1.TM_CERTIFICADOS (CERTIFICADO_ID, TPO_CERTIFICADO, SERVICIO_ID, NOMBRE, ESTADO, TPO_PERSONA, AREA_REG_ID) values (2,'N',121,'Sucesión Intestada','1','N','23000');
+insert into user1.TM_CERTIFICADOS (CERTIFICADO_ID, TPO_CERTIFICADO, SERVICIO_ID, NOMBRE, ESTADO, TPO_PERSONA, AREA_REG_ID) values (3,'N',122,'Registro de Personal','1','N','23000');
+insert into user1.TM_CERTIFICADOS (CERTIFICADO_ID, TPO_CERTIFICADO, SERVICIO_ID, NOMBRE, ESTADO, TPO_PERSONA, AREA_REG_ID) values (4,'N',123,'Persona Jurídica','1','J','22000');
+insert into user1.TM_CERTIFICADOS (CERTIFICADO_ID, TPO_CERTIFICADO, SERVICIO_ID, NOMBRE, ESTADO, TPO_PERSONA, AREA_REG_ID) values (5,'N',124,'Propiedad Inmueble','1','A','21000');
+insert into user1.TM_CERTIFICADOS (CERTIFICADO_ID, TPO_CERTIFICADO, SERVICIO_ID, NOMBRE, ESTADO, TPO_PERSONA, AREA_REG_ID) values (6,'N',125,'Propiedad Vehicular','1','A','24000');
+insert into user1.TM_CERTIFICADOS (CERTIFICADO_ID, TPO_CERTIFICADO, SERVICIO_ID, NOMBRE, ESTADO, TPO_PERSONA, AREA_REG_ID) values (7,'L',110,'Copia Literal de Partida Completa','1','A','00000');
+insert into user1.TM_CERTIFICADOS (CERTIFICADO_ID, TPO_CERTIFICADO, SERVICIO_ID, NOMBRE, ESTADO, TPO_PERSONA, AREA_REG_ID) values (8,'L',110,'Copia Literal de Asiento Completo','1','A','00000');
+--commit;
+
+--select * from user1.tm_grupo;
+insert into user1.tm_grupo values (0,'Grupo No Disponible');
+insert into user1.tm_grupo values (1,'Libros de Propiedad Inmueble');
+commit;
+--select * from user1.grupo_libro;
+insert into user1.grupo_libro values ('001',1);
+insert into user1.grupo_libro (select cod_libro, 1 from user1.tm_libro where cod_libro<>'001');
+
+
+--commit;
+-- Tabla CRITERIOS_ASIGNA 
+--select * from user1.criterios_asigna;
+insert into user1.criterios_asigna values (8335,'01','01', 1, 0, '1');
+insert into user1.criterios_asigna values (8335,'01','01', 2, 0, '1');
+insert into user1.criterios_asigna values (8335,'01','01', 3, 0, '1');
+insert into user1.criterios_asigna values (8335,'01','01', 4, 0, '1');
+insert into user1.criterios_asigna values (8335,'01','01', 5, 0, '1');
+insert into user1.criterios_asigna values (8335,'01','01', 6, 0, '1');
+insert into user1.criterios_asigna values (8335,'01','01', 7, 0, '1');
+insert into user1.criterios_asigna values (8335,'01','01', 8, 0, '1');
+insert into user1.criterios_asigna values (8335,'01','01', 0, 1, '1');
+--commit;
+insert into user1.criterios_asigna values (8336,'01','01', 1, 0, '1');
+insert into user1.criterios_asigna values (8336,'01','01', 2, 0, '1');
+insert into user1.criterios_asigna values (8336,'01','01', 3, 0, '1');
+insert into user1.criterios_asigna values (8336,'01','01', 4, 0, '1');
+insert into user1.criterios_asigna values (8336,'01','01', 5, 0, '1');
+insert into user1.criterios_asigna values (8336,'01','01', 6, 0, '1');
+insert into user1.criterios_asigna values (8336,'01','01', 7, 0, '1');
+insert into user1.criterios_asigna values (8336,'01','01', 8, 0, '1');
+insert into user1.criterios_asigna values (8336,'01','01', 0, 1, '1');
+--commit;
+insert into user1.criterios_asigna values (8337,'01','01', 1, 0, '1');
+insert into user1.criterios_asigna values (8337,'01','01', 2, 0, '1');
+insert into user1.criterios_asigna values (8337,'01','01', 3, 0, '1');
+insert into user1.criterios_asigna values (8337,'01','01', 4, 0, '1');
+insert into user1.criterios_asigna values (8337,'01','01', 5, 0, '1');
+insert into user1.criterios_asigna values (8337,'01','01', 6, 0, '1');
+insert into user1.criterios_asigna values (8337,'01','01', 7, 0, '1');
+insert into user1.criterios_asigna values (8337,'01','01', 8, 0, '1');
+insert into user1.criterios_asigna values (8337,'01','01', 0, 1, '1');
+--commit;
+insert into user1.criterios_asigna values (120,'09','01', 1, 0, '1');
+insert into user1.criterios_asigna values (120,'09','01', 2, 0, '1');
+insert into user1.criterios_asigna values (120,'09','01', 3, 0, '1');
+insert into user1.criterios_asigna values (120,'09','01', 4, 0, '1');
+insert into user1.criterios_asigna values (120,'09','01', 5, 0, '1');
+insert into user1.criterios_asigna values (120,'09','01', 6, 0, '1');
+insert into user1.criterios_asigna values (120,'09','01', 7, 0, '1');
+insert into user1.criterios_asigna values (120,'09','01', 8, 0, '1');
+insert into user1.criterios_asigna values (120,'09','01', 0, 1, '1');
+--commit;
+select * from user1.tm_estado_solicitud;
+insert into user1.tm_estado_solicitud values ('P', 'Por Pagar', 'No Disponible', 1);
+insert into user1.tm_estado_solicitud values ('C', 'Por Verificar', 'En Atención',1);
+insert into user1.tm_estado_solicitud values ('V', 'Por Emitir', 'En Atención',1);
+insert into user1.tm_estado_solicitud values ('E', 'Por Despachar', 'En Atención',1);
+insert into user1.tm_estado_solicitud values ('D', 'Despachada', 'Atendida',1);
+insert into user1.tm_estado_solicitud values ('X', 'Anulada', 'Anulada',1);
+insert into user1.tm_estado_solicitud values ('I', 'Improcedente', 'Improcedente',1);
+--commit;
+--select * from user1.solicitud_x_carga;
+insert into user1.tm_tipo_vent values ('A', 'Apertura de Linea Prepago');
+insert into user1.tm_tipo_vent values ('D', 'Incremento de Linea Prepago');
+insert into user1.tm_tipo_vent values ('P', 'Consumo de Publicidad Certificada');
+
+
+--select * from user1.tm_permiso_ext order by permiso_id;
+--agregar tres permisos mas
+--seguimiento de estado de solicitudes
+--seguimiento de estado de solicitudes publico
+--movimiento diario de recaudaciones en linea
+insert into user1.tm_permiso_ext values (55,'/iri/BusquedaSolicitud.do','Estado de Solicitud de Certificados',1,'acl55',null);
+insert into user1.tm_permiso_ext values (56,'/iri/BusquedaSolicitudPublico.do','Estado de Solicitud de Certificados Publico',1,'aclpublico',null);
+---
+insert into user1.tm_permiso_ext values (57,'/iri/DiarioRecaudaEnLinea.do','Recaudacion diaria en linea',1,'acl57',null);
+---
+insert into user1.tm_permiso_ext values (58,'/iri/CargaLaboral.do','Carga Laboral',1,'acl58',null);
+insert into user1.tm_permiso_ext values (59,'/iri/Certificados.do','Solicitar Certificado',1,'acl59',null);
+
+
+--select * from user1.tm_permiso_asig where permiso_id=2;
+--select * from user1.tm_perfil;
+--select * from user1.tm_perfil_asignac;
+insert into user1.tm_permiso_asig values (10,55,80);
+insert into user1.tm_permiso_asig values (10,57,50);
+insert into user1.tm_permiso_asig values (10,58,80);
+insert into permiso_perfil values(20,55);
+insert into permiso_perfil values(20,59);
+insert into permiso_perfil values(10,55);
+insert into permiso_perfil values(60,59);
+insert into permiso_perfil values(60,55);
+insert into permiso_perfil values(30,59);
+insert into permiso_perfil values(40,59);
+
+insert into parametros values(107,'RCL','SUNARP001','ADMIN',sysdate,sysdate,'180000','Tiempo (ms) en que refresca la carga laboral');
+insert into parametros values(108,'GLO','SUNARP001','ADMIN',sysdate,sysdate,'Gracias por utilizar el presente servicio de En Línea-Sunarp.','Glosa');
+
+insert into user1.grupo_libro select cod_libro, '2' from user1.tm_libro where area_reg_id='21000'; 
+insert into user1.grupo_libro select cod_libro, '3' from user1.tm_libro where area_reg_id='22000'; 
+insert into user1.grupo_libro select cod_libro, '4' from user1.tm_libro where area_reg_id='23000'; 
+insert into user1.grupo_libro select cod_libro, '5' from user1.tm_libro where area_reg_id='24000';
+

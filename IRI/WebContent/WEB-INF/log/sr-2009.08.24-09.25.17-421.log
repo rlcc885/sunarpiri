@@ -1,0 +1,64 @@
+20090824.093015.781 gob.pe.sunarp.extranet.acceso.controller.IngresoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: null
+REQ: /iri/Ingreso.do GET
+20090824.093015.703 framework.session.ExpressoHttpSessionBean IN No existe datos de usuario en sesion.
+20090824.093015.703 ranet.acceso.controller.IngresoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.IngresoController STATE: validaIngreso USERID: [NO_HAY_USUARIOBEAN_EN_SESION]
+20090824.093015.703 ranet.acceso.controller.IngresoController TR inicia proceso de Login
+20090824.093015.703 ranet.acceso.controller.IngresoController TR login sin TAM
+
+
+20090824.093022.250 gob.pe.sunarp.extranet.acceso.controller.IngresoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: null
+REQ: /iri/IngresoIRI.do GET
+20090824.093022.031 framework.session.ExpressoHttpSessionBean IN No existe datos de usuario en sesion.
+20090824.093022.031 ranet.acceso.controller.IngresoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.IngresoController STATE: validaIngreso USERID: [NO_HAY_USUARIOBEAN_EN_SESION]
+20090824.093022.031 ranet.acceso.controller.IngresoController TR inicia proceso de Login
+20090824.093022.031 ranet.acceso.controller.IngresoController TR login sin TAM
+
+
+20090824.093033.625 gob.pe.sunarp.extranet.acceso.controller.IngresoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: null
+REQ: /iri/IngresoIRI.do POST application/x-www-form-urlencoded user=INFORMATICA:: clave=CLAVE1::
+20090824.093030.609 framework.session.ExpressoHttpSessionBean IN No existe datos de usuario en sesion.
+20090824.093030.609 ranet.acceso.controller.IngresoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.IngresoController STATE: validaIngreso USERID: [NO_HAY_USUARIOBEAN_EN_SESION]
+20090824.093030.609 ranet.acceso.controller.IngresoController TR inicia proceso de Login
+20090824.093030.609 ranet.acceso.controller.IngresoController TR login sin TAM
+20090824.093031.140 ranet.acceso.controller.IngresoController TR ...buscando cuenta...
+20090824.093031.765 ranet.acceso.controller.IngresoController TR ...buscando datos adicionales...
+20090824.093032.015 ranet.acceso.controller.IngresoController TR Usuario es Externo: Tipo Usuario : 1XXX
+20090824.093032.687 ranet.acceso.controller.IngresoController TR Usuario Es Persona Natural Usuario: X1XX
+
+
+20090824.093034.828 gob.pe.sunarp.extranet.acceso.controller.IngresoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/IngresoIRI.do GET state=cabecera::
+20090824.093034.328 ranet.acceso.controller.IngresoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.IngresoController STATE: cabecera USERID: INFORMATICA
+
+
+20090824.093035.328 gob.pe.sunarp.extranet.acceso.controller.MenuDinamicoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/MenuDinamicoIRI.do GET
+20090824.093033.968 .acceso.controller.MenuDinamicoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.MenuDinamicoController STATE: muestraMenu USERID: INFORMATICA
+
+
+20090824.093036.187 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPartidaController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadIRI.do GET state=solicitarFormulario::
+20090824.093035.421 dad.controller.ConsultarPartidaController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPartidaController STATE: solicitarFormulario USERID: INFORMATICA
+
+
+20090824.093751.421 gob.pe.sunarp.extranet.acceso.controller.IngresoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/IngresoIRI.do GET
+20090824.093751.187 ranet.acceso.controller.IngresoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.IngresoController STATE: validaIngreso USERID: INFORMATICA
+20090824.093751.187 ranet.acceso.controller.IngresoController TR inicia proceso de Login
+20090824.093751.187 ranet.acceso.controller.IngresoController TR login sin TAM
+
+

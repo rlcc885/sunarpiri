@@ -1,0 +1,140 @@
+.OpcHome
+{
+    FONT: bold 11px/11px arial;
+    COLOR: #0D4987;
+    TEXT-DECORATION: none
+}
+.OpcHome:hover
+{
+    COLOR: #900000;
+    TEXT-DECORATION: underline
+}
+.OpcTop
+{
+    FONT: bold 11px/11px arial;
+    COLOR: #000000;
+    TEXT-DECORATION: none
+}
+.OpcTop:hover
+{
+    TEXT-DECORATION: underline
+}
+.TitDetalle
+{
+    FONT: bold 10px/normal verdana, arial;
+    color: #002D5B;
+    background-color: #EAEEF5;
+    TEXT-DECORATION: none
+}
+.TxtDetalle
+{
+    FONT: 10px/10px verdana, arial;
+    background-color: #C0C5CF
+}
+.TitFicha
+{
+    FONT: bold 10px/normal verdana, arial;
+    color: #002D5B;
+    background-color: #D6DEE3;
+    TEXT-DECORATION: none
+}
+.TxtFicha
+{
+    FONT: bold 8pt/normal arial, verdana, helvetica;
+    COLOR: #900000;
+    background-color: #F1F4F8;
+    TEXT-DECORATION: none
+}
+.TitTomo
+{
+    FONT: bold 10px/normal verdana, arial;
+    color: #002D5B;
+    background-color: #B9C6CE;
+    TEXT-DECORATION: none
+}
+.TxtTomo
+{
+    FONT: bold 8pt/normal arial, verdana, helvetica;
+    COLOR: #900000;
+    background-color: #E4E7EC;
+    TEXT-DECORATION: none
+}
+.Titulo1
+{
+    FONT: bold 8pt/normal arial, verdana, helvetica;
+    COLOR: #900000;
+    TEXT-DECORATION: none
+}
+.txtDescrip
+{
+    FONT: 10px/normal verdana, helvetica, arial;
+    COLOR: #000000;
+    TEXT-DECORATION: none
+}
+.usuario
+{
+    FONT: bold 14px/14px verdana, helvetica, arial;
+    COLOR: #ffffff;
+    TEXT-DECORATION: none
+}
+.txtCabecera
+{
+    FONT: bold 10px/normal verdana, helvetica, arial;
+    COLOR: #ffffff;
+    TEXT-DECORATION: none
+}
+.txtCabecera:hover
+{
+    COLOR: #CF9700;
+    TEXT-DECORATION: underline
+}
+.opctitLeft
+{
+    FONT: bold 11px/normal verdana, helvetica, arial;
+    COLOR: #000000;
+    TEXT-DECORATION: none
+}
+.opcLeft
+{
+    FONT: 11px/normal arial, verdana, helvetica;
+    COLOR: #000000;
+    TEXT-DECORATION: none
+}
+.opcLeft:hover
+{
+    TEXT-DECORATION: underline
+}
+.opcLeft2
+{
+    FONT: bold 11px/normal arial, verdana, helvetica;
+    COLOR: #000000;
+    TEXT-DECORATION: underline
+}
+.opcLeft2:hover
+{
+    COLOR: #8F0000;
+}
+.OpcMenu
+{
+    FONT: bold 11px/normal verdana, helvetica, arial;
+    COLOR: #9999FF;
+    TEXT-DECORATION: none
+}
+.OpcMenu:hover
+{
+    FONT: bold 8pt/8pt helvetica, arial;
+    COLOR: #ffffff;
+    TEXT-DECORATION: underline
+}
+TH {
+	FONT-SIZE: 7.5pt; COLOR: #610000; FONT-FAMILY: verdana
+}
+TD {
+	FONT-SIZE: 7.5pt; FONT-FAMILY: arial
+}
+TR.true {
+	BACKGROUND-COLOR: rgb(230,230,230)
+}
+TR.false {
+	BACKGROUND-COLOR: rgb(215,215,215)
+}

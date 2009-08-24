@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<LINK REL="stylesheet" type="text/css" href="../styles/global.css">
+	<script language="JavaScript" src="../javascript/util.js"></script>
+	<title>Formulario Solicitud Inscripci&oacute;n - Participantes - Personas Jur&iacute;dicas</title>
+	<META name="GENERATOR" content="IBM WebSphere Studio">
+</head>
+<body>
+<br>
+	<table cellspacing=0 class=titulo>
+  		<tr>
+			<td>
+				<FONT COLOR="black">SOLICITUDES <font size="1">&gt;&gt;</font></FONT><font color="900000"> Solicitud de Inscripci&oacute;n <font size="1">&gt;&gt;</font> Transferencia Vehicular</FONT>
+			</td>
+  		</tr>
+	</table>
+	<br>
+	<form name="frm1" method="POST" class="formulario">
+  	<table class=tablasinestilo>
+    	<tr>
+      		<th colspan="2"><strong>DATOS DE PARTICIPANTE Y/O CONTRATANTE</strong></th>
+    	</tr>
+    	<tr>
+      		<td width="30%"><strong>TIPO DE PERSONA</strong></td>
+      		<td width="70%">
+      			<select size="1" name="tipoPersona" style="width:180">
+          			<option>Tipo 1</option>
+          			<option>Tipo 2</option>
+          			<option>Tipo 3</option>
+          			<option>Tipo 4</option>
+      			</select>
+      		</td>
+	    </tr>
+	   	<tr>
+      		<td width="30%"><strong>RAZON SOCIAL <font color="900000">*</font></strong></td>
+      		<td width="70%"><input type="text" name="razonSocial" size="20" maxlength="130" style="width:180"></td>
+    	</tr>
+    	<tr>
+      		<td width="30%"><strong>SIGLAS</strong></td>
+      		<td width="70%"><input type="text" name="siglas" size="20" maxlength="130" style="width:180"></td>
+      	</tr>
+		<tr>
+      		<td width="30%"><strong>RUC</strong></td>
+      		<td width="70%"><input type="text" name="ruc" size="20" maxlength="130" style="width:180"></td>		
+		</tr>
+	    <tr>
+	        <td width="30%"><strong>OFICINA REGISTRAL</strong></td>
+	        <td width="70%">
+	      		<select size="1" name="cboOficinas" onChange="frm1.hidOfic.value = document.frm1.cboOficinas.options[document.frm1.cboOficinas.selectedIndex].text" style="width:180">
+	        		<option value="10|07">Andahuaylas</option>
+	        		<option value="06|02">Apurimac</option>
+	        		<option value="03|01">Arequipa</option>
+			        <option value="10|05">Ayacucho</option>
+			        <option value="01|06">Barranca</option>
+			        <option value="11|04">Bagua</option>
+			        <option value="01|02">Callao</option>
+			        <option value="11|02">Cajamarca</option>
+			        <option value="03|02">Caman&aacute;</option>
+			        <option value="01|05">Ca&ntilde;ete</option>
+			        <option value="04|02">Casma</option>
+			        <option value="03|03">Castilla</option>
+			        <option value="11|05">Chachapoyas</option>
+			        <option value="08|02">Chep&eacute;n</option>
+			        <option value="11|01">Chiclayo</option>
+			        <option value="04|03">Chimbote</option>
+			        <option value="10|02">Chincha</option>
+			        <option value="11|06">Chota</option>
+			        <!--option value="13|01">Coronel portillo</option-->
+			        <option value="06|01">Cusco</option>
+			        <option value="01|04">Huacho</option>
+			        <option value="08|03">Huamachuco</option>
+			        <option value="10|08">Huancavelica</option>
+			        <option value="02|01">Huancayo</option>
+			        <option value="10|06">Huanta</option>
+			        <option value="02|02">Hu&aacute;nuco</option>
+			        <option value="01|03">Huaral</option>
+			        <option value="04|01">Huaraz</option>
+			        <option value="10|01">Ica</option>
+			        <option value="07|02">Ilo</option>
+			        <option value="09|01">Iquitos</option>
+			        <option value="03|04">Islay</option>
+			        <option value="11|03">Ja&eacute;n</option>
+			        <option value="12|03">Juanju&iacute;</option>
+			        <option value="07|03">Juliaca</option>
+			        <option value="02|06">La Merced</option>        
+			        <option value="01|01" selected>Lima</option>
+			        <option value="06|03">Madre de dios</option>
+			        <option value="07|04">Moquegua</option>
+			        <option value="12|01">Moyobamba</option>
+			        <option value="10|04">Nazca</option>
+			        <option value="08|04">Otuzco</option>
+			        <option value="02|04">Pasco</option>
+			        <option value="10|03">Pisco</option>
+			        <option value="05|01">Piura</option>
+			        <option value="13|01">Pucallpa</option>
+			        <option value="07|05">Puno</option>
+			        <option value="06|04">Quillabamba</option>
+			        <option value="08|05">San pedro de lloc</option>
+			        <option value="02|05">Satipo</option>
+			        <!--option value="02|06">Selva Central</option-->
+			        <option value="06|05">Sicuani</option>
+			        <option value="05|02">Sullana</option>
+			        <option value="07|01">Tacna</option>
+			        <option value="12|02">Tarapoto</option>
+			        <option value="02|07">Tarma</option>
+			        <option value="02|08">Tingo Mar&iacute;a</option>
+			        <option value="08|01">Trujillo</option>
+			        <option value="05|03">Tumbes</option>
+			        <option value="09|02">Yurimaguas</option>
+			    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			    <input type="hidden" name="hidOfic" value="Lima">
+			    
+			</td>
+	    </tr>      	
+		<tr>
+      		<td width="30%"><strong>NUMERO PARTIDA</strong></td>
+      		<td width="70%"><input type="text" name="ruc" size="20" maxlength="130" style="width:180"></td>		
+		</tr>      	
+      	<tr>
+            <td width="30%"><strong>DEPARTAMENTO</strong></td>
+            <td width="70%">
+            	<select name="departamento" style="width:180">
+            		<option>Departamento 1</option>
+            		<option>Departamento 2</option>
+            		<option>Departamento 3</option>
+            		<option>Departamento 4</option>
+            	</select>
+            </td>
+        </tr>
+      	<tr>
+            <td width="30%"><strong>PROVINCIA</strong></td>
+            <td width="70%">
+            	<select name="provincia" style="width:180">
+            		<option>Provincia 1</option>
+            		<option>Provincia 2</option>
+            		<option>Provincia 3</option>
+            		<option>Provincia 4</option>
+            	</select>
+            </td>
+        </tr>
+      	<tr>
+            <td width="30%"><strong>DISTRITO<strong></td>
+            <td width="70%"><input type="text" name="distrito" size="20" maxlength="130" style="width:180"></td>
+        </tr>
+	    <tr>
+	  		<td width="30%"><strong>DIRECCION</strong></td>
+			<td width="70%"><input name="direccion" type="text" onBlur="sololet(this)" maxlength="90" style="width:180"></td>
+        </tr>
+        <tr>
+		    <td width="30%"><strong>COD POSTAL</strong></td>
+			<td width="70%"><input name="codPostal" type="text" onBlur="sololet(this)" maxlength="90" style="width:180"></td>
+		</tr>      	
+      	<%--<tr>	
+      		<td width="30%"><strong>TIPO PARTICIPANTE</strong></td>
+      		<td width="70%">
+      			<select name="tipoParticipante" size="1" style="width:180">
+          			<option>Tipo 1</option>
+          			<option>Tipo 2</option>
+          			<option>Tipo 3</option>
+          			<option>Tipo 4</option>
+              	</select>
+      		</td>
+    	</tr>--%>
+    	<tr>
+      		<td width="30%"><strong>NACIONALIDAD</strong></td>
+      		<td width="70%">
+      			<select name="nacionalidad" size="1" style="width:180">
+            		<option>Nacionalidad 1</option>
+            		<option>Nacionalidad 2</option>
+            		<option>Nacionalidad 3</option>
+            		<option>Nacionalidad 4</option>
+        		</select>
+        	</td>
+        </tr>
+    	<tr>
+      		<td colspan="2">&nbsp;</td>
+    	</tr>
+    	<tr>
+    		<td colspan="2" width="100%" align="center">
+    		    <input type="image" src="../images/btn_grabar.gif" onmouseover="#" onmouseOut="#">
+	  		    <input type="image" src="../images/btn_cancelar.gif" onmouseover="#" onmouseOut="#">
+	  		</td>  		
+    	</tr>
+  	</table>
+	<br>
+	</form>
+	<table>
+	<tr>
+		<td><strong><font color="900000">* Los datos son obligatorios</font></strong></td>
+	</tr>
+</table>
+</body>
+</html>

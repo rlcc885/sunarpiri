@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://webservices.extranet.sunarp.pe.gob" xmlns:impl="http://webservices.extranet.sunarp.pe.gob" xmlns:intf="http://webservices.extranet.sunarp.pe.gob" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsi="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+ <wsdl:types>
+  <schema targetNamespace="http://webservices.extranet.sunarp.pe.gob" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <element name="setNewRegisterRequestResponse">
+    <complexType>
+     <sequence>
+      <element name="setNewRegisterRequestReturn" nillable="true" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="setNewRegisterRequest">
+    <complexType>
+     <sequence>
+      <element name="xmlForm" nillable="true" type="xsd:string"/>
+      <element name="xmlHash" nillable="true" type="xsd:string"/>
+      <element name="rtfFile" nillable="true" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="setNewRegisterRequestRequest">
+     <wsdl:part element="intf:setNewRegisterRequest" name="parameters"/>
+
+  </wsdl:message>
+
+   <wsdl:message name="setNewRegisterRequestResponse">
+     <wsdl:part element="intf:setNewRegisterRequestResponse" name="parameters"/>
+
+  </wsdl:message>
+
+   <wsdl:portType name="SunarpServiceProvider">
+     <wsdl:operation name="setNewRegisterRequest">
+       <wsdl:input message="intf:setNewRegisterRequestRequest" name="setNewRegisterRequestRequest"/>
+
+       <wsdl:output message="intf:setNewRegisterRequestResponse" name="setNewRegisterRequestResponse"/>
+
+    </wsdl:operation>
+
+  </wsdl:portType>
+
+   <wsdl:binding name="SunarpServiceProviderSoapBinding" type="intf:SunarpServiceProvider">
+ <wsaw:UsingAddressing wsdl:required="false" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"/>
+
+     <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+     <wsdl:operation name="setNewRegisterRequest">
+       <wsdlsoap:operation soapAction="setNewRegisterRequest"/>
+
+       <wsdl:input name="setNewRegisterRequestRequest">
+         <wsdlsoap:body use="literal"/>
+
+      </wsdl:input>
+
+       <wsdl:output name="setNewRegisterRequestResponse">
+         <wsdlsoap:body use="literal"/>
+
+      </wsdl:output>
+
+    </wsdl:operation>
+
+  </wsdl:binding>
+
+   <wsdl:service name="SunarpServiceProviderService">
+     <wsdl:port binding="intf:SunarpServiceProviderSoapBinding" name="SunarpServiceProvider">
+       <wsdlsoap:address location="http://localhost:9080/iri/services/SunarpServiceProvider"/>
+
+    </wsdl:port>
+
+  </wsdl:service>
+
+</wsdl:definitions>

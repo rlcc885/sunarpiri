@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META name="GENERATOR" content="IBM WebSphere Studio">
+<META HTTP-EQUIV="CONTENT-Type" CONTENT="text/html; CHARSET=ISO-8859-1">
+
+<link rel="stylesheet" href="../estilo base(2).css">
+<title>Seleccione forma de Pago</title>
+<script language="JavaScript">
+function TipoPago(){ 
+	document.form1.method = "POST";
+   	document.form1.action = "/iri/IncrementarSaldo.do?state=solicitaDatos";
+    document.form1.submit();
+}
+
+function Cancela()
+{ window.open ("../bienvenida.html",target="_self")
+}
+</script>
+</head>
+
+<body><BR><h2 align="center">Prepagos On-Line</h2>
+<form name="form1">
+<div align="center">
+  <center>
+<table border="0" width="680">
+  <tr>
+    <td width="103">&nbsp;
+      <p>&nbsp;</td>
+    <td width="454">
+      <p align="justify"> Para realizar un Prepago en linea escoja una de los
+      siguientes tarjetas:</p>
+
+		
+	        <tr> 
+	          <td width="26%">
+	          </td>
+	          <td width="74%">
+				<input type="radio" value="11"  name="R1">TARJETA DE CREDITO	          	
+	          </td>
+	        </tr>
+		
+	        <tr> 
+	          <td width="26%">
+	          </td>
+	          <td width="74%">
+				<input type="radio" value="22"  name="R1">TARJETA DE DEBITO	          	
+	          </td>
+	        </tr>
+        <tr>
+          <td colspan="2">&nbsp;
+            <p>Ingrese el Monto <input name="monto"> Nuevos Soles.</p>
+          </td>
+        </tr>
+        <tr>
+          <td width="26%"></td>
+          <td width="74%">&nbsp;
+            <p><input type="reset" value="Cancelar" onclick="Cancela()"><input type="button" value="Continuar" onClick="TipoPago()"></p>
+          </td>
+        </tr>
+    <td width="103"></td>
+  
+</table>
+  </center>
+</div>
+</form>
+</body>
+</html>

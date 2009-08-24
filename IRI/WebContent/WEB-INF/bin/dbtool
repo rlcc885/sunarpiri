@@ -1,0 +1,3 @@
+# Run DBTool
+java -classpath /home/expresso/expresso/expresso-web/WEB-INF/classes com.jcorporate.expresso.core.utility.DBTool configDir=/home/expresso/expresso/expresso-web/WEB-INF/config webAppDir=/home/expresso/expresso/expresso-web db=site 
+

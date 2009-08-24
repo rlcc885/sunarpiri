@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+	<LINK REL="stylesheet" type="text/css" href="../styles/global.css">
+	<script language="JavaScript" src="../javascript/util.js"></script>
+	<title>Formulario Solicitud Inscripci&oacute;n - Participantes - Personas Naturales</title>
+	<META name="GENERATOR" content="IBM WebSphere Studio">
+</head>
+<body>
+<br>
+	<table cellspacing=0 class=titulo>
+  		<tr>
+			<td>
+				<FONT COLOR="black">SOLICITUDES <font size="1">&gt;&gt;</font></FONT><font color="900000"> Solicitud de Inscripci&oacute;n <font size="1">&gt;&gt;</font> Bloqueo de Propiedad Inmbueble</FONT>
+			</td>
+  		</tr>
+	</table>
+	<br>
+	<form name="frm1" method="POST" class="formulario">
+  	<table class=tablasinestilo>
+    	<tr>
+      		<th colspan="2"><strong>DATOS DE PARTICIPANTE Y/O CONTRATANTE</strong></th>
+    	</tr>
+    	<tr>
+      		<td width="30%"><strong>TIPO DE PERSONA</strong></td>
+      		<td width="70%">
+      			<select size="1" name="tipoPersona" style="width:180">
+          			<option>Tipo 1</option>
+          			<option>Tipo 2</option>
+          			<option>Tipo 3</option>
+          			<option>Tipo 4</option>
+      			</select>
+      		</td>
+	    </tr>
+   	 	<tr>
+      		<td width="30%"><strong>TIPO DOC.IDENTIDAD <font color="900000">*</font></strong></td>
+      		<td width="70%">
+      			<select size="1" name="tipoDocumentoIdentidad" style="width:180">
+        			<option>Documento 1</option>
+        			<option>Documento 2</option>
+        			<option>Documento 3</option>
+        			<option>Documento 4</option>
+      			</select>
+      		</td>
+    	</tr>
+		<tr>
+      		<td width="30%"><strong>NRO. DOC. IDENTIDAD <font color="900000">*</font></strong></td>
+      		<td width="70%"><input type="text" name="numeroDocumentoIdentidad" size="20" maxlength="130" style="width:180"></td>		
+		</tr>
+    	<tr>
+      		<td width="30%"><strong>ESTADO CIVIL</strong></td>
+      		<td width="70%">
+      			<select size="1" name="estadoCivil" style="width:180">
+        			<option>Estado 1</option>
+        			<option>Estado 2</option>
+        			<option>Estado 3</option>
+        			<option>Estado 4</option>
+      			</select>
+      		</td>
+    	</tr>
+    	<tr>
+      		<td width="30%"><strong>APELLIDO PATERNO <font color="900000">*</font></strong></td>
+      		<td width="70%"><input type="text" name="apellidoPaterno" size="20" maxlength="130" style="width:180"></td>
+    	</tr>
+        <tr>
+      		<td width="30%"><strong>APELLIDO MATERNO</strong></td>
+      		<td width="70%"><input type="text" name="apellidoMaterno" size="20" maxlength="130" style="width:180"></td>
+        </tr>
+    	<tr>
+      		<td width="30%"><strong>NOMBRES <font color="900000">*</font></strong></td>
+      		<td width="70%"><input type="text" name="nombres" size="20" maxlength="130" style="width:180"></td>
+      	</tr>
+      	<tr>
+            <td width="30%"><strong>DEPARTAMENTO</strong></td>
+            <td width="70%">
+            	<select name="departamento" style="width:180">
+            		<option>Departamento 1</option>
+            		<option>Departamento 2</option>
+            		<option>Departamento 3</option>
+            		<option>Departamento 4</option>
+            	</select>
+            </td>
+        </tr>
+      	<tr>
+            <td width="30%"><strong>PROVINCIA</strong></td>
+            <td width="70%">
+            	<select name="provincia" style="width:180">
+            		<option>Provincia 1</option>
+            		<option>Provincia 2</option>
+            		<option>Provincia 3</option>
+            		<option>Provincia 4</option>
+            	</select>
+            </td>
+        </tr>
+      	<tr>
+            <td width="30%"><strong>DISTRITO<strong></td>
+            <td width="70%"><input type="text" name="distrito" size="20" maxlength="130" style="width:180"></td>
+        </tr>
+	    <tr>
+	  		<td width="30%"><strong>DIRECCION</strong></td>
+			<td width="70%"><input name="direccion" type="text" onBlur="sololet(this)" maxlength="90" style="width:180"></td>
+        </tr>
+        <tr>
+		    <td width="30%"><strong>COD POSTAL</strong></td>
+			<td width="70%"><input name="codPostal" type="text" onBlur="sololet(this)" maxlength="90" style="width:180"></td>
+		</tr>
+      	<%--<tr>	
+      		<td width="30%"><strong>TIPO PARTICIPANTE</strong></td>
+      		<td width="70%">
+      			<select name="tipoParticipante" size="1" style="width:180">
+          			<option>Tipo 1</option>
+          			<option>Tipo 2</option>
+          			<option>Tipo 3</option>
+          			<option>Tipo 4</option>
+              	</select>
+      		</td>
+    	</tr>--%>
+    	<tr>
+      		<td width="30%"><strong>NACIONALIDAD</strong></td>
+      		<td width="70%">
+      			<select name="nacionalidad" size="1" style="width:180">
+            		<option>Nacionalidad 1</option>
+            		<option>Nacionalidad 2</option>
+            		<option>Nacionalidad 3</option>
+            		<option>Nacionalidad 4</option>
+        		</select>
+        	</td>
+        </tr>
+    	<tr>
+      		<td width="30%"><strong>CORREO ELECTRONICO</strong></td>
+      		<td width="70%"><input type="text" name="correoElectronico" size="20" maxlength="130" style="width:180"></td>
+      	</tr>
+      	<tr>
+      		<td colspan="2">&nbsp;</td>
+      	</tr> 
+    	<%--<tr>
+      		<th colspan="2"><strong>DATOS REQUERIDOS PARA EL TRAMITE ELECTRONICO CON SUNAT</strong></th>
+    	</tr>      	     	
+    	<tr>
+      		<td width="30%"><strong>FECHA NACIMIENTO <font color="900000">*</font></strong></td>
+      		<td width="70%"><input type="text" name="fechaNacimiento" size="20" maxlength="130" style="width:180"></td>
+      	</tr>
+        <tr>
+      		<td width="30%"><strong>CARGO EN LA EMPRESA<BR>
+            QUE CONSTITUYE <font color="900000">*</font></strong></td>
+      		<td width="70%">
+      			<select name="cargo" size="1" style="width:180">
+  	       			<option>Cargo 1</option>
+  	       			<option>Cargo 2</option>
+  	       			<option>Cargo 3</option>
+  	       			<option>Cargo 4</option>
+      			</select>
+      		</td>
+    	</tr>
+    	<tr>
+      		<td width="30%"><strong>FECHA DESDE LA CUAL SE</strong><BR>
+            <strong>OCUPA EL CARGO <font color="900000">*</font></strong></td>
+      		<td width="70%"><input type="text" name="fechaCargo" size="20" maxlength="130" style="width:180"></td>
+      	</tr>
+    	<tr>
+      		<td colspan="2">&nbsp;</td>
+    	</tr>--%>
+    	<tr>
+    		<td colspan="2" width="100%" align="center">
+    		    <input type="image" src="../images/btn_grabar.gif" onmouseover="#" onmouseOut="#">
+	  		    <input type="image" src="../images/btn_cancelar.gif" onmouseover="#" onmouseOut="#">
+	  		</td>  		
+    	</tr>
+  	</table>
+	<br>
+	</form>
+	<table>
+	<tr>
+		<td><strong><font color="900000">* Los datos son obligatorios</font></strong></td>
+	</tr>
+</table>
+</body>
+</html>

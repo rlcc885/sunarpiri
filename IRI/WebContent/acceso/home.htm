@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>SUNARP - Home</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<META name="GENERATOR" content="IBM WebSphere Studio">
+<link href="../styles/stylo1.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" src="/iri/javascript/overlib.js"></script>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script>
+<script language="javascript">
+function Abrir_Ventana(dirURL,titulo,propiedad,ancho,alto)
+	{
+		if(screen.width){
+			var venleft = (screen.availWidth-ancho)/2;
+			var ventop = (screen.availHeight-alto)/2;
+		}else{
+			venleft = 0;
+			ventop =0;
+		}
+		if (venleft < 0) venleft = 0;
+		if (ventop < 0) ventop = 0;
+		var titulo=titulo;
+		var propiedad=propiedad;
+		var propiedades="toolbar=no,location=no,status=no,menubar=no,scrollbars=no,resizable=no,";
+		if(propiedad==""){
+			propiedades= propiedades + "top=" + ventop + ",left=" + venleft + ",width=" + ancho + ",height=" +alto;
+		}else{
+			propiedades= propiedad + ",top=" + ventop + ",left=" + venleft + ",width=" + ancho + ",height=" +alto;
+		}
+		window.open(dirURL,titulo,propiedades);
+	}
+
+function ingresar()
+{
+  if(validarformulario()){
+
+ 	document.form1.user.value=document.form1.user.value.toUpperCase();
+  	document.form1.clave.value=document.form1.clave.value.toUpperCase();
+  	document.form1.method = "POST";
+  	document.form1.action = "/iri/Ingreso.do";
+	document.form1.target="_top";
+  	document.form1.submit();
+  	return true;
+  }
+  return false;
+}
+
+function validarformulario()
+{
+	if(document.form1.user.value.length<6 || document.form1.user.value.length>13)
+	{
+		alert("Nombre de Usuario Incorrecto. El nombre de usuario debe tener una longitud entre 6 y 13 caracteres");
+		document.form1.user.focus();
+		return false;
+	}
+	
+	/*if(document.form1.clave.value.length<6 || document.form1.clave.value.length>10)
+	{
+		alert("Password Incorrecto. La contrasena debe tener una longitud entre 6 y 10 caracteres");
+		document.form1.clave.focus();
+		return false;
+	}*/	
+	return true;	
+}
+</script>
+</head>
+
+<body background="../images/bk_home.gif" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="MM_preloadImages('../images/opc_left01.gif')">
+<div id="overDiv" style="position:absolute; visibility:hide; z-index:1;"></DIV>
+<script language=="JavaScript" SRC="/iri/javascript/overlib.js"></script>
+<form name="form1" onSubmit="if (!ingresar()) return false;"> 
+  <table width="780" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+    <td colspan="3" align="right" valign="top"><img src="../images/space.gif" width="15" height="4"><br><a href="/iri/acceso/frm_privacidad.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('top1','','../images/opc_top01x.gif',1)"><img src="../images/opc_top01.gif" border="0" name="top1"></a><a href="/iri/acceso/frm_ayuda.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('top2','','../images/opc_top02x.gif',1)"><img src="../images/opc_top02.gif" border="0" name="top2"></a><a href="/iri/acceso/frm_terminos.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('top3','','../images/opc_top03x.gif',1)"><img src="../images/opc_top03.gif" border="0" name="top3"></a><a href="javascript:Abrir_Ventana('/iri/acceso/Contactenos.html','Contactenos','',415,280)" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('top4','','../images/opc_top04x.gif',1)"><img src="../images/opc_top04.gif" border="0" name="top4"></a></td>
+    </tr>
+    <tr> 
+      <td width="302"><img src="../images/tit_home01.gif"></td>
+      <td width="207"><img src="../images/f_home1.jpg"></td>
+      <td rowspan="2" valign="top"><img src="../images/space.gif" width="45" height="70"><br><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="243" height="227">
+          <param name="movie" value="../images/anima_home.swf">
+          <param name="quality" value="high">
+          <embed src="../images/anima_home.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="243" height="227"></embed></object> 
+      </td>
+    </tr>  
+    <tr> 
+      <td width="302" background="../images/bk_menu_home.gif"><img src="../images/space.gif" width="15" height="5"><br> 
+        <table width="95%" border="0" cellspacing="4" cellpadding="4">
+          <tr> 
+            <td align="right"><a href="frm_quees.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('opc2','','../images/opc_left02x.gif',1)"><img src="../images/opc_left02.gif" border="0" name="opc2"></a></td>
+          </tr>
+          <tr> 
+            <td align="right"><a href="frm_base.htm" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('opc4','','../images/opc_left04x.gif',1)"><img src="../images/opc_left04.gif" border="0" name="opc4"></a></td>
+          </tr>
+          <tr> 
+            <td align="right"><a href="frm_titulos2.htm" onMouseOut="MM_swapImgRestore();nd();"
+             onMouseOver="MM_swapImage('opc1','','/iri/images/opc_left01x.gif',1);overlib('No requiere estar REGISTRADO',CAPTION,'Servicio Gratuito',BGCOLOR,'#700000')" target="_top"><img src="/iri/images/opc_left01.gif" border="0" name="opc1"></a></td>            
+          </tr>
+          <tr> 
+            <td align="right"><a href="frm_Denominacion.htm" onMouseOut="MM_swapImgRestore();nd();" onMouseOver="MM_swapImage('opc1','','/iri/images/opc_left02Deno.gif',1);overlib('No requiere estar REGISTRADO',CAPTION,'Servicio Gratuito',BGCOLOR,'#700000')" target="_top"><img src="/iri/images/opc_left02Deno.gif" border="0" name="opc1"></a></td>            
+          </tr>
+        </table></td>
+      <td width="207" valign="top"><img src="../images/f_home2.jpg" width="207" height="162"></td>
+    </tr>
+    <tr> 
+      <td width="302" rowspan="2" align="center" valign="top" background="../images/bk_menu2_home.gif"><p class="txtDescrip"><br>
+          Acceso a Publicidad Registral en L&iacute;nea<br>
+          <br>
+        <table width="220" border="0" cellspacing="0" cellpadding="1">
+          <tr align="center" bgcolor="A00000"> 
+            <td colspan="2"><strong><font color="#FFFFFF" size="2" face="Verdana">Usuarios 
+              Registrados</font></strong></td>
+          </tr>
+          <tr bgcolor="A35354"> 
+            <td colspan="2"><img src="../images/space.gif" width="15" height="2"></td>
+          </tr>
+          <tr bgcolor="A35354"> 
+            <td width="40%" align="right"><font color="#FFFFFF" size="1" face="Verdana"><strong>Usuario 
+              :</strong></font></td>
+            <td align="center"><input name=user type="text" size="8" maxlength="13" style="width:83px;height:22px;font-family:Arial,Verdana,Tahoma,Geneva;text-transform: uppercase" onblur="this.value.toUpperCase()" value="INFORMATICA">
+          </tr>
+          <tr bgcolor="A35354"> 
+            <td width="40%" align="right"><font color="#FFFFFF" size="1" face="Verdana"><strong>Contrase&ntilde;a:</strong></font></td>
+            <td align="center"><input type="password" name=clave  size="8" maxlength="10" style="width:83px;height:22px;text-transform: uppercase" onblur="this.value.toUpperCase()" value="clave1"></td>
+          </tr>
+          <tr bgcolor="A35354"> 
+            <td colspan="2"><img src="../images/space.gif" width="15" height="2"></td>
+          </tr>
+        </table>
+        <p><img src="../images/space.gif" width="145" height="5"> 
+           <!--<a onClick="ingresar()">--><input name="B1" type="image" src="../images/btn_ingresar.gif" border="0"><!--</a>-->
+          <br>
+          <img src="../images/graf_bullet.gif" width="69" height="13" align="absmiddle"> 
+          <a href="frm_clave.htm" class="OpcHome">&iquest;Olvid&oacute; su Contrase&ntilde;a?</a></p>
+        <p>Esta p&aacute;gina funciona con Internet Explorer 5.0 o superior y 
+          Netscape 6.0</p></td>
+      <td colspan="2"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="478" height="45">
+          <param name="movie" value="../images/txt_home.swf">
+          <param name="quality" value="high">
+          <embed src="../images/txt_home.swf" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="478" height="45"></embed></object></td>
+    </tr>
+    <tr> 
+      <td colspan="2" align="center">
+		<table width="470" border="0" cellspacing="1" cellpadding="2">
+          <tr> 
+            <td class="Titulo1">Suscripci&oacute;n de Personas<img src="../images/space.gif" width="1" height="30" align="absmiddle"></td>
+            <td width="2%" rowspan="2"><img src="../images/space.gif" width="5" height="15"></td>
+            <td class="Titulo1">Suscripci&oacute;n de Organizaciones</td>
+          </tr>
+          <tr> 
+            <td align="center" valign="top"><p align="justify"><img src="../images/f_usuario.jpg" width="60" height="67" align="left">A 
+                trav&eacute;s de este servicio, toda persona natural puede acceder 
+                a conocer la informaci&oacute;n registral contenida en los Registros 
+                P&uacute;blicos del Per&uacute;, previa suscripci&oacute;n por 
+                esta misma v&iacute;a o desde cualquiera de nuestras 58 Oficinas 
+                Registrales, llenando sus datos personales y abriendo una l&iacute;nea 
+                de pago.<br>
+                <img src="../images/graf_bullet.gif" width="69" height="13" align="absmiddle"><a href="frm_Afiliacion.htm" class="OpcHome">Deseo 
+                Suscribirme</a> 
+              <p align="justify">&nbsp;</td>
+            <td align="center" valign="top"><p align="justify"><img src="../images/f_organiza.jpg" width="59" height="67" align="left">Est&aacute; 
+                dirigida a toda persona jur&iacute;dica que desee suscribirse 
+                al servicio de Publicidad Registral en L&iacute;nea, conociendo 
+                la informaci&oacute;n registral contenida en los Registros P&uacute;blicos 
+                del Per&uacute;. Suscr&iacute;base por esta v&iacute;a o a trav&eacute;s 
+                de nuestras 58 oficinas registrales a nivel nacional, registrando 
+                los datos de la organizaci&oacute;n, designando a un usuario administrador, 
+                y abriendo una l&iacute;nea de pago.<br>
+                <img src="../images/graf_bullet.gif" width="69" height="13" align="absmiddle"><a href="frm_Afiliacion2.htm" class="OpcHome">Deseo 
+                Suscribirme</a> 
+              <p align="justify">&nbsp;</td>
+          </tr>
+        </table>
+        <img src="../images/space.gif" width="5" height="4" border=0></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>
+
+
+

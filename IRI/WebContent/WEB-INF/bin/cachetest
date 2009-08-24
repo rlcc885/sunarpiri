@@ -1,0 +1,4 @@
+# Run URLUTF8Encoder tests
+java -Djunit.argv.configDir=/home/expresso/expresso/expresso-web/WEB-INF/config -Djunit.argv.webAppDir=/home/expresso/expresso/expresso-web -classpath /home/expresso/expresso/expresso-web/WEB-INF/classes:/home/tomcat/jakarta-tomcat-4.0/common/lib/servlet.jar com.jcorporate.expresso.core.cache.CacheTest
+
+

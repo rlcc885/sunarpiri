@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Contactenos</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<META name="GENERATOR" content="IBM WebSphere Studio">
+<link href="../styles/global.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" src="../javascript/util.js"></script>
+<script language="JavaScript">
+function validarformulario(){
+var campo = document.forms[0]
+	if (campo.txtNombre.value == "" || !contieneCarateresValidos(campo.txtNombre.value,"nombre")) {
+		alert("Por favor ingrese correctamente el Nombre");
+		campo.txtNombre.focus();
+		return false;
+	}
+	if (campo.txtApellido.value == "" || !contieneCarateresValidos(campo.txtApellido.value,"nombre")) {
+		alert("Por favor ingrese correctamente el Apellido")	
+		campo.txtApellido.focus();
+		return false;
+	}
+	if (campo.txtEmail.value == "") {
+		alert("Por favor ingrese correctamente el Email")	
+		campo.txtEmail.focus();
+		return false;
+	}
+	
+	if (!esEmail(campo.txtEmail.value) || !contieneCarateresValidos(campo.txtEmail.value,"correo")){
+		alert("Por favor ingrese correctamente el Email")	
+		campo.txtEmail.focus();
+		return false;	
+	}
+	
+	if (campo.txtCuerpo.value == "") {
+		alert("Por favor ingrese correctamente el Comentario")	
+		campo.txtCuerpo.focus();
+		return false;
+	}
+	
+	return true;
+}
+function Enviar(){
+	if(validarformulario())
+	{	
+	obj_mayuscula(document.form1.txtNombre);	
+	obj_mayuscula(document.form1.txtApellido);	
+	obj_mayuscula(document.form1.txtCuerpo);	
+	document.form1.method="POST";
+	document.form1.action="/iri/Contacto.do?state=enviaSugerencia";
+	document.form1.submit();
+	return true;
+	}
+	return false;
+
+}
+</script>
+
+
+</head>
+
+<body leftmargin=0 topmargin=0>
+<form name="form1" style="margin-left: 0px">
+<table style="WIDTH: 415px; HEIGHT: 256px;margin-left:0">
+  <tr> 
+    <td width="39px"><strong>Nombres</strong></td>
+    <td width="355px"><input name="txtNombre" style="WIDTH: 316px; HEIGHT: 21px" size=52 onblur="sololet(this)"></td>
+  </tr>
+  <tr> 
+    <td><strong>Apellidos</strong></td>
+    <td><input name="txtApellido" style="WIDTH: 316px; HEIGHT: 21px" size=52 onblur="sololet(this)"></td>
+  </tr>
+  <tr> 
+    <td><strong>DNI</strong></td>
+    <td><input name="txtDNI" ></td>
+  </tr>
+  <tr> 
+    <td><strong>Email</strong></td>
+    <!-- onBlur="emailCheck(forms[0].txtEmail.value)" -->
+    <td><input name="txtEmail"  style="WIDTH: 316px; HEIGHT: 21px" size=52></td>
+  </tr>
+  <tr> 
+    <td colspan="2">
+		<input type="radio" value="1" checked name="txtTipo">Consulta
+		&nbsp;&nbsp;&nbsp;<input type="radio" value="2"         name="txtTipo">Queja
+		&nbsp;&nbsp;&nbsp;<input type="radio" value="3"         name="txtTipo">Observaci&oacute;n
+		&nbsp;&nbsp;&nbsp;<a href="javascript:Abrir_Ventana('https://enlinea.sunarp.gob.pe/interconexion/iri/acceso/InfoStatic/telefonos.html','Mesa','',367,330)">Mesa de Ayuda</a>
+    </td>
+  </tr>
+  <tr> 
+    <td colspan="2"><strong><TEXTAREA name="txtCuerpo" rows="6" cols="70" style="WIDTH: 380px; HEIGHT: 100px" onblur="sololet(this)"></TEXTAREA>
+      </strong></td>
+  </tr>
+  <tr> 
+    <td colspan="2">&nbsp;</td>
+  </tr>  
+  <tr> 
+    <td colspan="2"><div align="center"> <strong> 
+        <input name="imageField" type="image" onClick="return Enviar();" src="../images/btn_aplicar.gif" width="84" height="25" border="0">
+        <input name="imageField2" type="image" onClick="window.close();" src="../images/btn_cancelar.gif" width="83" height="24" border="0">
+        </strong></div></td>
+  </tr>
+</table>
+</form>
+</body>
+</html>

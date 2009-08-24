@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://webservices.extranet.sunarp.pe.gob" xmlns:impl="http://webservices.extranet.sunarp.pe.gob" xmlns:intf="http://webservices.extranet.sunarp.pe.gob" xmlns:tns2="http://bean.webservices.extranet.sunarp.pe.gob" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsi="http://ws-i.org/profiles/basic/1.1/xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+ <wsdl:types>
+  <schema targetNamespace="http://webservices.extranet.sunarp.pe.gob" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:tns2="http://bean.webservices.extranet.sunarp.pe.gob" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://bean.webservices.extranet.sunarp.pe.gob"/>
+   <element name="busquedaPorNumeroPartidaResponse">
+    <complexType>
+     <sequence>
+      <element name="busquedaPorNumeroPartidaReturn" nillable="true" type="tns2:ResultadoDetallePartidaRmcBean"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="busquedaPorNumeroPartida">
+    <complexType>
+     <sequence>
+      <element name="usuario" nillable="true" type="xsd:string"/>
+      <element name="clave" nillable="true" type="xsd:string"/>
+      <element name="numeroPartida" nillable="true" type="xsd:string"/>
+      <element name="idRegistroPublico" nillable="true" type="xsd:string"/>
+      <element name="idOficinaRegistral" nillable="true" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_tns2_nillable_BienBean">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="BienBean" nillable="true" type="tns2:BienBean"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOf_tns2_nillable_DocumentoBean">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="DocumentoBean" nillable="true" type="tns2:DocumentoBean"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOf_tns2_nillable_ParticipanteBean">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="ParticipanteBean" nillable="true" type="tns2:ParticipanteBean"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOf_tns2_nillable_ActoBean">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="ActoBean" nillable="true" type="tns2:ActoBean"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOf_tns2_nillable_TituloPendienteBean">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="TituloPendienteBean" nillable="true" type="tns2:TituloPendienteBean"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://bean.webservices.extranet.sunarp.pe.gob" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:intf="http://webservices.extranet.sunarp.pe.gob" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://webservices.extranet.sunarp.pe.gob"/>
+   <complexType name="ResultadoDetallePartidaRmcBean">
+    <sequence>
+     <element name="codigoError" nillable="true" type="xsd:string"/>
+     <element name="fechaOperacion" nillable="true" type="xsd:string"/>
+     <element name="montoPagado" nillable="true" type="xsd:string"/>
+     <element name="partidaRmcBeans" nillable="true" type="tns2:PartidaRmcBean"/>
+    </sequence>
+   </complexType>
+   <complexType name="PartidaRmcBean">
+    <sequence>
+     <element name="actoBeans" nillable="true" type="impl:ArrayOf_tns2_nillable_ActoBean"/>
+     <element name="numeroPartida" nillable="true" type="xsd:string"/>
+     <element name="numeroPartidaMigrada" nillable="true" type="xsd:string"/>
+     <element name="tituloPendienteBeans" nillable="true" type="impl:ArrayOf_tns2_nillable_TituloPendienteBean"/>
+    </sequence>
+   </complexType>
+   <complexType name="ActoBean">
+    <sequence>
+     <element name="formaCondicionBean" nillable="true" type="tns2:FormaCondicionBean"/>
+     <element name="bienBeans" nillable="true" type="impl:ArrayOf_tns2_nillable_BienBean"/>
+     <element name="descripcionActo" nillable="true" type="xsd:string"/>
+     <element name="documentoBeans" nillable="true" type="impl:ArrayOf_tns2_nillable_DocumentoBean"/>
+     <element name="fechaActoConstitutivo" nillable="true" type="xsd:string"/>
+     <element name="montoAfectacion" nillable="true" type="xsd:string"/>
+     <element name="participanteBeans" nillable="true" type="impl:ArrayOf_tns2_nillable_ParticipanteBean"/>
+     <element name="anoplazo" nillable="true" type="xsd:string"/>
+     <element name="diaplazo" nillable="true" type="xsd:string"/>
+     <element name="mesplazo" nillable="true" type="xsd:string"/>
+     <element name="tituloBeans" nillable="true" type="tns2:TituloBean"/>
+    </sequence>
+   </complexType>
+   <complexType name="FormaCondicionBean">
+    <sequence>
+     <element name="descripcionCondicion" nillable="true" type="xsd:string"/>
+     <element name="descripcionForma" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="BienBean">
+    <sequence>
+     <element name="descripcionBien" nillable="true" type="xsd:string"/>
+     <element name="valorizacion" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="DocumentoBean">
+    <sequence>
+     <element name="documento" nillable="true" type="xsd:string"/>
+     <element name="fecha" nillable="true" type="xsd:string"/>
+     <element name="funcionario" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ParticipanteBean">
+    <sequence>
+     <element name="razonSocial" nillable="true" type="xsd:string"/>
+     <element name="descripcionAbreviadaTipoDocumento" nillable="true" type="xsd:string"/>
+     <element name="descripcionTipoParticipacion" nillable="true" type="xsd:string"/>
+     <element name="domicilio" nillable="true" type="xsd:string"/>
+     <element name="nombreParticipante" nillable="true" type="xsd:string"/>
+     <element name="numeroDocumento" nillable="true" type="xsd:string"/>
+     <element name="apellidoMaternoParticipante" nillable="true" type="xsd:string"/>
+     <element name="apellidoPaternoParticipante" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="TituloBean">
+    <sequence>
+     <element name="derechosPagados" nillable="true" type="xsd:string"/>
+     <element name="descripcionOficinaRegistral" nillable="true" type="xsd:string"/>
+     <element name="fechaInscripcion" nillable="true" type="xsd:string"/>
+     <element name="fechaPresentacion" nillable="true" type="xsd:string"/>
+     <element name="numeroOrden" nillable="true" type="xsd:string"/>
+     <element name="numeroRecibos" nillable="true" type="xsd:string"/>
+     <element name="numeroTitulo" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="TituloPendienteBean">
+    <sequence>
+     <element name="descripcionActo" nillable="true" type="xsd:string"/>
+     <element name="descripcionEstado" nillable="true" type="xsd:string"/>
+     <element name="descripcionRegistroPublico" nillable="true" type="xsd:string"/>
+     <element name="fechaPresentacion" nillable="true" type="xsd:string"/>
+     <element name="fechaVencimiento" nillable="true" type="xsd:string"/>
+     <element name="numeroTitulo" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="busquedaPorNumeroPartidaResponse">
+     <wsdl:part element="intf:busquedaPorNumeroPartidaResponse" name="parameters"/>
+
+  </wsdl:message>
+
+   <wsdl:message name="busquedaPorNumeroPartidaRequest">
+     <wsdl:part element="intf:busquedaPorNumeroPartida" name="parameters"/>
+
+  </wsdl:message>
+
+   <wsdl:portType name="BusquedaDetallePartidaServiceProvider">
+     <wsdl:operation name="busquedaPorNumeroPartida">
+       <wsdl:input message="intf:busquedaPorNumeroPartidaRequest" name="busquedaPorNumeroPartidaRequest"/>
+
+       <wsdl:output message="intf:busquedaPorNumeroPartidaResponse" name="busquedaPorNumeroPartidaResponse"/>
+
+    </wsdl:operation>
+
+  </wsdl:portType>
+
+   <wsdl:binding name="BusquedaDetallePartidaServiceProviderSoapBinding" type="intf:BusquedaDetallePartidaServiceProvider">
+ <wsaw:UsingAddressing wsdl:required="false" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"/>
+
+     <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+     <wsdl:operation name="busquedaPorNumeroPartida">
+       <wsdlsoap:operation soapAction="busquedaPorNumeroPartida"/>
+
+       <wsdl:input name="busquedaPorNumeroPartidaRequest">
+         <wsdlsoap:body use="literal"/>
+
+      </wsdl:input>
+
+       <wsdl:output name="busquedaPorNumeroPartidaResponse">
+         <wsdlsoap:body use="literal"/>
+
+      </wsdl:output>
+
+    </wsdl:operation>
+
+  </wsdl:binding>
+
+   <wsdl:service name="BusquedaDetallePartidaServiceProviderService">
+     <wsdl:port binding="intf:BusquedaDetallePartidaServiceProviderSoapBinding" name="BusquedaDetallePartidaServiceProvider">
+       <wsdlsoap:address location="http://localhost:9080/iri/services/BusquedaDetallePartidaServiceProvider"/>
+
+    </wsdl:port>
+
+  </wsdl:service>
+
+</wsdl:definitions>

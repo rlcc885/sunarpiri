@@ -1,0 +1,359 @@
+/**********************************************************/
+/*GENERAL*/
+/**********************************************************/
+html, body{
+SCROLLBAR-FACE-COLOR: #DDDDDD;
+SCROLLBAR-HIGHLIGHT-COLOR: #DDDDDD;
+SCROLLBAR-SHADOW-COLOR: #DDDDDD;
+SCROLLBAR-3DLIGHT-COLOR: #DDDDDD;
+SCROLLBAR-DARKSHADOW-COLOR: #DDDDDD;
+SCROLLBAR-ARROW-COLOR: #000000;
+SCROLLBAR-TRACK-COLOR: #F1F1F1;
+SCROLLBAR-BASE-COLOR: #F1F1F1;
+}
+body,td,th {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 11px;
+color: #666666;
+}
+h1,h2,h3,h4,h5,h6 {
+font-family: Lucida Sans, Lucida Console, Arial, Arial Narrow;
+}
+h1 {
+font-size: 22px;
+font-weight:normal;
+color: #949400;
+}
+h2 {
+font-size: 14px;
+color: #333333;
+}
+.linkWhite {
+font-size: 10px;
+color: #000000;
+text-decoration: none;
+}
+.linkInicio {
+font-size: 11px;
+font-weight: normal;
+color: #000000;
+text-decoration: none;
+}
+a.linkInicio:hover {
+color: #949400;
+text-decoration: underline;
+}
+.color {
+color: #949400;
+}
+.justify {
+text-align: justify;
+line-height: 18px;
+}
+/**********************************************************/
+/*ESTRUCTURA DE FRAMES*/
+/**********************************************************/
+body{
+margin: 0;
+padding: 0;
+border: 0;
+overflow: hidden;
+height: 100;
+max-height: 100%;
+}
+#framecontentLeft{
+position: absolute;
+top: 0;
+left: 0;
+width: 260px; /*Width of left frame div*/
+height: 100%;
+overflow: hidden; /*Disable scrollbars. Set to "scroll" to enable*/
+background-color: white;
+color: white;
+}
+#framecontentTop{
+position: absolute;
+top: 0;
+left: 0px;/*260px;*/ /*Set left value to WidthOfLeftFrameDiv*/
+right: 0;
+height: 90px; /*Height of top frame div*/
+overflow: hidden; /*Disable scrollbars. Set to "scroll" to enable*/
+background-image:url(images/fonsup.jpg);
+color: white;
+}
+#framecontentBottom{
+position: absolute;
+top: auto;
+left: 0px; /*260px;*/ /*Set left value to WidthOfLeftFrameDiv*/
+bottom: 10;
+right: 0;
+height: 35px; /*Height of bottom frame div*/
+overflow: hidden; /*Disable scrollbars. Set to "scroll" to enable*/
+background-color: #949400;
+color: white;
+}
+#maincontent{
+position: fixed;
+top: 0px; /*Set top value to HeightOfTopFrameDiv*/
+left: 0px; /*Set left value to WidthOfLeftFrameDiv*/
+right: 0;
+bottom: 0px; /*Set bottom value to HeightOfBottomFrameDiv*/
+overflow: auto;
+background: #fff;
+}
+.innertube{
+margin: 0px; /*Margins for inner DIV inside each DIV (to provide padding)*/
+}
+* html body{ /*IE6 hack*/
+padding: 10px 0 15px 0px;/*left*/ /*Set value to (HeightOfTopFrameDiv 0
+HeightOfBottomFrameDiv WidthOfLeftFrameDiv)*/
+}
+* html #maincontent{ /*IE6 hack*/
+height: 100%;
+width: 100%;
+}
+* html #framecontentTop, * html #framecontentBottom{ /*IE6 hack*/
+width: 100%;
+}
+/**********************************************************/
+/*MENU IZQUIERDO*/
+/**********************************************************/
+/* main */
+#navMenu ul {
+list-style: none;
+margin: 1;
+padding: 0;
+}
+#navMenu {
+width: 210px;
+}
+#navMenu li {
+display:inline;
+}
+/* menu */
+#navMenu li a:link, #navMenu li a:visited {
+font-family: Arial, "Lucida Sans", "Trebuchet MS", Verdana, Helvetica, sans-serif;
+text-decoration: none;
+font-size: 12px;
+font-weight: normal;
+color: #666666;
+height: 12px;
+display: block;
+background: white url(images/arrow-list.gif) no-repeat 2px center;
+padding: 5px 0;
+padding-left: 20px;
+border-bottom: 1px dotted #D6D6D6;
+}
+#navMenu li a:hover {
+color: #333333;
+background-color: #F3F3F3;
+background-image:url(images/arrow-listON.gif);
+}
+/**********************************************************/
+/*COMENTARIOS FORMULARIO*/
+/**********************************************************/
+.commentbox{
+background-color: #ececec;
+font-family: Arial, Helvetica, sans-serif;
+font-size: 11px;
+width: 500px;
+padding: 10px;
+line-height: 17px;
+}
+.commentfooter{
+background: url(images/arrow.gif) 20px -3px no-repeat; /*20px 0 equals horizontal and
+vertical position of arrow. Adjust as desired (ie: 20px -5px).*/
+padding-left: 58px;
+padding-top: 3px;
+margin-bottom: 2em;
+font-size: 90%;
+color: #949400;
+}
+/**********************************************************/
+/*FORMULARIO*/
+/**********************************************************/
+.cssform p{
+width: 500px;
+clear: left;
+margin: 0;
+padding: 10px 0 10px 0;
+padding-left: 155px; /*width of left column containing the label elements*/
+border-top: 1px dashed #D6D6D6;
+height: 1%;
+}
+.cssform label{
+font-family: Arial, Helvetica, sans-serif;
+font-size: 11px;
+color: #666666;
+font-weight: bold;
+float: left;
+margin-left: -155px; /*width of left column*/
+width: 150px; /*width of labels. Should be smaller than left column (155px) to create some
+right margin*/
+}
+.cssform input[type="text"]{ /*width of text boxes. IE6 does not understand this attribute*/
+font-family: Arial, Helvetica, sans-serif;
+font-size: 11px;
+width: 180px;
+}
+.cssform textarea{
+width: 330px;
+height: 150px;
+}
+/*.threepxfix class below:
+Targets IE6- ONLY. Adds 3 pixel indent for multi-line form contents.
+to account for 3 pixel bug: http://www.positioniseverything.net/explorer/threepxtest.html
+*/
+* html .threepxfix{
+margin-left: 3px;
+}
+/**********************************************************/
+/*BOTONES FORMULARIO*/
+/**********************************************************/
+.formbutton{
+font-size: 11px;
+color: #333333;
+cursor:pointer;
+border:outset 1px #ccc;
+background:#F4F4F4;
+font-weight:normal;
+padding: 2px 10px;
+/*background:url(formbg.gif) repeat-x left top;*/
+}
+/**********************************************************/
+/*SENDERO DE MIGAS*/
+/**********************************************************/
+.breadcrumb{
+font: normal 11px Arial, "Lucida Grande", "Trebuchet MS", Verdana, Helvetica, sans-serif;
+font-weight:bold;
+font-color:#333333;
+}
+.breadcrumb a{
+background: transparent url(images/breadcrumb.gif) no-repeat center right;
+text-decoration: none;
+padding-right: 18px; /*adjust bullet image padding*/
+color: #949400;
+font-weight:normal;
+}
+.breadcrumb a:visited, .breadcrumb a:active{
+color: #949400;
+font-weight:normal;
+}
+.breadcrumb a:hover{
+text-decoration: underline;
+}
+
+
+.formulario {
+	background-color : FFFFFF;
+	width: 600px;
+	border-color: AFAFAF;
+	border-width: 1px;
+	border-style : solid
+}
+.formulario TD {
+
+}
+.formulario TH {
+	background-color : D7D7D7;
+	text-align: left;
+	color: 132E4C
+}
+
+.formbutton{
+	font-size:11px;
+	color: #333333;
+	cursor:pointer;
+	border:outset 1px #ccc;
+	background: #F4F4F4;
+	font-weight:normal;
+	padding: 2px 10px;
+}
+
+.punteadoBottom{
+	font-family: Arial, "Lucida Sans", "Trebuchet MS", Verdana, Helvetica, sans-serif;
+	border-style: dotted; 
+	border-width: 1px; 
+	/*border-bottom-color: #D6D6D6;*/
+	border-top-color: white; 
+	border-left-color: white; 
+	border-right-color: white; 
+	background-color: #FFFFFF; 
+	font-size: 10pt; 
+	padding: 5px 0;
+	border-bottom: 1px dotted #D6D6D6;
+} 
+
+.punteadoBottomTop{
+	font-family: Arial, "Lucida Sans", "Trebuchet MS", Verdana, Helvetica, sans-serif;
+	border-style: dotted; 
+	border-width: 1px; 
+	/*border-bottom-color: #D6D6D6;*/
+	border-left-color: white; 
+	border-right-color: white; 
+	background-color: #FFFFFF; 
+	font-size: 10pt; 
+	padding: 5px 0;
+	border-bottom: 1px dotted #D6D6D6;
+	border-top: 1px dotted #D6D6D6;
+} 
+
+.punteadoTablaTop{
+	font-family: Arial, "Lucida Sans", "Trebuchet MS", Verdana, Helvetica, sans-serif;
+	border-style: dotted; 
+	border-width: 1px; 
+	border-bottom-color: white; 
+	border-left-color: white; 
+	border-right-color: white; 
+	border-top: 1px dotted #D6D6D6;
+	background-color: #FFFFFF; 
+	font-size: 9pt; 
+	padding: 5px 0;
+}
+.punteadoTablaTop TD{
+	font-family: Arial, "Lucida Sans", "Trebuchet MS", Verdana, Helvetica, sans-serif;
+	border-top-color: white; 
+	border-left-color: white; 
+	border-right-color: white; 
+	border-bottom: 1px dotted #D6D6D6;
+	background-color: #FFFFFF; 
+	font-size: 9pt; 
+	padding: 5px 0;
+}
+
+.punteadoTabla{
+	font-family: Arial, "Lucida Sans", "Trebuchet MS", Verdana, Helvetica, sans-serif;
+	border-style: dotted; 
+	border-width: 1px; 
+	border-bottom-color: white; 
+	border-top-color: white; 
+	border-left-color: white; 
+	border-right-color: white; 
+	background-color: #FFFFFF; 
+	font-size: 9pt; 
+	padding: 5px 0;
+}
+.punteadoTabla TD{
+	font-family: Arial, "Lucida Sans", "Trebuchet MS", Verdana, Helvetica, sans-serif;
+	border-top-color: white; 
+	border-left-color: white; 
+	border-right-color: white; 
+	background-color: #FFFFFF; 
+	font-size: 9pt; 
+	padding: 5px 0;
+	border-bottom: 1px dotted #D6D6D6;
+}
+
+
+select{
+	#font-family: Arial, "Lucida Sans", "Trebuchet MS", Verdana, Helvetica, sans-serif;
+	font-family: "Lucida Sans", "Trebuchet MS", Verdana, Helvetica, sans-serif;
+	font-size: 10px; 
+	font-weight: regular; 
+	font-color: #D6D6D6
+}
+
+INPUT.TEXT  {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+}

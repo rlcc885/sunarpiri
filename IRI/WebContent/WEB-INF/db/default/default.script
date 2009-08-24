@@ -1,0 +1,784 @@
+CREATE TABLE EVENT(EVENT CHAR NOT NULL,DESCRIP VARCHAR NOT NULL,UNIQUE(EVENT))
+CREATE TABLE EVENTMAIL(EVENT CHAR NOT NULL,EXPUID INTEGER NOT NULL,SUCCESS CHAR NOT NULL,UNIQUE(EVENT,EXPUID,SUCCESS))
+CREATE TABLE CACHESYNC(PROTOCOL VARCHAR NOT NULL,SERVERNAME VARCHAR NOT NULL,CONTEXTPATH VARCHAR NOT NULL,PORTNUMBER INTEGER NOT NULL,SYNCPARAMETER VARCHAR,UNIQUE(PROTOCOL,SERVERNAME,PORTNUMBER,CONTEXTPATH))
+CREATE TABLE MIMETYPES(MIMENUMBER INTEGER NOT NULL,MIMETYPE VARCHAR NOT NULL,MIMEDESCRIPTION VARCHAR,MIMEICON VARCHAR,UNIQUE(MIMENUMBER))
+CREATE TABLE DBMESSAGE(MESSAGENUMBER INTEGER NOT NULL,INPUTSTRING VARCHAR NOT NULL,OUTPUTSTRING VARCHAR NOT NULL,UNIQUE(MESSAGENUMBER))
+CREATE TABLE DBOTHERMAP(DBOBJNAME VARCHAR NOT NULL,DBCONNNAME CHAR NOT NULL,DESCRIP VARCHAR,UNIQUE(DBOBJNAME))
+CREATE TABLE DBOBJLIMIT(DBOBJECTNAME VARCHAR NOT NULL,PAGELIMIT INTEGER NOT NULL,CACHESIZE INTEGER NOT NULL,UNIQUE(DBOBJECTNAME))
+CREATE TABLE DOWNLOADFILES(FILENUMBER INTEGER NOT NULL,FILEPATHNAME LONGVARCHAR NOT NULL,DISPLAYNAME VARCHAR,FILEURL LONGVARCHAR,DESCRIP VARCHAR NOT NULL,FILETYPE VARCHAR,PROJECT CHAR,GROUPNAME CHAR NOT NULL,LASTUPDATED TIMESTAMP,DLNOTES LONGVARCHAR,MIMENUMBER INTEGER NOT NULL,ISACTIVE CHAR NOT NULL,UNIQUE(FILENUMBER))
+CREATE TABLE NEXTNUM(CODE CHAR NOT NULL,NEXTNUMBER INTEGER NOT NULL,UNIQUE(CODE))
+CREATE TABLE SETUP(SCHEMACLASS CHAR NOT NULL,SETUPCODE CHAR NOT NULL,DESCRIP CHAR NOT NULL,SETUPVALUE VARCHAR,UNIQUE(SCHEMACLASS,SETUPCODE))
+CREATE TABLE USERPREFVAL(CLASSNAME CHAR NOT NULL,PREFCODE CHAR NOT NULL,PREFVALUE CHAR NOT NULL,DESCRIP VARCHAR NOT NULL,UNIQUE(CLASSNAME,PREFCODE,PREFVALUE))
+CREATE TABLE USERPREFDEF(CLASSNAME VARCHAR NOT NULL,PREFCODE VARCHAR NOT NULL,DESCRIP VARCHAR,DEFAULTVAL VARCHAR,UNIQUE(CLASSNAME,PREFCODE))
+CREATE TABLE CTLDEFAULT(CONTROLLERCLASS CHAR NOT NULL,STYLE CHAR NOT NULL,STATECODE CHAR NOT NULL,PARAMS LONGVARCHAR,UNIQUE(CONTROLLERCLASS,STYLE,STATECODE))
+CREATE TABLE USERLOGIN(EXPUID INTEGER NOT NULL,USERNAME CHAR NOT NULL,DESCRIP VARCHAR,LASTNAME VARCHAR,FIRSTNAME VARCHAR,PASSWD VARCHAR,EMAIL VARCHAR NOT NULL,ACCOUNTSTATUS CHAR NOT NULL,CREATEDATE TIMESTAMP NOT NULL,EMAILVALCODE VARCHAR,UNIQUE(EXPUID))
+CREATE TABLE USERS(EXPUID INTEGER NOT NULL,LOGINNAME CHAR NOT NULL,PASSWD VARCHAR,EMAIL VARCHAR NOT NULL,REGDOMID INTEGER NOT NULL,ACCOUNTSTATUS CHAR NOT NULL,REGCOMPLETE CHAR NOT NULL,CREATEDATE TIMESTAMP NOT NULL,UPDATEDATE TIMESTAMP NOT NULL,EMAILVALCODE VARCHAR,USERNAME VARCHAR,UNIQUE(EXPUID))
+CREATE TABLE USERGROUP(GROUPNAME CHAR NOT NULL,DESCRIP VARCHAR,LOGINEVENT CHAR,UNIQUE(GROUPNAME))
+CREATE TABLE USERREGISTER(EXPUID INTEGER NOT NULL,FULLNAME VARCHAR NOT NULL,COMPANYNAME VARCHAR NOT NULL,URL VARCHAR,ADDRESS LONGVARCHAR NOT NULL,CITY VARCHAR NOT NULL,STATEPROVINCE VARCHAR NOT NULL,POSTALCODE VARCHAR,COUNTRY VARCHAR NOT NULL,USERCOMMENT LONGVARCHAR,INDUSTRY CHAR NOT NULL,EMPLOYEES CHAR NOT NULL,JOBTITLE CHAR,SUBSCRIBE CHAR NOT NULL,CONTRIBUTING CHAR,PROJECTS CHAR,ISACTIVE CHAR,INTERNALCOMMENT LONGVARCHAR,ADDEDON TIMESTAMP,UPDATEDON TIMESTAMP,EMAILPRIVATE CHAR,OCCUPATION LONGVARCHAR,LOCATION LONGVARCHAR,EXPERTISE LONGVARCHAR,CONTRIBUTIONS LONGVARCHAR,OTHERPROJECTS LONGVARCHAR,PHONE VARCHAR,TESTIMONIAL LONGVARCHAR,IPADDRESS VARCHAR,UNIQUE(EXPUID))
+CREATE TABLE SMPREGPR(EXPUID INTEGER NOT NULL,SALUTATION CHAR,FIRSTNAME VARCHAR NOT NULL,MIDDLENAME VARCHAR,LASTNAME VARCHAR NOT NULL,BIRTHDATE TIMESTAMP,ADDEDON TIMESTAMP,UPDATEDON TIMESTAMP,UNIQUE(EXPUID))
+CREATE TABLE SMPREGPH(PHONEID INTEGER NOT NULL,EXPUID INTEGER NOT NULL,PHONETYPE VARCHAR NOT NULL,COUNTRYCODE CHAR NOT NULL,AREACODE CHAR NOT NULL,PHONENUM CHAR NOT NULL,ADDEDON TIMESTAMP,UPDATEDON TIMESTAMP,UNIQUE(PHONEID,EXPUID))
+CREATE TABLE SMPREGAD(ADDRESSID INTEGER NOT NULL,EXPUID INTEGER NOT NULL,STREET1 VARCHAR NOT NULL,STREET2 VARCHAR,CITY VARCHAR NOT NULL,STATE VARCHAR NOT NULL,ZIP VARCHAR NOT NULL,COUNTRY VARCHAR NOT NULL,ADDEDON TIMESTAMP,UPDATEDON TIMESTAMP,UNIQUE(ADDRESSID,EXPUID))
+CREATE TABLE SMPREGCT(CONTACTID INTEGER NOT NULL,EXPUID INTEGER NOT NULL,CONTACTTYPE VARCHAR NOT NULL,CONTACT VARCHAR NOT NULL,INSTRUCTIONS LONGVARCHAR,ADDEDON TIMESTAMP,UPDATEDON TIMESTAMP,UNIQUE(CONTACTID,EXPUID))
+CREATE TABLE DBOBJSECURITY(DBOBJECTNAME VARCHAR NOT NULL,GROUPNAME CHAR NOT NULL,METHODCODE CHAR NOT NULL,UNIQUE(DBOBJECTNAME,METHODCODE,GROUPNAME))
+CREATE TABLE JOBSECURITY(JOBCLASS VARCHAR NOT NULL,GROUPNAME CHAR NOT NULL,FUNCTIONS LONGVARCHAR NOT NULL,UNIQUE(JOBCLASS,GROUPNAME))
+CREATE TABLE GROUPMEMBERS(GROUPNAME CHAR NOT NULL,EXPIRES DATE,EXPUID INTEGER NOT NULL,UNIQUE(EXPUID,GROUPNAME))
+CREATE TABLE GROUPNEST(GROUPNAME CHAR NOT NULL,MEMBEROF CHAR NOT NULL,UNIQUE(GROUPNAME,MEMBEROF))
+CREATE TABLE REGDOMAIN(REGDOMID INTEGER NOT NULL,NAME VARCHAR NOT NULL,DESCRIPTION VARCHAR NOT NULL,GROUPNAME CHAR NOT NULL,CONTROLLERCLASS VARCHAR,REGREQUIRED CHAR,APPROVE CHAR,USERPASSWD CHAR,EMAILVALIDATE CHAR,EMAILASLOGIN CHAR,APPROVERS LONGVARCHAR,NOTREGGRP CHAR,NOTAPPROVEDGRP CHAR,UNIQUE(REGDOMID))
+CREATE TABLE REGOBJMAP(REGDOMID INTEGER NOT NULL,REGOBJ VARCHAR NOT NULL,UIDFIELD CHAR NOT NULL,RECMIN INTEGER,RECMAX INTEGER,REGFIELDS LONGVARCHAR,REGORDER INTEGER,ALLOWEDIT CHAR,ALLOWDEL CHAR,UNIQUE(REGDOMID,REGOBJ))
+CREATE TABLE DOWNLOADLOG(LOGENTRY INTEGER NOT NULL,FILENUMBER INTEGER NOT NULL,EXPUID INTEGER NOT NULL,DOWNLOADED TIMESTAMP NOT NULL,FILEPATHNAME VARCHAR NOT NULL,IPNUMBER CHAR NOT NULL,UNIQUE(LOGENTRY))
+CREATE TABLE PTESTS(TESTNUMBER INTEGER NOT NULL,URLTOTEST LONGVARCHAR NOT NULL,DESCRIP VARCHAR NOT NULL,NORMTIME INTEGER,WARNTIME INTEGER,MAXTIME INTEGER,LASTTIME INTEGER,TESTCOUNT INTEGER,TOTALTIME INTEGER,EXPECTSTRING LONGVARCHAR,SUCCESSFULTESTS INTEGER,LASTTESTSUCCEEDED CHAR,LASTRUN TIMESTAMP,LASTFAILUREREASON LONGVARCHAR,HTTPMETHOD CHAR NOT NULL,GETSESSION CHAR NOT NULL,UNIQUE(TESTNUMBER))
+CREATE TABLE PTESTSTAT(TESTNUMBER INTEGER NOT NULL,RUNWHEN TIMESTAMP NOT NULL,RUNTIME INTEGER NOT NULL,USERCOUNT INTEGER,UNIQUE(TESTNUMBER,RUNWHEN))
+CREATE TABLE PTESTSET(SETNUMBER INTEGER NOT NULL,DESCRIP VARCHAR NOT NULL,HEALTHCHECK CHAR NOT NULL,UNIQUE(SETNUMBER))
+CREATE TABLE PTESTSETDET(SETNUMBER INTEGER NOT NULL,SEQUENCENUMBER INTEGER NOT NULL,TESTNUMBER INTEGER NOT NULL,UNIQUE(SETNUMBER,SEQUENCENUMBER))
+CREATE TABLE JOBQUEUE(JOBNUMBER INTEGER NOT NULL,EXPUID INTEGER NOT NULL,REQUESTTIME TIMESTAMP,JOBCODE VARCHAR NOT NULL,STATUSCODE CHAR NOT NULL,PRIORITY INTEGER NOT NULL,SERVERID INTEGER NOT NULL,JOBOSNAME VARCHAR NOT NULL,JOBCRONPARAMS VARCHAR,UNIQUE(JOBNUMBER))
+CREATE TABLE JOBQUEUEPARAM(JOBNUMBER INTEGER NOT NULL,PARAMNUMBER SMALLINT NOT NULL,PARAMVALUE LONGVARCHAR,PARAMCODE VARCHAR,UNIQUE(JOBNUMBER,PARAMNUMBER))
+CREATE TABLE SYSLOG(LOGTIME TIMESTAMP NOT NULL,MESSAGETEXT LONGVARCHAR NOT NULL,OBJECTNAME VARCHAR NOT NULL,MESSAGEID INTEGER NOT NULL,EXPUID INTEGER NOT NULL,JOBNUMBER VARCHAR NOT NULL,MESSAGELEVEL INTEGER NOT NULL,MESSAGECOLOR CHAR,LOGCHANNEL VARCHAR,UNIQUE(LOGTIME,OBJECTNAME,MESSAGEID))
+CREATE TABLE SCHEMALIST(SCHEMACLASS CHAR NOT NULL,DESCRIP CHAR NOT NULL,COMPONENTCODE CHAR,UNIQUE(SCHEMACLASS))
+CREATE TABLE JOBHANDLERREGISTRY(LOADAVERAGE INTEGER,CURRENTJOBS INTEGER,TIMSTAMP TIMESTAMP,STATUS VARCHAR,POWERFACTOR DOUBLE,TOTALMEM INTEGER,FREEMEM INTEGER,USEDMEM INTEGER,SERVERID INTEGER NOT NULL,HOSTNAME VARCHAR NOT NULL,OSNAME VARCHAR NOT NULL,CONTROLCOMMAND VARCHAR,UNIQUE(SERVERID,HOSTNAME))
+CREATE TABLE JOBHANDLERCONTROL(COMMANDID INTEGER NOT NULL,STATUS VARCHAR NOT NULL,COMMAND VARCHAR NOT NULL,SERVERID INTEGER NOT NULL,EXPUID INTEGER NOT NULL,REQUESTTIME TIMESTAMP NOT NULL,UNIQUE(COMMANDID))
+CREATE TABLE APPINTEGRATE(INTEGRATIONID INTEGER NOT NULL,FROMSCHEMA VARCHAR NOT NULL,TOSCHEMA VARCHAR NOT NULL,FROMOBJ VARCHAR NOT NULL,TOOBJ VARCHAR NOT NULL,FROMKEY LONGVARCHAR NOT NULL,TOKEY LONGVARCHAR NOT NULL,UNIQUE(INTEGRATIONID))
+CREATE TABLE VALQUEUE(VALID INTEGER NOT NULL,STATUSCODE CHAR NOT NULL,ADDEDON TIMESTAMP NOT NULL,EXPIRESAT TIMESTAMP NOT NULL,PROCESSEDON TIMESTAMP,EXPUID INTEGER,VALCODE VARCHAR NOT NULL,VALHANDLER VARCHAR NOT NULL,UNIQUE(VALID))
+CREATE TABLE VALQUEUEPARAM(VALID INTEGER NOT NULL,PARAMNUM SMALLINT NOT NULL,PARAMVAL LONGVARCHAR,PARAMCODE VARCHAR,UNIQUE(VALID,PARAMNUM))
+CREATE TABLE USERPREF(EXPUID INTEGER NOT NULL,CLASSNAME VARCHAR NOT NULL,PREFCODE VARCHAR NOT NULL,PREFVALUE VARCHAR NOT NULL,UNIQUE(EXPUID,CLASSNAME,PREFCODE))
+CREATE TABLE CONTROLLERSECURITY(CONTROLLERCLASS CHAR NOT NULL,GROUPNAME CHAR NOT NULL,STATES LONGVARCHAR NOT NULL,UNIQUE(CONTROLLERCLASS,GROUPNAME))
+CREATE TABLE USERAGENT(USERAGENT INTEGER NOT NULL,MATCHSEQ INTEGER NOT NULL,DESCRIP VARCHAR NOT NULL,UAPATTERN LONGVARCHAR NOT NULL,UNIQUE(USERAGENT))
+CREATE TABLE CTLXSLMAP(MATCHNUMBER INTEGER NOT NULL,CONTROLLERCLASS LONGVARCHAR NOT NULL,MATCHSEQ INTEGER NOT NULL,GROUPNAME VARCHAR NOT NULL,XSLFILENAME LONGVARCHAR NOT NULL,USERAGENT INTEGER NOT NULL,PARAM LONGVARCHAR NOT NULL,UNIQUE(MATCHNUMBER))
+GRANT ALL ON CLASS "org.hsqldb.Library" TO PUBLIC
+GRANT ALL ON CLASS "java.lang.Math" TO PUBLIC
+CREATE USER SA PASSWORD "" ADMIN
+CREATE ALIAS DAYNAME FOR "org.hsqldb.Library.dayname"
+CREATE ALIAS SPACE FOR "org.hsqldb.Library.space"
+CREATE ALIAS SUBSTRING FOR "org.hsqldb.Library.substring"
+CREATE ALIAS SQRT FOR "java.lang.Math.sqrt"
+CREATE ALIAS ABS FOR "java.lang.Math.abs"
+CREATE ALIAS POWER FOR "java.lang.Math.pow"
+CREATE ALIAS CHAR FOR "org.hsqldb.Library.character"
+CREATE ALIAS CONCAT FOR "org.hsqldb.Library.concat"
+CREATE ALIAS PI FOR "org.hsqldb.Library.pi"
+CREATE ALIAS SECOND FOR "org.hsqldb.Library.second"
+CREATE ALIAS TRUNCATE FOR "org.hsqldb.Library.truncate"
+CREATE ALIAS MONTH FOR "org.hsqldb.Library.month"
+CREATE ALIAS LOWER FOR "org.hsqldb.Library.lcase"
+CREATE ALIAS ATAN2 FOR "java.lang.Math.atan2"
+CREATE ALIAS REPEAT FOR "org.hsqldb.Library.repeat"
+CREATE ALIAS DAYOFMONTH FOR "org.hsqldb.Library.dayofmonth"
+CREATE ALIAS TAN FOR "java.lang.Math.tan"
+CREATE ALIAS RADIANS FOR "java.lang.Math.toRadians"
+CREATE ALIAS FLOOR FOR "java.lang.Math.floor"
+CREATE ALIAS NOW FOR "org.hsqldb.Library.now"
+CREATE ALIAS ACOS FOR "java.lang.Math.acos"
+CREATE ALIAS DAYOFWEEK FOR "org.hsqldb.Library.dayofweek"
+CREATE ALIAS CEILING FOR "java.lang.Math.ceil"
+CREATE ALIAS DAYOFYEAR FOR "org.hsqldb.Library.dayofyear"
+CREATE ALIAS LCASE FOR "org.hsqldb.Library.lcase"
+CREATE ALIAS WEEK FOR "org.hsqldb.Library.week"
+CREATE ALIAS SOUNDEX FOR "org.hsqldb.Library.soundex"
+CREATE ALIAS ASIN FOR "java.lang.Math.asin"
+CREATE ALIAS LOCATE FOR "org.hsqldb.Library.locate"
+CREATE ALIAS EXP FOR "java.lang.Math.exp"
+CREATE ALIAS MONTHNAME FOR "org.hsqldb.Library.monthname"
+CREATE ALIAS YEAR FOR "org.hsqldb.Library.year"
+CREATE ALIAS LEFT FOR "org.hsqldb.Library.left"
+CREATE ALIAS ROUNDMAGIC FOR "org.hsqldb.Library.roundMagic"
+CREATE ALIAS BITOR FOR "org.hsqldb.Library.bitor"
+CREATE ALIAS LTRIM FOR "org.hsqldb.Library.ltrim"
+CREATE ALIAS COT FOR "org.hsqldb.Library.cot"
+CREATE ALIAS COS FOR "java.lang.Math.cos"
+CREATE ALIAS MOD FOR "org.hsqldb.Library.mod"
+CREATE ALIAS SIGN FOR "org.hsqldb.Library.sign"
+CREATE ALIAS DEGREES FOR "java.lang.Math.toDegrees"
+CREATE ALIAS LOG FOR "java.lang.Math.log"
+CREATE ALIAS SIN FOR "java.lang.Math.sin"
+CREATE ALIAS CURTIME FOR "org.hsqldb.Library.curtime"
+CREATE ALIAS DIFFERENCE FOR "org.hsqldb.Library.difference"
+CREATE ALIAS INSERT FOR "org.hsqldb.Library.insert"
+CREATE ALIAS DATABASE FOR "org.hsqldb.Library.database"
+CREATE ALIAS MINUTE FOR "org.hsqldb.Library.minute"
+CREATE ALIAS HOUR FOR "org.hsqldb.Library.hour"
+CREATE ALIAS IDENTITY FOR "org.hsqldb.Library.identity"
+CREATE ALIAS QUARTER FOR "org.hsqldb.Library.quarter"
+CREATE ALIAS CURDATE FOR "org.hsqldb.Library.curdate"
+CREATE ALIAS BITAND FOR "org.hsqldb.Library.bitand"
+CREATE ALIAS USER FOR "org.hsqldb.Library.user"
+CREATE ALIAS UCASE FOR "org.hsqldb.Library.ucase"
+CREATE ALIAS RTRIM FOR "org.hsqldb.Library.rtrim"
+CREATE ALIAS LOG10 FOR "org.hsqldb.Library.log10"
+CREATE ALIAS RIGHT FOR "org.hsqldb.Library.right"
+CREATE ALIAS ATAN FOR "java.lang.Math.atan"
+CREATE ALIAS UPPER FOR "org.hsqldb.Library.ucase"
+CREATE ALIAS ASCII FOR "org.hsqldb.Library.ascii"
+CREATE ALIAS RAND FOR "java.lang.Math.random"
+CREATE ALIAS LENGTH FOR "org.hsqldb.Library.length"
+CREATE ALIAS ROUND FOR "org.hsqldb.Library.round"
+CREATE ALIAS REPLACE FOR "org.hsqldb.Library.replace"
+INSERT INTO EVENT VALUES('SYSERROR','System Error')
+INSERT INTO EVENT VALUES('HEALTH','System Health Check')
+INSERT INTO EVENT VALUES('DOWNLOAD','User Download Activity')
+INSERT INTO EVENTMAIL VALUES('SYSERROR',3,'Y')
+INSERT INTO EVENTMAIL VALUES('SYSERROR',3,'N')
+INSERT INTO EVENTMAIL VALUES('HEALTH',3,'Y')
+INSERT INTO EVENTMAIL VALUES('HEALTH',3,'N')
+INSERT INTO MIMETYPES VALUES(2,'audio/aiff','Audio File','Speaker.gif')
+INSERT INTO MIMETYPES VALUES(3,'audio/basic','audio/basic','Speaker.gif')
+INSERT INTO MIMETYPES VALUES(4,'audio/mid','MIDI File','Music.gif')
+INSERT INTO MIMETYPES VALUES(5,'audio/mpg','MP3 File','Speaker.gif')
+INSERT INTO MIMETYPES VALUES(6,'audio/x-pn-realaudio','Real Audio','RealPlayer.gif')
+INSERT INTO MIMETYPES VALUES(7,'audio/wav','Windows WAV Audio File','Speaker.gif')
+INSERT INTO MIMETYPES VALUES(8,'application/x-shockwave-flash','Macromedia Flash Animation','MacromediaFlash.gif')
+INSERT INTO MIMETYPES VALUES(9,'application/msword','Microsoft Word Document','MSWord.gif')
+INSERT INTO MIMETYPES VALUES(10,'application/rtf','Rich Text Format Document','RTF.gif')
+INSERT INTO MIMETYPES VALUES(11,'application/pdf','PDF Files','Acrobat.gif')
+INSERT INTO MIMETYPES VALUES(12,'application/postscript','Postscript Document','PS.gif')
+INSERT INTO MIMETYPES VALUES(13,'application/x-javascript','Javascript','')
+INSERT INTO MIMETYPES VALUES(14,'application/x-gtar','gtar','')
+INSERT INTO MIMETYPES VALUES(15,'application/x-gzip','GZip Compressed File','')
+INSERT INTO MIMETYPES VALUES(16,'application/x-latex','latex','')
+INSERT INTO MIMETYPES VALUES(17,'application/x-msaccess','MS Access Database','MSAccess.gif')
+INSERT INTO MIMETYPES VALUES(18,'application/x-mspublisher','Microsoft Publisher','MSPublisher.gif')
+INSERT INTO MIMETYPES VALUES(19,'application/x-shar','SHAR file','')
+INSERT INTO MIMETYPES VALUES(20,'application/x-tar','UNIX Tape Archive','')
+INSERT INTO MIMETYPES VALUES(21,'application/x-tex','TEX File','')
+INSERT INTO MIMETYPES VALUES(22,'application/x-troff','TROFF File','')
+INSERT INTO MIMETYPES VALUES(23,'application/vnd.lotus-1-2-3','Lotus 1-2-3 Spreadsheet','')
+INSERT INTO MIMETYPES VALUES(24,'application/vnd.lotus-approach','Lotus Approach Document','')
+INSERT INTO MIMETYPES VALUES(25,'application/vnd.lotus-freelance','Lotus Freelance Graphic','')
+INSERT INTO MIMETYPES VALUES(26,'application/vnd.lotus-organizer','Lotus Organizer File','')
+INSERT INTO MIMETYPES VALUES(27,'application/vnd.lotus-screencam','Lotus Screencam Video','')
+INSERT INTO MIMETYPES VALUES(28,'application/vnd.lotus-wordpro','Lotus Wordpro Document','')
+INSERT INTO MIMETYPES VALUES(29,'application/vnd.ms-excel','Microsoft Excel Document','Excel.gif')
+INSERT INTO MIMETYPES VALUES(30,'application/vnd.ms-powerpoint','Microsoft Powerpoint Slideshow','MSPowerPoint.gif')
+INSERT INTO MIMETYPES VALUES(31,'application/vnd.ms-project','Microsoft Project Document','')
+INSERT INTO MIMETYPES VALUES(32,'application/vnd.ms-works','Microsoft Works Document','')
+INSERT INTO MIMETYPES VALUES(33,'application/mac-binhex40','Macintosh HQX Compressed File','')
+INSERT INTO MIMETYPES VALUES(34,'application/unknown','All other file types','Program.gif')
+INSERT INTO MIMETYPES VALUES(35,'application/wordperfect5.1','Wordperfect 5.1 Document','')
+INSERT INTO MIMETYPES VALUES(36,'application/zip','Zip Compressed Archive','')
+INSERT INTO MIMETYPES VALUES(37,'image/gif','GIF Image','Image.gif')
+INSERT INTO MIMETYPES VALUES(38,'image/jpeg','JPEG Image','Image.gif')
+INSERT INTO MIMETYPES VALUES(39,'image/png','PNG Image','Image.gif')
+INSERT INTO MIMETYPES VALUES(40,'image/tiff','TIFF Image','Image.gif')
+INSERT INTO MIMETYPES VALUES(41,'image/x-icon','Windows Icon','Image.gif')
+INSERT INTO MIMETYPES VALUES(42,'image/x-xbitmap','X Bitmap','Image.gif')
+INSERT INTO MIMETYPES VALUES(43,'message/rfc822','RFC 822 Formatted Email Message','envelop2.gif')
+INSERT INTO MIMETYPES VALUES(44,'text/html','HTML File','HTML.gif')
+INSERT INTO MIMETYPES VALUES(45,'text/plain','Text File','')
+INSERT INTO MIMETYPES VALUES(46,'text/xml','XML File','')
+INSERT INTO MIMETYPES VALUES(47,'text/xsl','XSL Stylesheet','')
+INSERT INTO MIMETYPES VALUES(48,'text/wml','WML File','PDA.gif')
+INSERT INTO MIMETYPES VALUES(49,'text/vnd.wap.wmlscript','WML Script','PDA.gif')
+INSERT INTO MIMETYPES VALUES(50,'video/avi','Microsoft AVI Video','Movie.gif')
+INSERT INTO MIMETYPES VALUES(51,'video/mpeg','MPEG Video','Movie.gif')
+INSERT INTO MIMETYPES VALUES(52,'video/mpeg2','MPEG2 Video','Movie.gif')
+INSERT INTO MIMETYPES VALUES(53,'video/quicktime','Apple Quicktime Video','QuickTime.gif')
+INSERT INTO MIMETYPES VALUES(54,'video/x-ms-asf','Microsoft Netshow Video','Movie.gif')
+INSERT INTO MIMETYPES VALUES(55,'video/vnd.rn-realvideo','Real Video','RealPlayer.gif')
+INSERT INTO DBOBJLIMIT VALUES('com.jcorporate.expresso.services.dbobj.DefaultUserInfo',20,5)
+INSERT INTO DBOBJLIMIT VALUES('com.jcorporate.expresso.services.dbobj.Event',20,5)
+INSERT INTO DBOBJLIMIT VALUES('com.jcorporate.expresso.services.dbobj.GroupMembers',20,10)
+INSERT INTO DBOBJLIMIT VALUES('com.jcorporate.expresso.services.dbobj.RegistrationDomain',20,1)
+INSERT INTO DBOBJLIMIT VALUES('com.jcorporate.expresso.services.dbobj.UserPreference',20,5)
+INSERT INTO DBOBJLIMIT VALUES('com.jcorporate.expresso.services.dbobj.ControllerDefault',50,50)
+INSERT INTO NEXTNUM VALUES('REGDOMID',3)
+INSERT INTO NEXTNUM VALUES('USERID',4)
+INSERT INTO NEXTNUM VALUES('RESLOG',1)
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','DefaultXSL','Default XSL Stylesheet','%web-app%/expresso/xsl/default.xsl')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','BaseDir','Web Document Root Directory on Server','%web-app%')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','HTTPServ','Web Server Host Name','javacorp')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','LogLevel','Level of detail in Log (0=min, 9=max)','9')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','MAILFrom','Value for From field in Event E-Mails','none')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','MAILPassword','Password for sending e-mail (if required)','')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','MAILServer','SMTP Server Name for sending E-Mails','javacorp.com')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','MAILUserName','User Name for sending e-mail (if required)','')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','MaxJobs','Max Number of Server Jobs to run at once','1')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','ServletPath','Default path for Servlets','/servlet')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','ServletPort','Port Number for Servlet Server','80')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','TempDir','Temporary Directory','%web-app%temp/')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','TimerInterval','Scan Job Queue and directories how often?','30')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','ConnTimeOut','Database Connection Timout Interval (seconds)','60')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','DefaultGroup','Default User Group for Self-registered users','Demo')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','MaxConnections','Maximum connections to attempt to make to the database','4')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','MailList','Mailing List Address','opensource@servlets.net')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','RestartServer','Command Line to re-start Servlet Server','')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','RequireEmailValidate','Require Email Validation for Account Activation (Y/N)','N')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','EmailValidateURL','Full URL of Email Validation Servlet','http://www.yourdomain.com/servlet/EmailValidation')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','AdminName','Name of Administrative / Support Contact for Site','webmaster')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','AdminEmail','Email address of Administrative / Support Contact','')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','CompanyName','Name of Company','')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','HomePageURL','Home Page URL','')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','ServletEvent','Servlet Exceptions Trigger SYSERROR Event?','Y')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','ContextPath','Context Path for Expresso','%context%')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','CacheSync','Remote Cache Synchronize Enabled?','N')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','Header','Header URL for Framesets','%context%/%expresso-dir%/header.jsp')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','HeaderHeight','Size of Header for Framesets','73')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','SecurityDB','Database to use for User/Group Security Info','')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','SecurityDBObjs','Database Objects that use the SecurityDB db/context','')
+INSERT INTO SETUP VALUES('com.jcorporate.expresso.core.ExpressoSchema','defaultRegDomain','Default Registration Domain','default')
+INSERT INTO USERPREFVAL VALUES('com.jcorporate.expresso.core.servlet.CheckLogin','language','Browser','Browser Default')
+INSERT INTO USERPREFVAL VALUES('com.jcorporate.expresso.core.servlet.CheckLogin','language','es','Spanish')
+INSERT INTO USERPREFVAL VALUES('com.jcorporate.expresso.core.servlet.CheckLogin','language','fr','French')
+INSERT INTO USERPREFVAL VALUES('com.jcorporate.expresso.core.servlet.CheckLogin','country','default','Default')
+INSERT INTO USERPREFDEF VALUES('com.jcorporate.expresso.core.servlet.CheckLogin','language','Language','Browser')
+INSERT INTO USERPREFDEF VALUES('com.jcorporate.expresso.core.servlet.CheckLogin','country','Country','default')
+INSERT INTO USERS VALUES(1,'Anonymous',NULL,'none',1,'D','N','2001-10-27 09:18:34.0','2001-10-27 09:18:34.0',NULL,'Anonymous User')
+INSERT INTO USERS VALUES(2,'NONE',NULL,'none',1,'D','N','2001-10-27 09:18:34.0','2001-10-27 09:18:34.0',NULL,'Default user before login')
+INSERT INTO USERS VALUES(3,'Admin',NULL,'none',1,'A','N','2001-10-27 09:18:34.0','2001-10-27 09:18:34.0',NULL,'Administrative User')
+INSERT INTO USERGROUP VALUES('Everybody','All Users',NULL)
+INSERT INTO USERGROUP VALUES('Nobody','Unknown Users','')
+INSERT INTO USERGROUP VALUES('NotReg','Users Not Yet Registered','')
+INSERT INTO USERGROUP VALUES('Admin','Administrative Users','')
+INSERT INTO USERGROUP VALUES('Demo','Demonstration Group',NULL)
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.Event','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.Event','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.Event','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.Event','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.EventMail','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.EventMail','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.EventMail','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.EventMail','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.CacheSync','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.CacheSync','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.CacheSync','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.CacheSync','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.MimeTypes','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.MimeTypes','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.MimeTypes','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.MimeTypes','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.DBMessage','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.DBMessage','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.DBMessage','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.DBMessage','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.DBOtherMap','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.DBOtherMap','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.DBOtherMap','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.DBOtherMap','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.DBObjLimit','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.DBObjLimit','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.DBObjLimit','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.DBObjLimit','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.DownloadFiles','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.DownloadFiles','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.DownloadFiles','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.DownloadFiles','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.NextNumber','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.NextNumber','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.NextNumber','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.NextNumber','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.Setup','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.Setup','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.Setup','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.Setup','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.UserPreferenceVal','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.UserPreferenceVal','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.UserPreferenceVal','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.UserPreferenceVal','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.UserPreferenceDef','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.UserPreferenceDef','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.UserPreferenceDef','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.UserPreferenceDef','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.ControllerDefault','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.ControllerDefault','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.ControllerDefault','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.ControllerDefault','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.UserDBObj','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.UserDBObj','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.UserDBObj','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.UserDBObj','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.SingleDBUserInfo','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.SingleDBUserInfo','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.SingleDBUserInfo','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.SingleDBUserInfo','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.DefaultUserInfo','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.DefaultUserInfo','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.DefaultUserInfo','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.DefaultUserInfo','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.UserGroup','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.UserGroup','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.UserGroup','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.UserGroup','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.RegisteredUser','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.RegisteredUser','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.RegisteredUser','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.RegisteredUser','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.regobj.Person','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.regobj.Person','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.regobj.Person','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.regobj.Person','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.regobj.Phone','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.regobj.Phone','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.regobj.Phone','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.regobj.Phone','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.regobj.Address','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.regobj.Address','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.regobj.Address','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.regobj.Address','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.regobj.Contact','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.regobj.Contact','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.regobj.Contact','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.regobj.Contact','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.DBObjSecurity','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.DBObjSecurity','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.DBObjSecurity','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.DBObjSecurity','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.JobSecurity','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.JobSecurity','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.JobSecurity','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.JobSecurity','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.GroupMembers','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.GroupMembers','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.GroupMembers','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.GroupMembers','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.GroupNest','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.GroupNest','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.GroupNest','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.GroupNest','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.RegistrationDomain','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.RegistrationDomain','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.RegistrationDomain','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.RegistrationDomain','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.RegistrationObjectMap','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.RegistrationObjectMap','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.RegistrationObjectMap','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.RegistrationObjectMap','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.DownloadLog','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.DownloadLog','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.DownloadLog','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.DownloadLog','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.PerfTests','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.PerfTests','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.PerfTests','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.PerfTests','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.PerfTestStat','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.PerfTestStat','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.PerfTestStat','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.PerfTestStat','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.PerfTestSet','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.PerfTestSet','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.PerfTestSet','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.PerfTestSet','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.PerfTestSetDet','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.PerfTestSetDet','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.PerfTestSetDet','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.PerfTestSetDet','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.JobQueue','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.JobQueue','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.JobQueue','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.JobQueue','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.JobQueueParam','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.JobQueueParam','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.JobQueueParam','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.JobQueueParam','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.LogEntry','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.LogEntry','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.LogEntry','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.LogEntry','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.SchemaList','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.SchemaList','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.SchemaList','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.SchemaList','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.JobHandlerRegistry','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.JobHandlerRegistry','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.JobHandlerRegistry','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.JobHandlerRegistry','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.JobHandlerControl','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.JobHandlerControl','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.JobHandlerControl','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.JobHandlerControl','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.AppIntegration','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.AppIntegration','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.AppIntegration','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.dbobj.AppIntegration','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.ValidationQueue','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.ValidationQueue','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.ValidationQueue','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.ValidationQueue','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.ValidationQueueParam','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.ValidationQueueParam','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.ValidationQueueParam','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.ValidationQueueParam','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.UserPreference','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.UserPreference','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.UserPreference','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.UserPreference','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.ControllerSecurity','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.ControllerSecurity','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.ControllerSecurity','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.services.dbobj.ControllerSecurity','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.xml.dbobj.UserAgent','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.xml.dbobj.UserAgent','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.xml.dbobj.UserAgent','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.xml.dbobj.UserAgent','Admin','D')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.xml.dbobj.ControllerXSLMap','Admin','A')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.xml.dbobj.ControllerXSLMap','Admin','U')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.xml.dbobj.ControllerXSLMap','Admin','S')
+INSERT INTO DBOBJSECURITY VALUES('com.jcorporate.expresso.ext.xml.dbobj.ControllerXSLMap','Admin','D')
+INSERT INTO JOBSECURITY VALUES('com.jcorporate.expresso.ext.job.SendNotice','Admin','*')
+INSERT INTO JOBSECURITY VALUES('com.jcorporate.expresso.services.job.TestJob','Admin','*')
+INSERT INTO JOBSECURITY VALUES('com.jcorporate.expresso.services.job.ControllerJob','Admin','*')
+INSERT INTO JOBSECURITY VALUES('com.jcorporate.expresso.services.job.ValidationJob','Admin','*')
+INSERT INTO GROUPMEMBERS VALUES('Everybody',NULL,1)
+INSERT INTO GROUPMEMBERS VALUES('Nobody',NULL,2)
+INSERT INTO GROUPMEMBERS VALUES('Admin',NULL,3)
+INSERT INTO REGDOMAIN VALUES(1,'default','Default Registration Domain','Everybody','com.jcorporate.expresso.services.controller.Registration','N','N','Y','N','N',NULL,'NotReg',NULL)
+INSERT INTO REGDOMAIN VALUES(2,'extended','Extended Registration Domain','Everybody','com.jcorporate.expresso.services.controller.Registration','Y','N','Y','Y','N','','NotReg','')
+INSERT INTO REGOBJMAP VALUES(1,'com.jcorporate.expresso.ext.dbobj.RegisteredUser','ExpUid',1,1,'!IsActive,!UserName,!InternalComment,!AddedOn,!UpdatedOn,!URL,!EmailPrivate,!Occupation,!Location,!Expertise,!OtherProjects,!Contributions,!Phone,!Testimonial,!IPAddress',999,'Y','N')
+INSERT INTO REGOBJMAP VALUES(2,'com.jcorporate.expresso.ext.dbobj.regobj.Person','ExpUid',1,1,'!ExpUid,!AddedOn,!UpdatedOn',999,'Y','N')
+INSERT INTO REGOBJMAP VALUES(2,'com.jcorporate.expresso.ext.dbobj.regobj.Phone','ExpUid',1,0,'!PhoneId,!ExpUid,!AddedOn,!UpdatedOn,+Type',999,'Y','N')
+INSERT INTO REGOBJMAP VALUES(2,'com.jcorporate.expresso.ext.dbobj.regobj.Address','ExpUid',1,1,'!AddressId,!ExpUid,!AddedOn,!UpdatedOn',999,'Y','N')
+INSERT INTO REGOBJMAP VALUES(2,'com.jcorporate.expresso.ext.dbobj.regobj.Contact','ExpUid',0,0,'!ContactId,!ExpUid,!AddedOn,!UpdatedOn,+Type',999,'Y','N')
+INSERT INTO SYSLOG VALUES('2001-11-01 14:38:43.0','Log Handler starts','com.jcorporate.expresso.core.logging.LogHandler.run()',755,-1,'none',0,'',NULL)
+INSERT INTO SYSLOG VALUES('2001-11-01 14:40:35.0','Log Handler starts','com.jcorporate.expresso.core.logging.LogHandler.run()',787,-1,'none',0,'',NULL)
+INSERT INTO SYSLOG VALUES('2001-11-01 14:45:13.0','Log Handler starts','com.jcorporate.expresso.core.logging.LogHandler.run()',447,-1,'none',0,'',NULL)
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2001-12-02 11:09:36.0','Enabled',1.0,24432,9520,14912,2988,'jglobal','Linux','')
+INSERT INTO JOBHANDLERREGISTRY VALUES(NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,2990,'cosapi01','Windows NT',NULL)
+INSERT INTO CONTROLLERSECURITY VALUES('com.jcorporate.expresso.services.controller.DBSecurityMatrix','Admin','*')
+INSERT INTO CONTROLLERSECURITY VALUES('com.jcorporate.expresso.ext.controller.RunSQL','Admin','*')
+INSERT INTO CONTROLLERSECURITY VALUES('com.jcorporate.expresso.services.controller.Log','Admin','*')
+INSERT INTO CONTROLLERSECURITY VALUES('com.jcorporate.expresso.services.controller.Status','Admin','*')
+INSERT INTO CONTROLLERSECURITY VALUES('com.jcorporate.expresso.ext.xml.controller.XMLController','Admin','*')
+INSERT INTO CONTROLLERSECURITY VALUES('com.jcorporate.expresso.services.controller.ControllerSecurityMatrix','Admin','*')
+INSERT INTO CONTROLLERSECURITY VALUES('com.jcorporate.expresso.services.controller.QueueJob','Admin','*')
+INSERT INTO CONTROLLERSECURITY VALUES('com.jcorporate.expresso.services.controller.LoginController','Admin','*')
+INSERT INTO CONTROLLERSECURITY VALUES('com.jcorporate.expresso.services.controller.Registration','Admin','*')
+INSERT INTO CONTROLLERSECURITY VALUES('com.jcorporate.expresso.services.controller.JobSecurityMatrix','Admin','*')
+INSERT INTO CONTROLLERSECURITY VALUES('com.jcorporate.expresso.services.controller.Navigation','Admin','*')
+INSERT INTO CONTROLLERSECURITY VALUES('com.jcorporate.expresso.services.controller.CacheControl','Admin','*')
+INSERT INTO CONTROLLERSECURITY VALUES('com.jcorporate.expresso.ext.controller.TestController','Admin','*')
+INSERT INTO CONTROLLERSECURITY VALUES('com.jcorporate.expresso.services.controller.DBMaint','Admin','*')
+INSERT INTO CONTROLLERSECURITY VALUES('com.jcorporate.expresso.services.controller.EditUserPreference','Admin','*')
+INSERT INTO CONTROLLERSECURITY VALUES('com.jcorporate.expresso.ext.controller.RunTests','Admin','*')
+INSERT INTO CONTROLLERSECURITY VALUES('com.jcorporate.expresso.ext.controller.HealthCheck','Admin','*')
+INSERT INTO CONTROLLERSECURITY VALUES('com.jcorporate.expresso.ext.controller.DataTransfer','Admin','*')
+INSERT INTO CONTROLLERSECURITY VALUES('com.jcorporate.expresso.services.controller.ValidationController','Admin','*')
+INSERT INTO CONTROLLERSECURITY VALUES('com.jcorporate.expresso.ext.controller.Download','Admin','*')
+INSERT INTO CONTROLLERSECURITY VALUES('com.jcorporate.expresso.core.servlet.Test','Admin','*')
+INSERT INTO USERAGENT VALUES(2,9999,'Default Agent','.*')
+/*C1*/CONNECT USER sa PASSWORD ""
+SET AUTOCOMMIT TRUE
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=NULL AND CURRENTJOBS=NULL AND TIMSTAMP=NULL AND STATUS=NULL AND POWERFACTOR=NULL AND TOTALMEM=NULL AND FREEMEM=NULL AND USEDMEM=NULL AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=NULL
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:43:29.0','Enabled',1.0,19902,4959,14945,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:43:29.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4959 AND USEDMEM=14945 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:43:59.0','Enabled',1.0,19902,6063,13839,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:43:59.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=6063 AND USEDMEM=13839 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:44:29.0','Enabled',1.0,19902,5904,13998,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:44:29.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5904 AND USEDMEM=13998 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:44:59.0','Enabled',1.0,19902,5746,14156,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:44:59.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5746 AND USEDMEM=14156 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:45:29.0','Enabled',1.0,19902,5588,14314,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:45:29.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5588 AND USEDMEM=14314 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:45:59.0','Enabled',1.0,19902,5432,14470,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:45:59.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5432 AND USEDMEM=14470 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:46:29.0','Enabled',1.0,19902,5275,14627,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:46:29.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5275 AND USEDMEM=14627 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:46:59.0','Enabled',1.0,19902,5125,14778,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:46:59.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5125 AND USEDMEM=14778 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:47:30.0','Enabled',1.0,19902,4967,14935,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:47:30.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4967 AND USEDMEM=14935 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:48:00.0','Enabled',1.0,19902,4814,15088,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:48:00.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4814 AND USEDMEM=15088 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:48:30.0','Enabled',1.0,19902,4665,15237,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:48:30.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4665 AND USEDMEM=15237 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:49:00.0','Enabled',1.0,19902,4517,15385,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:49:00.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4517 AND USEDMEM=15385 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:49:30.0','Enabled',1.0,19902,4363,15539,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:49:30.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4363 AND USEDMEM=15539 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:50:00.0','Enabled',1.0,19902,4215,15687,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:50:00.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4215 AND USEDMEM=15687 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:50:30.0','Enabled',1.0,19902,4058,15844,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:50:30.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4058 AND USEDMEM=15844 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:51:00.0','Enabled',1.0,19902,3907,15995,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:51:00.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3907 AND USEDMEM=15995 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:51:30.0','Enabled',1.0,19902,3757,16145,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:51:30.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3757 AND USEDMEM=16145 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:52:00.0','Enabled',1.0,19902,3606,16296,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:52:00.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3606 AND USEDMEM=16296 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:52:30.0','Enabled',1.0,19902,3453,16449,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:52:30.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3453 AND USEDMEM=16449 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:53:00.0','Enabled',1.0,19902,3300,16602,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:53:00.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3300 AND USEDMEM=16602 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:53:30.0','Enabled',1.0,19902,3147,16755,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:53:30.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3147 AND USEDMEM=16755 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:54:00.0','Enabled',1.0,19902,2995,16907,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:54:00.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2995 AND USEDMEM=16907 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:54:30.0','Enabled',1.0,19902,2847,17055,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:54:30.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2847 AND USEDMEM=17055 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:55:00.0','Enabled',1.0,19902,2693,17209,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:55:00.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2693 AND USEDMEM=17209 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:55:30.0','Enabled',1.0,19902,2547,17355,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:55:30.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2547 AND USEDMEM=17355 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:56:00.0','Enabled',1.0,19902,2400,17502,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:56:00.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2400 AND USEDMEM=17502 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:56:30.0','Enabled',1.0,19902,2246,17656,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:56:30.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2246 AND USEDMEM=17656 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:57:00.0','Enabled',1.0,19902,2098,17804,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:57:00.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2098 AND USEDMEM=17804 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:57:30.0','Enabled',1.0,19902,1948,17954,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:57:30.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1948 AND USEDMEM=17954 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:58:00.0','Enabled',1.0,19902,1795,18107,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:58:00.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1795 AND USEDMEM=18107 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:58:30.0','Enabled',1.0,19902,1644,18258,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:58:30.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1644 AND USEDMEM=18258 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:59:00.0','Enabled',1.0,19902,1488,18414,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:59:00.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1488 AND USEDMEM=18414 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 22:59:30.0','Enabled',1.0,19902,1340,18562,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 22:59:30.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1340 AND USEDMEM=18562 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:00:00.0','Enabled',1.0,19902,1190,18712,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:00:00.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1190 AND USEDMEM=18712 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:00:30.0','Enabled',1.0,19902,1041,18861,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:00:30.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1041 AND USEDMEM=18861 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:01:00.0','Enabled',1.0,19902,6845,13058,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:01:00.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=6845 AND USEDMEM=13058 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:01:30.0','Enabled',1.0,19902,6684,13218,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:01:30.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=6684 AND USEDMEM=13218 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:02:01.0','Enabled',1.0,19902,6529,13373,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:02:01.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=6529 AND USEDMEM=13373 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:02:31.0','Enabled',1.0,19902,6371,13531,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:02:31.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=6371 AND USEDMEM=13531 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:03:01.0','Enabled',1.0,19902,6215,13687,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:03:01.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=6215 AND USEDMEM=13687 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:03:31.0','Enabled',1.0,19902,6055,13847,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:03:31.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=6055 AND USEDMEM=13847 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:04:01.0','Enabled',1.0,19902,5897,14005,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:04:01.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5897 AND USEDMEM=14005 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:04:31.0','Enabled',1.0,19902,5740,14162,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:04:31.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5740 AND USEDMEM=14162 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:05:01.0','Enabled',1.0,19902,5580,14322,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:05:01.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5580 AND USEDMEM=14322 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:05:31.0','Enabled',1.0,19902,5428,14474,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:05:31.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5428 AND USEDMEM=14474 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:06:01.0','Enabled',1.0,19902,5276,14626,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:06:01.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5276 AND USEDMEM=14626 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:06:31.0','Enabled',1.0,19902,5121,14781,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:06:31.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5121 AND USEDMEM=14781 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:07:01.0','Enabled',1.0,19902,4963,14939,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:07:01.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4963 AND USEDMEM=14939 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:07:31.0','Enabled',1.0,19902,4815,15087,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:07:31.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4815 AND USEDMEM=15087 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:08:01.0','Enabled',1.0,19902,4663,15239,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:08:01.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4663 AND USEDMEM=15239 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:08:31.0','Enabled',1.0,19902,4507,15395,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:08:31.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4507 AND USEDMEM=15395 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:09:01.0','Enabled',1.0,19902,4362,15540,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:09:01.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4362 AND USEDMEM=15540 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:09:31.0','Enabled',1.0,19902,4211,15691,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:09:31.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4211 AND USEDMEM=15691 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:10:01.0','Enabled',1.0,19902,4056,15846,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:10:01.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4056 AND USEDMEM=15846 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:10:31.0','Enabled',1.0,19902,3906,15996,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:10:31.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3906 AND USEDMEM=15996 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:11:01.0','Enabled',1.0,19902,3751,16151,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:11:01.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3751 AND USEDMEM=16151 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:11:31.0','Enabled',1.0,19902,3604,16298,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:11:31.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3604 AND USEDMEM=16298 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:12:01.0','Enabled',1.0,19902,3450,16452,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:12:01.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3450 AND USEDMEM=16452 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:12:31.0','Enabled',1.0,19902,3302,16600,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:12:31.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3302 AND USEDMEM=16600 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:13:01.0','Enabled',1.0,19902,3149,16753,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:13:01.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3149 AND USEDMEM=16753 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:13:31.0','Enabled',1.0,19902,2997,16905,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:13:31.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2997 AND USEDMEM=16905 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:14:01.0','Enabled',1.0,19902,2849,17053,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:14:01.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2849 AND USEDMEM=17053 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:14:31.0','Enabled',1.0,19902,2691,17211,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:14:31.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2691 AND USEDMEM=17211 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:15:01.0','Enabled',1.0,19902,2545,17357,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:15:01.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2545 AND USEDMEM=17357 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:15:31.0','Enabled',1.0,19902,2397,17505,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:15:31.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2397 AND USEDMEM=17505 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:16:01.0','Enabled',1.0,19902,2245,17657,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:16:01.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2245 AND USEDMEM=17657 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:16:31.0','Enabled',1.0,19902,2093,17809,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:16:31.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2093 AND USEDMEM=17809 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:17:01.0','Enabled',1.0,19902,1946,17956,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:17:01.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1946 AND USEDMEM=17956 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:17:32.0','Enabled',1.0,19902,1794,18108,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:17:32.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1794 AND USEDMEM=18108 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:18:02.0','Enabled',1.0,19902,1639,18263,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:18:02.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1639 AND USEDMEM=18263 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:18:32.0','Enabled',1.0,19902,1489,18413,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:18:32.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1489 AND USEDMEM=18413 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:19:02.0','Enabled',1.0,19902,1335,18567,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:19:02.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1335 AND USEDMEM=18567 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:19:32.0','Enabled',1.0,19902,1188,18714,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:19:32.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1188 AND USEDMEM=18714 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:20:02.0','Enabled',1.0,19902,1040,18862,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:20:02.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1040 AND USEDMEM=18862 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:20:32.0','Enabled',1.0,19902,6849,13053,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:20:32.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=6849 AND USEDMEM=13053 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:21:02.0','Enabled',1.0,19902,6688,13214,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:21:02.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=6688 AND USEDMEM=13214 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:21:32.0','Enabled',1.0,19902,6534,13368,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:21:32.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=6534 AND USEDMEM=13368 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:22:02.0','Enabled',1.0,19902,6376,13527,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:22:02.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=6376 AND USEDMEM=13527 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:22:32.0','Enabled',1.0,19902,6221,13682,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:22:32.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=6221 AND USEDMEM=13682 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:23:02.0','Enabled',1.0,19902,6064,13839,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:23:02.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=6064 AND USEDMEM=13839 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:23:32.0','Enabled',1.0,19902,5903,13999,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:23:32.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5903 AND USEDMEM=13999 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:24:02.0','Enabled',1.0,19902,5748,14154,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:24:02.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5748 AND USEDMEM=14154 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:24:32.0','Enabled',1.0,19902,5590,14312,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:24:32.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5590 AND USEDMEM=14312 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:25:02.0','Enabled',1.0,19902,5436,14466,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:25:02.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5436 AND USEDMEM=14466 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:25:32.0','Enabled',1.0,19902,5281,14621,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:25:32.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5281 AND USEDMEM=14621 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:26:02.0','Enabled',1.0,19902,5127,14775,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:26:02.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5127 AND USEDMEM=14775 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:26:32.0','Enabled',1.0,19902,4975,14927,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:26:32.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4975 AND USEDMEM=14927 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:27:02.0','Enabled',1.0,19902,4817,15085,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:27:02.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4817 AND USEDMEM=15085 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:27:32.0','Enabled',1.0,19902,4666,15236,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:27:32.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4666 AND USEDMEM=15236 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:28:02.0','Enabled',1.0,19902,4516,15386,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:28:02.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4516 AND USEDMEM=15386 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:28:32.0','Enabled',1.0,19902,4365,15537,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:28:32.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4365 AND USEDMEM=15537 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:29:02.0','Enabled',1.0,19902,4214,15688,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:29:02.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4214 AND USEDMEM=15688 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:29:32.0','Enabled',1.0,19902,4065,15837,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:29:32.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4065 AND USEDMEM=15837 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:30:02.0','Enabled',1.0,19902,3912,15990,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:30:02.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3912 AND USEDMEM=15990 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:30:33.0','Enabled',1.0,19902,3757,16145,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:30:33.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3757 AND USEDMEM=16145 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:31:03.0','Enabled',1.0,19902,3607,16295,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:31:03.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3607 AND USEDMEM=16295 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:31:33.0','Enabled',1.0,19902,3448,16454,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:31:33.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3448 AND USEDMEM=16454 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:32:03.0','Enabled',1.0,19902,3300,16602,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:32:03.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3300 AND USEDMEM=16602 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:32:33.0','Enabled',1.0,19902,3146,16756,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:32:33.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3146 AND USEDMEM=16756 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:33:03.0','Enabled',1.0,19902,3000,16902,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:33:03.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3000 AND USEDMEM=16902 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:33:33.0','Enabled',1.0,19902,2854,17048,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:33:33.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2854 AND USEDMEM=17048 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:34:03.0','Enabled',1.0,19902,2700,17202,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:34:03.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2700 AND USEDMEM=17202 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:34:33.0','Enabled',1.0,19902,2554,17348,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:34:33.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2554 AND USEDMEM=17348 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:35:03.0','Enabled',1.0,19902,2401,17501,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:35:03.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2401 AND USEDMEM=17501 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:35:33.0','Enabled',1.0,19902,2244,17658,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:35:33.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2244 AND USEDMEM=17658 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:36:03.0','Enabled',1.0,19902,2091,17811,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:36:03.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2091 AND USEDMEM=17811 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:36:33.0','Enabled',1.0,19902,1946,17956,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:36:33.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1946 AND USEDMEM=17956 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:37:03.0','Enabled',1.0,19902,1799,18109,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:37:03.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1799 AND USEDMEM=18109 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:37:33.0','Enabled',1.0,19902,1641,18261,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:37:33.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1641 AND USEDMEM=18261 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:38:03.0','Enabled',1.0,19902,1492,18410,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:38:03.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1492 AND USEDMEM=18410 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:38:33.0','Enabled',1.0,19902,1344,18558,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:38:33.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1344 AND USEDMEM=18558 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:39:03.0','Enabled',1.0,19902,1185,18723,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:39:03.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1185 AND USEDMEM=18723 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:39:33.0','Enabled',1.0,19902,1038,18864,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:39:33.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1038 AND USEDMEM=18864 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:40:03.0','Enabled',1.0,19902,6867,13035,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:40:03.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=6867 AND USEDMEM=13035 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:40:34.0','Enabled',1.0,19902,6707,13195,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:40:34.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=6707 AND USEDMEM=13195 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:41:04.0','Enabled',1.0,19902,6551,13351,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:41:04.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=6551 AND USEDMEM=13351 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:41:34.0','Enabled',1.0,19902,6391,13511,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:41:34.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=6391 AND USEDMEM=13511 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:42:04.0','Enabled',1.0,19902,6234,13668,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:42:04.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=6234 AND USEDMEM=13668 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:42:34.0','Enabled',1.0,19902,6077,13825,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:42:34.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=6077 AND USEDMEM=13825 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:43:04.0','Enabled',1.0,19902,5918,13984,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:43:04.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5918 AND USEDMEM=13984 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:43:34.0','Enabled',1.0,19902,5761,14141,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:43:34.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5761 AND USEDMEM=14141 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:44:04.0','Enabled',1.0,19902,5602,14300,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:44:04.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5602 AND USEDMEM=14300 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:44:34.0','Enabled',1.0,19902,5452,14450,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:44:34.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5452 AND USEDMEM=14450 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:45:04.0','Enabled',1.0,19902,5297,14605,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:45:04.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5297 AND USEDMEM=14605 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:45:34.0','Enabled',1.0,19902,5142,14760,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:45:34.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5142 AND USEDMEM=14760 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:46:04.0','Enabled',1.0,19902,4987,14915,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:46:04.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4987 AND USEDMEM=14915 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:46:34.0','Enabled',1.0,19902,4839,15063,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:46:34.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4839 AND USEDMEM=15063 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:47:04.0','Enabled',1.0,19902,4681,15221,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:47:04.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4681 AND USEDMEM=15221 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:47:34.0','Enabled',1.0,19902,4533,15369,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:47:34.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4533 AND USEDMEM=15369 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:48:04.0','Enabled',1.0,19902,4378,15524,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:48:04.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4378 AND USEDMEM=15524 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:48:34.0','Enabled',1.0,19902,4231,15671,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:48:34.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4231 AND USEDMEM=15671 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:49:04.0','Enabled',1.0,19902,4077,15825,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:49:04.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=4077 AND USEDMEM=15825 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:49:34.0','Enabled',1.0,19902,3927,15975,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:49:34.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3927 AND USEDMEM=15975 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:50:04.0','Enabled',1.0,19902,3779,16123,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:50:04.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3779 AND USEDMEM=16123 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:50:35.0','Enabled',1.0,19902,3630,16273,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:50:35.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3630 AND USEDMEM=16273 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:51:05.0','Enabled',1.0,19902,3472,16430,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:51:05.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3472 AND USEDMEM=16430 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:51:35.0','Enabled',1.0,19902,3317,16585,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:51:35.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3317 AND USEDMEM=16585 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:52:05.0','Enabled',1.0,19902,3164,16738,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:52:05.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3164 AND USEDMEM=16738 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:52:35.0','Enabled',1.0,19902,3022,16886,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:52:35.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=3022 AND USEDMEM=16886 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:53:05.0','Enabled',1.0,19902,2873,17029,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:53:05.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2873 AND USEDMEM=17029 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:53:35.0','Enabled',1.0,19902,2719,17183,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:53:35.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2719 AND USEDMEM=17183 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:54:05.0','Enabled',1.0,19902,2566,17336,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:54:05.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2566 AND USEDMEM=17336 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:54:35.0','Enabled',1.0,19902,2413,17489,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:54:35.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2413 AND USEDMEM=17489 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:55:05.0','Enabled',1.0,19902,2268,17634,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:55:05.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2268 AND USEDMEM=17634 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:55:36.0','Enabled',1.0,19902,2122,17780,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:55:36.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=2122 AND USEDMEM=17780 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:56:06.0','Enabled',1.0,19902,1967,17935,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:56:06.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1967 AND USEDMEM=17935 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:56:36.0','Enabled',1.0,19902,1817,18085,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:56:36.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1817 AND USEDMEM=18085 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:57:06.0','Enabled',1.0,19902,1662,18240,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:57:06.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1662 AND USEDMEM=18240 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:57:36.0','Enabled',1.0,19902,1516,18386,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:57:36.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1516 AND USEDMEM=18386 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:58:06.0','Enabled',1.0,19902,1362,18540,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:58:06.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1362 AND USEDMEM=18540 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:58:36.0','Enabled',1.0,19902,1214,18688,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:58:36.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1214 AND USEDMEM=18688 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:59:06.0','Enabled',1.0,19902,1059,18843,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:59:06.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=1059 AND USEDMEM=18843 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-06 23:59:36.0','Enabled',1.0,19902,6887,13015,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-06 23:59:36.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=6887 AND USEDMEM=13015 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-07 00:00:06.0','Enabled',1.0,19902,5619,14283,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-07 00:00:06.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5619 AND USEDMEM=14283 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-07 00:00:36.0','Enabled',1.0,19902,5686,14216,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-07 00:00:36.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=5686 AND USEDMEM=14216 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-07 00:01:06.0','Enabled',1.0,19902,8330,11572,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-07 00:01:06.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=8330 AND USEDMEM=11572 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-07 00:01:36.0','Enabled',1.0,19902,8181,11721,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-07 00:01:36.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=8181 AND USEDMEM=11721 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-07 00:02:06.0','Enabled',1.0,19902,8030,11872,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-07 00:02:06.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=8030 AND USEDMEM=11872 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-07 00:02:36.0','Enabled',1.0,19902,7877,12025,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-07 00:02:36.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=7877 AND USEDMEM=12025 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-07 00:03:06.0','Enabled',1.0,19902,7726,12176,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-07 00:03:06.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=7726 AND USEDMEM=12176 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-07 00:03:36.0','Enabled',1.0,19902,7568,12334,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-07 00:03:36.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=7568 AND USEDMEM=12334 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-07 00:04:06.0','Enabled',1.0,19902,7416,12486,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-07 00:04:06.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=7416 AND USEDMEM=12486 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-07 00:04:36.0','Enabled',1.0,19902,7273,12633,2990,'cosapi01','Windows NT','')
+DELETE FROM JOBHANDLERREGISTRY WHERE LOADAVERAGE=1 AND CURRENTJOBS=0 AND TIMSTAMP='2002-08-07 00:04:36.0' AND STATUS='Enabled' AND POWERFACTOR=1.0 AND TOTALMEM=19902 AND FREEMEM=7273 AND USEDMEM=12633 AND SERVERID=2990 AND HOSTNAME='cosapi01' AND OSNAME='Windows NT' AND CONTROLCOMMAND=''
+INSERT INTO JOBHANDLERREGISTRY VALUES(1,0,'2002-08-07 00:05:06.0','Enabled',1.0,19902,7116,12786,2990,'cosapi01','Windows NT','')

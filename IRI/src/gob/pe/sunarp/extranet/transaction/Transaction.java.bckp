@@ -1,0 +1,902 @@
+package gob.pe.sunarp.extranet.transaction;
+import com.jcorporate.expresso.core.db.DBConnection;
+import com.jcorporate.expresso.core.db.DBConnectionPool;
+import com.jcorporate.expresso.core.db.DBException;
+import gob.pe.sunarp.extranet.pool.DBConnectionFactory;
+import gob.pe.sunarp.extranet.prepago.bean.ComprobanteBean;
+import gob.pe.sunarp.extranet.prepago.bean.PrepagoBean;
+import gob.pe.sunarp.extranet.common.Errors;
+import gob.pe.sunarp.extranet.dbobj.*;
+import gob.pe.sunarp.extranet.dbobj.DboOficRegistral;
+import gob.pe.sunarp.extranet.framework.CustomException;
+import gob.pe.sunarp.extranet.framework.session.UsuarioBean;
+import gob.pe.sunarp.extranet.transaction.bean.*;
+import gob.pe.sunarp.extranet.transaction.bean.LogAuditoriaBusqPartidaBean;
+import gob.pe.sunarp.extranet.transaction.bean.LogAuditoriaBusqRazSocPJBean;
+import gob.pe.sunarp.extranet.util.Comodin;
+import gob.pe.sunarp.extranet.util.Constantes;
+import gob.pe.sunarp.extranet.util.FechaUtil;
+import gob.pe.sunarp.extranet.util.LineaPrepago;
+import gob.pe.sunarp.extranet.util.Propiedades;
+import java.sql.*;
+import java.util.StringTokenizer;
+import javax.servlet.http.HttpSession;
+
+public class Transaction{
+
+	private static Transaction transaction = null;
+		
+	private Transaction(){
+	}
+
+	public static Transaction getInstance(){
+		if(transaction == null){
+			transaction = new Transaction();
+		}
+		return transaction;
+	}
+
+//Metodo Principal
+	public synchronized void registraTransaccion(TransactionBean bean, Connection conn) throws CustomException, DBException, Throwable
+	{
+		/*
+		DBConnectionFactory pool = DBConnectionFactory.getInstance();
+		Connection conn = null;
+		
+		try
+		{
+			
+		conn = pool.getConnection();
+		conn.setAutoCommit(false);
+		*/ 
+		DBConnection dconn = new DBConnection(conn);
+		
+		int tipo = bean.getCodigoServicio();
+		
+				switch (tipo)
+				{
+					case TipoServicio.CONSULTA_PARTIDA:	
+							registraLogAuditoriaConsultaPartida((LogAuditoriaConsultaPartidaBean) bean, dconn);
+							break;
+		
+					case TipoServicio.CONSULTA_TITULOS:
+							registraLogAuditoriaConsulTitulo((LogAuditoriaConsulTituloBean) bean, dconn);
+							break;
+		
+					case TipoServicio.AFILIACION_EXTRANET:
+							registraLogAuditoriaAfiliacion((LogAuditoriaAfiliacionBean) bean, dconn);
+							break;
+					case TipoServicio.CONSULTA_TITULOS_VEHICULAR:
+							registraLogAuditoriaConsulTituloVehi((LogAuditoriaConsulTituloBean) bean, dconn);
+							break;
+								
+					case TipoServicio.BUSQ_SEDE_1: 
+					case TipoServicio.BUSQ_SEDE_2: 
+					case TipoServicio.BUSQ_SEDE_3: 
+					case TipoServicio.BUSQ_SEDE_4: 
+					case TipoServicio.BUSQ_SEDE_5: 
+					case TipoServicio.BUSQ_SEDE_6: 
+					case TipoServicio.BUSQ_SEDE_7: 
+					case TipoServicio.BUSQ_SEDE_8: 
+					case TipoServicio.BUSQ_SEDE_9: 
+					case TipoServicio.BUSQ_SEDE_10: 
+					case TipoServicio.BUSQ_SEDE_11: 
+					case TipoServicio.BUSQ_SEDE_12: 
+					case TipoServicio.BUSQ_SEDE_13: 
+							registraLogAuditoriaBusqPartida((LogAuditoriaBusqPartidaBean) bean, dconn);
+							break;
+					
+					case TipoServicio.VISUALIZACION_PARTIDA:
+							registraLogAuditoriaVisualizaPartida((LogAuditoriaVisualizaPartidaBean) bean, dconn);
+							break;
+
+					case TipoServicio.CONSULTA_PLACA:	
+							
+							registraLogAuditoriaConsultaPlaca_Partida_Vehicular((LogAuditoriaConsultaPlacaBean) bean, dconn);
+							break;
+					case TipoServicio.BUSQ_PLACA:	
+							LogAuditoriaConsultaPlacaBean bean1 = (LogAuditoriaConsultaPlacaBean) bean;
+							if(bean1.getTipoBusq() == 1)
+								registraLogAuditoriaConsultaPlaca_Partida_Vehicular(bean1, dconn);
+							else
+								registraLogAuditoriaBusqPlacaVehiNomRaz(bean1, dconn);
+							break;
+					case TipoServicio.COPIA_LITERAL_CERTIFICADA:
+					case TipoServicio.CERT_NEG_TESTAMENTO:
+					case TipoServicio.CERT_NEG_SUC_INTEST:
+					case TipoServicio.CERT_NEG_REGIS_PERS:
+					case TipoServicio.CERT_NEG_PERS_JURID:
+					case TipoServicio.CERT_NEG_PROP_INMUE:
+					case TipoServicio.CERT_NEG_PROP_VEHIC:
+					case TipoServicio.DELIVERY_CERT:
+							registraLogAuditoriaPubliCerti((LogAuditoriaCertificadoBean)bean, dconn);
+							break;
+							
+				}//switch
+		
+		/*
+		conn.commit();
+		
+		}
+		
+		catch (Throwable t)
+		{
+			t.printStackTrace();
+		}
+		finally
+		{
+			pool.release(conn);
+		}
+		*/
+	}
+//Auditoria Busqueda Partida
+	private void registraLogAuditoriaBusqPartida (LogAuditoriaBusqPartidaBean bean, DBConnection myConn) throws CustomException, DBException, Throwable{
+		String[] sedes = bean.getNumSedes();
+		
+	//Se prepara el String de Búsqueda
+		StringBuffer strBusq = new StringBuffer("BUSQUEDA DE PARTIDA: ");
+		
+		if(sedes.length <= 0)
+			throw new CustomException(Errors.EC_MISSING_PARAM, "Debe seleccionar al menos una sede", "errorPrepago");
+		else if(sedes.length == 13)
+			strBusq.append(" TODAS LAS SEDES.");
+		else{
+			strBusq.append(sedes.length).append(" SEDES: ").append(nombreSede(sedes[0], myConn));
+			
+			for(int i = 1; i < sedes.length; i++)
+				strBusq.append(nombreSede(sedes[i], myConn));
+		}
+					
+		if(bean.getPartSeleccionado().equalsIgnoreCase("PN"))
+			strBusq.append(" TIPO PARTICIPANTE PN - PARTICIPANTE: ");
+		else if (bean.getPartSeleccionado().equalsIgnoreCase("PJ"))
+			strBusq.append(" TIPO PARTICIPANTE PJ - PARTICIPANTE: ");
+		else if (bean.getPartSeleccionado().equalsIgnoreCase("NM"))
+			strBusq.append(" NUMERO MOTOR: ");
+		else if (bean.getPartSeleccionado().equalsIgnoreCase("NS"))
+			strBusq.append(" NUMERO SERIE: ");
+		else 
+			strBusq.append(" : ");
+
+		strBusq.append(bean.getNomApeRazSocPart());
+
+		int tipo = bean.getTipoBusqPartida();
+
+		LogAuditoriaBuscaPartidaRegAereoBean beanA = null;
+		LogAuditoriaBuscaPartidaRegEmb beanE = null;
+		LogAuditoriaBuscaPartidaRegMinBean beanM = null;
+		LogAuditoriaBuscaPartidaRegPrediosBean beanP = null;
+		LogAuditoriaBusqRazSocPJBean beanRSPJ = null;
+		
+		switch(tipo){
+			case Constantes.REG_AEREO:
+				/* Formando el String de Búsqueda */
+					beanA = (LogAuditoriaBuscaPartidaRegAereoBean) bean;
+	
+					strBusq.append(". REGISTRO DE AERONAVES - ");
+					
+					if(beanA.getTipoParam().equalsIgnoreCase("T")){
+						strBusq.append(" POR TITULAR ");
+						
+						if(beanA.getTipoTitular().equalsIgnoreCase("N"))
+							strBusq.append(" PERSONA NATURAL");
+						else if(beanA.getTipoTitular().equalsIgnoreCase("J"))
+							strBusq.append(" PERSONA JURIDICA");
+					}else if(beanA.getTipoParam().equalsIgnoreCase("M"))
+						strBusq.append(" REGISTRO POR MATRICULA");
+						
+					strBusq.append(beanA.getValor());
+				/* Fin de String de Búsqueda */
+				break;
+			case Constantes.REG_EMB:
+				/* Formando el String de Búsqueda */
+					beanE = (LogAuditoriaBuscaPartidaRegEmb) bean;
+					
+					if(beanE.getTipoEmb().equalsIgnoreCase("P")){
+						strBusq.append(" .REGISTRO EMBARCACIONES PESQUERAS - ");
+						
+						if(beanE.getTipoParam().equalsIgnoreCase(" M"))
+							strBusq.append(" Num Matricula:").append(beanE.getValor());
+						else
+							strBusq.append(" Nombre:").append(beanE.getValor());
+					}else if(beanE.getTipoEmb().equalsIgnoreCase(" B")){
+						strBusq.append(" REGISTRO EMBARCACIONES BUQUES - ");
+						if(beanE.getTipoParam().equalsIgnoreCase(" M"))
+							strBusq.append(" Num Matricula:").append(beanE.getValor());
+						else
+							strBusq.append(" Nombre:").append(beanE.getValor());
+					}
+				/* Fin de String de Búsqueda */
+				break;
+			case Constantes.REG_MINERO:
+				/* Formando el String de Búsqueda */
+					beanM = (LogAuditoriaBuscaPartidaRegMinBean) bean;
+					
+					strBusq.append(" .REGISTRO DE MINERIAS - ");
+					if(beanM.getTipoParam().equalsIgnoreCase("D")){
+						strBusq.append(" POR DERECHO MINERO ");
+					}else if(beanM.getTipoParam().equalsIgnoreCase("R"))
+						strBusq.append(" POR NOMBRE SOCIAL");
+						
+					strBusq.append(beanM.getValor());
+				/* Fin de String de Búsqueda */
+				break;
+			case Constantes.REG_PREDIO:
+				/* Formando el String de Búsqueda */
+					beanP = (LogAuditoriaBuscaPartidaRegPrediosBean) bean;
+
+					strBusq.append(" .REGISTRO PREDIOS - ").append("Dpto:").append(beanP.getDpto());
+					strBusq.append(" Prov:").append(beanP.getProv()).append(" Dist:").append(beanP.getDist());
+					strBusq.append(" TpoZona:").append(beanP.getTpoZona()).append(" Nombre:").append(beanP.getNomZona());
+					strBusq.append(" TpoVia:").append(beanP.getTpoVia()).append(" Nombre:").append(beanP.getNomVia());
+					strBusq.append(" TpoNum:").append(beanP.getTpoNum()).append(" Numero:").append(beanP.getNumInmb());
+					strBusq.append(" tpoInt:").append(beanP.getTpoInt()).append(" Numero:").append(beanP.getNumInt());
+				/* Fin de String de Búsqueda */
+				break;
+			case Constantes.REG_RAZ_SOC_PJ:
+				/* Formando el String de Búsqueda */
+					beanRSPJ = (LogAuditoriaBusqRazSocPJBean) bean;				
+					strBusq.append(" .REGISTRO RAZ SOC PJ - ").append(beanRSPJ.getRazSocPJ());				
+				/* Fin de String de Búsqueda */
+				break;
+			case Constantes.REG_VEH_MOTOR:
+				/* Formando el String de Búsqueda */
+					//beanRSPJ = (LogAuditoriaBusqRazSocPJBean) bean;
+				
+					//strBusq.append(bean.getNomApeRazSocPart());
+				/* Fin de String de Búsqueda */
+				long idTran1 = grabaTransaccion(strBusq.toString(), (TransactionBean) bean, myConn);
+				return;
+				//break;
+			case Constantes.REG_VEH_SERIE:
+				/* Formando el String de Búsqueda */
+					//beanRSPJ = (LogAuditoriaBusqRazSocPJBean) bean;
+				
+					//strBusq.append(bean.getNomApeRazSocPart());
+				/* Fin de String de Búsqueda */
+				long idTran2 = grabaTransaccion(strBusq.toString(), (TransactionBean) bean, myConn);
+				return;
+				//break;		
+				}
+
+		long idTran = grabaTransaccion(strBusq.toString(), (TransactionBean) bean, myConn);
+
+		DboAudBusqPartida tablaAudit = new DboAudBusqPartida(myConn);
+			
+		tablaAudit.setField(DboAudBusqPartida.CAMPO_COD_AREA_REG, bean.getCodAreaReg());
+		tablaAudit.setField(DboAudBusqPartida.CAMPO_NOMAPE_RAZSOC_PART, bean.getNomApeRazSocPart());
+		tablaAudit.setField(DboAudBusqPartida.CAMPO_NUM_SEDES, sedes.length);
+		tablaAudit.setField(DboAudBusqPartida.CAMPO_TIPO_PARTICIPACION, bean.getTipoParticipacion());
+		tablaAudit.setField(DboAudBusqPartida.CAMPO_TIPO_PERS_PART, bean.getTipoPersPart());
+		tablaAudit.setField(DboAudBusqPartida.CAMPO_TRANS_ID, Long.toString(idTran));
+		tablaAudit.add();
+		String busqPartId = tablaAudit.getField(DboAudBusqPartida.CAMPO_AUD_BUSQ_PARTIDA_ID);
+		
+		for(int j = 0; j < sedes.length; j++)
+			registraLogAuditoriaBusqMultSedes(busqPartId, sedes[j], myConn);
+
+		switch(tipo){
+			case Constantes.REG_AEREO:
+				registraLogAuditoriaBuscaPartidaRegAereo(beanA, busqPartId, myConn);
+				break;
+			
+			case Constantes.REG_EMB:
+				registraLogAuditoriaBuscaPartidaRegEmb(beanE, busqPartId, myConn);
+				break;
+			
+			case Constantes.REG_MINERO:
+				registraLogAuditoriaBuscaPartidaRegMin (beanM, busqPartId, myConn);
+				break;
+			
+			case Constantes.REG_PREDIO:
+				registraLogAuditoriaBuscaPartidaRegPredios (beanP, busqPartId, myConn);
+				break;
+			
+			case Constantes.REG_RAZ_SOC_PJ:
+				registraLogAuditoriaBusqRaz_Soc_PJ(beanRSPJ, busqPartId, myConn);
+				break;
+				
+			case Constantes.REG_VEH_MOTOR:
+				registraLogAuditoriaBusqRaz_Soc_PJ(beanRSPJ, busqPartId, myConn);
+				break;
+
+			case Constantes.REG_VEH_SERIE:
+				registraLogAuditoriaBusqRaz_Soc_PJ(beanRSPJ, busqPartId, myConn);
+				break;
+				
+				
+		}
+	}
+
+
+//Auditoria Busqueda Placa por nom o razSoc
+	private void registraLogAuditoriaBusqPlacaVehiNomRaz (LogAuditoriaConsultaPlacaBean bean, DBConnection myConn) throws CustomException, DBException, Throwable{
+		//String[] sedes = bean.getNumSedes();
+		
+	//Se prepara el String de Búsqueda
+		StringBuffer strBusq = new StringBuffer();
+		if(bean.getTipoBusq() == 2)
+			strBusq.append("BUSQUEDA DE PLACA POR NOMBRES: ");
+		else
+			strBusq.append("BUSQUEDA DE PLACA POR RAZON SOCIAL: ");
+		/*
+		if(sedes.length <= 0)
+			throw new CustomException(Errors.EC_MISSING_PARAM, "Debe seleccionar al menos una sede", "errorPrepago");
+		else if(sedes.length == 13)
+			strBusq.append(" TODAS LAS SEDES.");
+		else{
+			strBusq.append(sedes.length).append(" SEDES: ").append(nombreSede(sedes[0], myConn));
+			
+			for(int i = 1; i < sedes.length; i++)
+				strBusq.append(nombreSede(sedes[i], myConn));
+		}
+		*/
+		strBusq.append(" Ofic Reg: ").append(nombreOficina(bean.getRegPubId(), bean.getOficRegId(), myConn));
+		if(bean.getTipoBusq() == 2)
+			strBusq.append(" TIPO PARTICIPANTE PN - PARTICIPANTE: ");
+		else
+			strBusq.append(" TIPO PARTICIPANTE PJ - PARTICIPANTE: ");
+		
+		strBusq.append(bean.getParamBusqueda());
+		
+		
+		long idTran = grabaTransaccion(strBusq.toString(), (TransactionBean) bean, myConn);
+		
+		DboAudBusqPartida tablaAudit = new DboAudBusqPartida(myConn);
+			
+		tablaAudit.setField(DboAudBusqPartida.CAMPO_COD_AREA_REG, bean.getCodAreaReg());
+		tablaAudit.setField(DboAudBusqPartida.CAMPO_NOMAPE_RAZSOC_PART, bean.getParamBusqueda());
+		tablaAudit.setField(DboAudBusqPartida.CAMPO_NUM_SEDES, bean.getNumSedes());
+		tablaAudit.setField(DboAudBusqPartida.CAMPO_TIPO_PARTICIPACION, bean.getTipoParticipacion());
+		tablaAudit.setField(DboAudBusqPartida.CAMPO_TIPO_PERS_PART, bean.getTipoPersPart());
+		tablaAudit.setField(DboAudBusqPartida.CAMPO_TRANS_ID, Long.toString(idTran));
+		tablaAudit.add();
+		String busqPartId = tablaAudit.getField(DboAudBusqPartida.CAMPO_AUD_BUSQ_PARTIDA_ID);
+		
+		
+	}
+
+//Auditoria Visualiza Partida
+	private void registraLogAuditoriaVisualizaPartida (LogAuditoriaVisualizaPartidaBean bean, DBConnection myConn) throws CustomException, DBException, Throwable
+	{
+	//Se prepara el String de Búsqueda
+		StringBuffer strBusq = new StringBuffer("VISUALIZACION DE PARTIDA-");
+		
+		strBusq.append("Num Partida: ").append(bean.getNumPartida()).append(" Ofic Reg: ").append(nombreOficina(bean.getRegPubId(), bean.getOficRegId(), myConn));
+		
+		//cjvc77 20021218
+			strBusq.append(" ").append(bean.getNumDocViasualiz());		
+		
+/*		if(Integer.parseInt(bean.getTipoImgVisualiz()) == 1)
+			strBusq.append(" Asiento ").append(bean.getNumDocViasualiz());
+		
+		if(Integer.parseInt(bean.getTipoImgVisualiz()) == 2)
+			strBusq.append(" Ficha ").append(bean.getNumDocViasualiz());
+
+		if(Integer.parseInt(bean.getTipoImgVisualiz()) == 3){
+			StringTokenizer t = new StringTokenizer(bean.getNumDocViasualiz(), "|");
+			strBusq.append(" Tomo ").append(t.nextToken()).append(" Folio ").append(t.nextToken());
+			
+		}
+*/
+		long idTran = grabaTransaccion(strBusq.toString(), (TransactionBean) bean, myConn);
+
+		DboAudVisualizPartida tablaAudit = new DboAudVisualizPartida();
+		tablaAudit.setConnection(myConn);
+		
+		tablaAudit.setField(DboAudVisualizPartida.CAMPO_NUMERO_DOC_VISUALIZ, bean.getNumDocViasualiz());
+		tablaAudit.setField(DboAudVisualizPartida.CAMPO_NUM_PARTIDA, bean.getNumPartida());
+		tablaAudit.setField(DboAudVisualizPartida.CAMPO_OFIC_REG_ID, bean.getOficRegId());
+		tablaAudit.setField(DboAudVisualizPartida.CAMPO_REG_PUB_ID, bean.getRegPubId());
+		tablaAudit.setField(DboAudVisualizPartida.CAMPO_TIPO_IMG_VISUALIZ, bean.getTipoImgVisualiz());
+		tablaAudit.setField(DboAudVisualizPartida.CAMPO_TRANS_ID, Long.toString(idTran));
+		try{
+		tablaAudit.add();
+		}catch(Throwable t)
+		{
+			t.printStackTrace();
+		}
+	}
+
+//Auditoria REG EMB
+	private void registraLogAuditoriaBuscaPartidaRegEmb (LogAuditoriaBuscaPartidaRegEmb bean, String busqPartId, DBConnection myConn) throws CustomException, DBException, Throwable{
+			DboAudBusqRegEmb tablaAudit = new DboAudBusqRegEmb();
+			tablaAudit.setConnection(myConn);
+			
+			tablaAudit.setField(DboAudBusqRegEmb.CAMPO_TIPO_PARAM, bean.getTipoParam());
+			tablaAudit.setField(DboAudBusqRegEmb.CAMPO_VALOR, bean.getValor());
+			tablaAudit.setField(DboAudBusqRegEmb.CAMPO_AUD_BUSQ_PARTIDA_ID, busqPartId);
+			tablaAudit.setField(DboAudBusqRegEmb.CAMPO_TIPO_EMB, bean.getTipoEmb());
+			tablaAudit.add();
+	}
+
+//Auditoria REG MIN
+	private void registraLogAuditoriaBuscaPartidaRegMin (LogAuditoriaBuscaPartidaRegMinBean bean, String busqPartId, DBConnection myConn) throws CustomException, DBException, Throwable{
+			DboAudBusqRegMin tablaAudit = new DboAudBusqRegMin();
+			tablaAudit.setConnection(myConn);
+			
+			tablaAudit.setField(DboAudBusqRegMin.CAMPO_TIPO_PARAM, bean.getTipoParam());
+			tablaAudit.setField(DboAudBusqRegMin.CAMPO_VALOR, bean.getValor());
+			tablaAudit.setField(DboAudBusqRegMin.CAMPO_AUD_BUSQ_PARTIDA_ID, busqPartId);
+			tablaAudit.add();
+	}
+
+//Auditoria RAZ SOC PJ
+	private void registraLogAuditoriaBusqRaz_Soc_PJ (LogAuditoriaBusqRazSocPJBean bean, String busqPartId, DBConnection myConn) throws CustomException, DBException, Throwable{
+			DboAudBusqRazSocPj tablaAudit = new DboAudBusqRazSocPj();
+			tablaAudit.setConnection(myConn);
+			
+			tablaAudit.setField(DboAudBusqRazSocPj.CAMPO_AUD_BUSQ_PARTIDA_ID, busqPartId);
+			tablaAudit.setField(DboAudBusqRazSocPj.CAMPO_RAZ_SOC_PJ, bean.getRazSocPJ());
+			tablaAudit.add();
+	}
+
+//Auditoria REG PREDIOS
+	private void registraLogAuditoriaBuscaPartidaRegPredios (LogAuditoriaBuscaPartidaRegPrediosBean bean, String busqPartId, DBConnection myConn) throws CustomException, DBException, Throwable{
+			DboAudBusqRegPredios tablaAudit = new DboAudBusqRegPredios();
+			tablaAudit.setConnection(myConn);
+			
+			tablaAudit.setField(DboAudBusqRegPredios.CAMPO_AUD_BUSQ_PARTIDA_ID, busqPartId);
+			tablaAudit.setField(DboAudBusqRegPredios.CAMPO_PROV_ID, bean.getProv());
+			tablaAudit.setField(DboAudBusqRegPredios.CAMPO_PAIS_ID, bean.getPais());
+			tablaAudit.setField(DboAudBusqRegPredios.CAMPO_DPTO_ID, bean.getDpto());
+			tablaAudit.setField(DboAudBusqRegPredios.CAMPO_NOMBRE_VIA, bean.getNomVia());
+			tablaAudit.setField(DboAudBusqRegPredios.CAMPO_DIST_ID, bean.getDist());
+			tablaAudit.setField(DboAudBusqRegPredios.CAMPO_NOMBRE_ZONA, bean.getNomZona());
+			tablaAudit.setField(DboAudBusqRegPredios.CAMPO_TIPO_INTER, bean.getTpoInt());
+			tablaAudit.setField(DboAudBusqRegPredios.CAMPO_TIPO_NUMER, bean.getTpoNum());
+			tablaAudit.setField(DboAudBusqRegPredios.CAMPO_TIPO_VIA, bean.getTpoVia());
+			tablaAudit.setField(DboAudBusqRegPredios.CAMPO_NUM_INMB, bean.getNumInmb());
+			tablaAudit.setField(DboAudBusqRegPredios.CAMPO_NUM_INTERIOR, bean.getNumInt());
+			tablaAudit.setField(DboAudBusqRegPredios.CAMPO_TIPO_ZONA, bean.getTpoZona());
+			tablaAudit.add();
+	}
+
+//Auditoria REG AEREO
+	private void registraLogAuditoriaBuscaPartidaRegAereo (LogAuditoriaBuscaPartidaRegAereoBean bean, String busqPartId, DBConnection myConn) throws CustomException, DBException, Throwable{
+		DboAudBusqRegAero tablaAudit = new DboAudBusqRegAero();
+		tablaAudit.setConnection(myConn);
+			
+		tablaAudit.setField(DboAudBusqRegAero.CAMPO_TIPO_PARAM, bean.getTipoParam());
+		tablaAudit.setField(DboAudBusqRegAero.CAMPO_VALOR, bean.getValor());
+		tablaAudit.setField(DboAudBusqRegAero.CAMPO_TIPO_TITULAR, bean.getTipoTitular());
+		tablaAudit.setField(DboAudBusqRegAero.CAMPO_AUD_BUSQ_PARTIDA_ID, busqPartId);
+		tablaAudit.add();
+	}
+
+//Auditoria: Múltiple Sedes
+	private void registraLogAuditoriaBusqMultSedes(String busqPartId, String codSede, DBConnection myConn) throws CustomException, DBException, Throwable{
+			DboAudBusqMultSedes tablaAudit = new DboAudBusqMultSedes();
+			tablaAudit.setConnection(myConn);
+			
+			tablaAudit.setField(DboAudBusqMultSedes.CAMPO_AUD_BUSQ_PARTIDA_ID, busqPartId);
+			tablaAudit.setField(DboAudBusqMultSedes.CAMPO_COD_SEDE, codSede);
+			tablaAudit.setField(DboAudBusqMultSedes.CAMPO_TIPO_DOC_BUSQ, "1");
+			tablaAudit.add();
+	}
+
+//Auditoria: Afiliciacion
+	private void registraLogAuditoriaAfiliacion (LogAuditoriaAfiliacionBean bean, DBConnection myConn) throws CustomException, DBException, Throwable{
+	//Se prepara el String de Búsqueda
+		StringBuffer strBusq = new StringBuffer("AFILIACION: ").append(bean.getUserId());
+		long idTran = grabaTransaccion(strBusq.toString(), (TransactionBean) bean, myConn);
+		
+		DboAudAfiliacion tablaAudit = new DboAudAfiliacion();
+		tablaAudit.setConnection(myConn);
+			
+		tablaAudit.setField(DboAudAfiliacion.CAMPO_FG_WEB, bean.getFgWeb());
+		tablaAudit.setField(DboAudAfiliacion.CAMPO_OFIC_REG_ID, bean.getOficRegId());//puede ser null
+		tablaAudit.setField(DboAudAfiliacion.CAMPO_REG_PUB_ID, bean.getRegPubId());// puede ser null
+		tablaAudit.setField(DboAudAfiliacion.CAMPO_TIPO_AFIL, bean.getTipoAfil());
+		tablaAudit.setField(DboAudAfiliacion.CAMPO_NUM_CONT, bean.getNumCont());
+		tablaAudit.setField(DboAudAfiliacion.CAMPO_TRANS_ID, Long.toString((long) idTran));
+		tablaAudit.setField(DboAudAfiliacion.CAMPO_PERSONA_ID, bean.getPersonaId());
+		tablaAudit.add();
+	}
+
+//Auditoria: Consulta Titulo
+	private void registraLogAuditoriaConsulTitulo (LogAuditoriaConsulTituloBean bean, DBConnection myConn) throws CustomException, DBException, Throwable{
+	//Se prepara el String de Búsqueda
+		StringBuffer strBusq = new StringBuffer("CONSULTA DE TITULO: ");
+		strBusq.append(bean.getNumTitulo()).append(" ANO: ").append(bean.getAnoTitulo()).append(" Ofic Reg: ").append(nombreOficina(bean.getRegPubId(), bean.getOficRegId(), myConn));
+		long idTran = grabaTransaccion(strBusq.toString(), (TransactionBean) bean, myConn);
+
+		DboAudConsultaTitulo tablaAudit = new DboAudConsultaTitulo();
+		tablaAudit.setConnection(myConn);
+			
+		tablaAudit.setField(DboAudConsultaTitulo.CAMPO_AA_TITULO, bean.getAnoTitulo());
+		tablaAudit.setField(DboAudConsultaTitulo.CAMPO_NUM_TITULO, bean.getNumTitulo());
+		tablaAudit.setField(DboAudConsultaTitulo.CAMPO_OFIC_REG_ID, bean.getOficRegId());
+		tablaAudit.setField(DboAudConsultaTitulo.CAMPO_REG_PUB_ID, bean.getRegPubId());
+		tablaAudit.setField(DboAudConsultaTitulo.CAMPO_TRANS_ID, Long.toString(idTran));
+		tablaAudit.add();
+	}
+
+//Auditoria: Consulta Partida
+	private void registraLogAuditoriaConsultaPartida (LogAuditoriaConsultaPartidaBean bean, DBConnection myConn) throws CustomException, DBException, Throwable{
+	//Se prepara el String de Búsqueda
+		StringBuffer strBusq = new StringBuffer("CONSULTA DE PARTIDA-");
+		
+		strBusq.append("Ofic Reg: ").append(nombreOficina(bean.getRegPubId(), bean.getOficRegId(), myConn));
+		
+		if(bean.getTipoConsPartida().equals("1"))
+						strBusq.append(" NUMERO DE PARTIDA ").append(bean.getNumPartFic());
+
+		if(bean.getTipoConsPartida().equals("2"))
+						strBusq.append(" NUMERO DE FICHA ").append(bean.getNumPartFic());
+
+		if(bean.getTipoConsPartida().equals("3")){
+			StringTokenizer stk = new StringTokenizer(bean.getLibTomFol(), "|");
+			String aux[] = new String[3];
+			int i = 0;
+				  
+			while (stk.hasMoreTokens()) {
+				aux[i++] = stk.nextToken();
+			}
+			
+			strBusq.append(" LIBRO ").append(aux[0]).append(" TOMO: ").append(aux[1]).append(" FOLIO: ").append(aux[2]);
+		}
+		//hp
+		if(bean.getTipoConsPartida().equals("4"))
+						strBusq.append(" NUMERO DE PLACA ").append(bean.getNumPartFic());
+						
+		long idTran = grabaTransaccion(strBusq.toString(), (TransactionBean) bean, myConn);
+		
+		DboAudConsultaPartida tablaAudit = new DboAudConsultaPartida(myConn);
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_LIB_TOM_FOL, bean.getLibTomFol());
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_NUM_PART_FICHA, bean.getNumPartFic());
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_OFIC_REG_ID, bean.getOficRegId());
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_REG_PUB_ID, bean.getRegPubId());
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_TIPO_BUSQ, bean.getTipoBusq());
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_TRANS_ID, Long.toString(idTran));
+		tablaAudit.add();
+	}
+	
+//Auditoria: Consulta Vehicular Placa - Partida
+	private void registraLogAuditoriaConsultaPlaca_Partida_Vehicular (LogAuditoriaConsultaPlacaBean bean, DBConnection myConn) throws CustomException, DBException, Throwable{
+	//Se prepara el String de Búsqueda
+		
+		StringBuffer strBusq = new StringBuffer();
+		
+		if(bean.getTipoBusq() == 0)
+			strBusq.append("CONSULTA VEHICULAR POR PLACA").append(" Ofic Reg: ").append(nombreOficina(bean.getRegPubId(), bean.getOficRegId(), myConn)).append(" NUMERO DE PLACA ").append(bean.getParamBusqueda());
+		else
+			strBusq.append("CONSULTA VEHICULAR POR PARTIDA").append(" Ofic Reg: ").append(nombreOficina(bean.getRegPubId(), bean.getOficRegId(), myConn)).append(" NUMERO DE PARTIDA ").append(bean.getParamBusqueda());
+		
+		long idTran = grabaTransaccion(strBusq.toString(), (TransactionBean) bean, myConn);
+		
+		DboAudConsultaPartida tablaAudit = new DboAudConsultaPartida(myConn);
+		//tablaAudit.setField(DboAudConsultaPartida.CAMPO_LIB_TOM_FOL, "");
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_NUM_PART_FICHA, bean.getParamBusqueda());
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_OFIC_REG_ID, bean.getOficRegId());
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_REG_PUB_ID, bean.getRegPubId());
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_TIPO_BUSQ, bean.getTipoParticipacion());
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_TRANS_ID, Long.toString(idTran));
+		tablaAudit.add();
+	}	
+
+//Metodo que graba la Transaccion
+	private long grabaTransaccion(String descripcion, TransactionBean bean, DBConnection myConn) 
+		throws CustomException, DBException, Throwable{
+		
+		UsuarioBean usuarioSession = bean.getUsuarioSession();
+		double costo_servicio = 0.0;
+		
+		if((bean.getCodigoServicio()>109 && bean.getCodigoServicio()<=140 && usuarioSession.getPerfilId() == Constantes.PERFIL_CAJERO)||
+		   (usuarioSession.getFgInterno()==false && 
+		   usuarioSession.getExonPago()==false))
+		{   
+			if(bean.getCodigoServicio()>109 && bean.getCodigoServicio()<=140)
+			{
+				if(((LogAuditoriaCertificadoBean)bean).getCantidad().equals("1"))
+				{
+					if(bean.getCodigoServicio()==110)
+						costo_servicio = 2.00 * costoTarifa(bean, myConn);
+					else
+						costo_servicio = costoTarifa(bean, myConn);
+				}
+				else
+				{
+					costo_servicio = Double.parseDouble(((LogAuditoriaCertificadoBean)bean).getCantidad()) * costoTarifa(bean, myConn);
+				}
+			}
+			else
+			{
+				costo_servicio = costoTarifa(bean, myConn);
+			}
+		}
+		
+		DboTransaccion transac = new DboTransaccion();
+		transac.setConnection(myConn);
+		transac.setField(transac.CAMPO_SERVICIO_ID, bean.getCodigoServicio());
+		//Tarifario
+		transac.setField(transac.CAMPO_COD_GRUPO_LIBRO_AREA, bean.getCodigoGLA());
+		transac.setField(transac.CAMPO_CUENTA_ID, usuarioSession.getCuentaId());
+		transac.setField(transac.CAMPO_FEC_HOR, FechaUtil.dateTimeToStringToOracle(new Timestamp(System.currentTimeMillis())));
+		transac.setField(transac.CAMPO_COSTO, Double.toString(costo_servicio));
+		transac.setField(transac.CAMPO_IP, bean.getRemoteAddr());
+		//25octHT
+		if (bean.getCodigoServicio()==TipoServicio.AFILIACION_EXTRANET &&
+		    usuarioSession.getPerfilId()==Constantes.PERFIL_CAJERO)
+		    	transac.setField(transac.CAMPO_TIPO_USR, "1");
+		else
+				transac.setField(transac.CAMPO_TIPO_USR, usuarioSession.getFgInterno() ? "0" : "1");
+		transac.setField(transac.CAMPO_STR_BUSQ, descripcion);
+		transac.setField(transac.CAMPO_REG_PUB_ID, usuarioSession.getRegPublicoId());
+		transac.setField(transac.CAMPO_OFIC_REG_ID, usuarioSession.getOficRegistralId());
+		transac.add();
+
+		long transacID = Long.parseLong(transac.getField(DboTransaccion.CAMPO_TRANS_ID));
+		
+		if(costo_servicio >= 0 && !usuarioSession.getExonPago())
+		{
+			PrepagoBean prep = new PrepagoBean();
+				
+			prep.setUsuario(usuarioSession.getUserId());
+			prep.setLineaPrepagoId(usuarioSession.getLinPrePago());
+			prep.setMontoBruto(costo_servicio);
+			prep.setTransacId(transacID);
+			
+			LineaPrepago lineaCmd = new LineaPrepago();
+			lineaCmd.reduceSaldo(usuarioSession, prep, myConn);
+			/**Comentado el 25/08/2003**/
+			if(bean.getCodigoServicio()>109 && bean.getCodigoServicio()<=140)
+				((LogAuditoriaCertificadoBean)bean).setConsumoId(prep.getConsumoId());				
+			/****/
+		}
+		//if(costo_servicio > 0 &&  (bean.getCodigoServicio()>109 && bean.getCodigoServicio()<=140) && usuarioSession.getPerfilId() == Constantes.PERFIL_CAJERO)
+		if(costo_servicio >= 0 &&  (bean.getCodigoServicio()>109 && bean.getCodigoServicio()<=140) && usuarioSession.getPerfilId() == Constantes.PERFIL_CAJERO)
+		{
+			PrepagoBean prep = new PrepagoBean();
+				
+			//prep.setUsuario(Constantes.COMODIN_USUARIO);
+			prep.setUsuario(Comodin.getInstance().getUsuario());
+			//prep.setLineaPrepagoId(""+Constantes.COMODIN_LINEA_PREPAGO);
+			prep.setLineaPrepagoId(""+Comodin.getInstance().getLineaPrePago());
+			prep.setMontoBruto(costo_servicio);
+			prep.setTransacId(transacID);
+			
+			LineaPrepago lineaCmd = new LineaPrepago();
+			lineaCmd.reduceSaldo(usuarioSession, prep, myConn);
+			((LogAuditoriaCertificadoBean)bean).setConsumoId(prep.getConsumoId());
+		}
+		
+		return transacID;
+	}
+
+//Metodos de Funcionalidad Generica
+	private String nombreOficina(String regPubId, String oficRegId, DBConnection myConn) throws DBException, Throwable{
+		DboOficRegistral oficina = new DboOficRegistral();
+		oficina.setConnection(myConn);
+
+		oficina.clearAll();
+		oficina.setFieldsToRetrieve(DboOficRegistral.CAMPO_NOMBRE);
+		oficina.setField(DboOficRegistral.CAMPO_REG_PUB_ID, regPubId);
+		oficina.setField(DboOficRegistral.CAMPO_OFIC_REG_ID, oficRegId);
+		if(oficina.find())
+			return oficina.getField(DboOficRegistral.CAMPO_NOMBRE);
+		else
+			return "No disponible";
+	}
+
+	private String nombreSede(String regPubId, DBConnection myConn) throws DBException, Throwable{
+		DboRegisPublico sede = new DboRegisPublico();
+		sede.setConnection(myConn);
+
+		sede.clearAll();
+		sede.setFieldsToRetrieve(DboRegisPublico.CAMPO_NOMBRE);
+		sede.setField(DboRegisPublico.CAMPO_REG_PUB_ID, regPubId);
+		if(sede.find())
+			return sede.getField(DboRegisPublico.CAMPO_NOMBRE);
+		else
+			return "No disponible";
+	}
+
+	private double costoTarifa(TransactionBean bean, DBConnection myConn) throws CustomException, DBException, Throwable
+	{
+		// Fecha: 2003-07-31
+		// Autor: HP
+		// Descripción: Se agregó la funcionalidad para que cobre los servicios de búsquedas por índices en Lima
+		int codServicio= bean.getCodigoServicio();
+		//Tarifario
+		int codGLA= bean.getCodigoGLA();
+		
+		DboTarifa tarifa = new DboTarifa(myConn);
+		tarifa.setFieldsToRetrieve(DboTarifa.CAMPO_PREC_OFIC);
+		
+		if (codServicio>=20 && codServicio<=32)
+		{
+			LogAuditoriaBusqPartidaBean lb = (LogAuditoriaBusqPartidaBean) bean;						
+			String[] sedes = lb.getNumSedes();
+			boolean blima = false;
+			String areaReg = lb.getCodAreaReg()==null?"":lb.getCodAreaReg(); 
+		}
+		else
+		{
+			if(codServicio == 90)
+			{		
+				LogAuditoriaConsultaPlacaBean lb2 = (LogAuditoriaConsultaPlacaBean) bean;
+				String flCobro = lb2.getFlagCobro()==null?"":lb2.getFlagCobro(); 	
+				if(flCobro.equals("1"))
+					return 0;					
+			}	
+			
+		}
+		
+		tarifa.setField(DboTarifa.CAMPO_SERVICIO_ID, codServicio);
+		//Tarifario
+		tarifa.setField(DboTarifa.CAMPO_COD_GRUPO_LIBRO_AREA, codGLA);
+		
+		if(!tarifa.find())
+			throw new DBException("No existe servicio con codigo '"+ codServicio + "' y GLA '"+ codGLA + "' en tabla TARIFA");
+				
+		return Double.parseDouble(tarifa.getField(DboTarifa.CAMPO_PREC_OFIC));
+	}
+/*
+	private double costoTarifa(TransactionBean bean, DBConnection myConn) throws CustomException, DBException, Throwable
+	{
+		int codServicio= bean.getCodigoServicio();
+		DboTarifa tarifa = new DboTarifa(myConn);
+		tarifa.setFieldsToRetrieve(DboTarifa.CAMPO_PREC_OFIC);
+		
+		//3ene2003, buscar en Lima a través de Búsqueda 
+		//          Indirecta, no debe costar
+
+		if (codServicio>=20 && codServicio<=32)
+		{
+			LogAuditoriaBusqPartidaBean lb = (LogAuditoriaBusqPartidaBean) bean;						
+			String[] sedes = lb.getNumSedes();
+			boolean blima = false;
+			for (int w =0; w < sedes.length; w++)
+				{
+					if (sedes[w].equals("01"))
+						blima=true;
+				}
+			
+							
+			String areaReg = lb.getCodAreaReg()==null?"":lb.getCodAreaReg(); 
+			if (blima==true && !areaReg.equals("24000"))///lima = true y no es RPV	
+				codServicio--;
+				
+			if (codServicio<20)
+				codServicio=20;
+				
+			if (codServicio==20 && blima==true && !areaReg.equals("24000"))///codServ = 20 y no es RPV
+				return 0;
+				
+			//if bean partida incompleta ok -> retrun 0	
+				
+		}
+		else
+		{
+			if(codServicio == 90)
+			{		
+				LogAuditoriaConsultaPlacaBean lb2 = (LogAuditoriaConsultaPlacaBean) bean;
+				String flCobro = lb2.getFlagCobro()==null?"":lb2.getFlagCobro(); 	
+				if(flCobro.equals("1"))
+					return 0;					
+			}	
+			
+		}
+		
+		
+		tarifa.setField(DboTarifa.CAMPO_SERVICIO_ID, codServicio);
+		
+		if(!tarifa.find())
+			throw new DBException("No existe servicio con codigo '"+ codServicio + "' en tabla TARIFA");
+				
+		return Double.parseDouble(tarifa.getField(DboTarifa.CAMPO_PREC_OFIC));
+	}
+*/	
+	//Auditoria: Consulta Titulo Vehicular
+	/** Kuma **/
+	private void registraLogAuditoriaConsulTituloVehi (LogAuditoriaConsulTituloBean bean, DBConnection myConn) throws DBException, Throwable{
+	//Se prepara el String de Búsqueda
+		StringBuffer strBusq = new StringBuffer("CONSULTA DE TITULO VEHICULAR: ");
+		strBusq.append(bean.getNumTitulo()).append(" ANO: ").append(bean.getAnoTitulo()).append(" Ofic Reg: ").append(nombreOficina(bean.getRegPubId(), bean.getOficRegId(), myConn));
+		long idTran = grabaTransaccion(strBusq.toString(), (TransactionBean) bean, myConn);
+
+		DboAudConsultaTitulo tablaAudit = new DboAudConsultaTitulo();
+		tablaAudit.setConnection(myConn);
+			
+		tablaAudit.setField(DboAudConsultaTitulo.CAMPO_AA_TITULO, bean.getAnoTitulo());
+		tablaAudit.setField(DboAudConsultaTitulo.CAMPO_NUM_TITULO, bean.getNumTitulo());
+		tablaAudit.setField(DboAudConsultaTitulo.CAMPO_OFIC_REG_ID, bean.getOficRegId());
+		tablaAudit.setField(DboAudConsultaTitulo.CAMPO_REG_PUB_ID, bean.getRegPubId());
+		tablaAudit.setField(DboAudConsultaTitulo.CAMPO_TRANS_ID, Long.toString(idTran));
+		tablaAudit.add();
+	}
+	
+	//Auditoria: Consulta Placa
+	/** Kuma **/
+	private void registraLogAuditoriaConsultaPlaca (LogAuditoriaConsultaPartidaBean bean, DBConnection myConn) throws DBException, Throwable{
+	//Se prepara el String de Búsqueda
+		StringBuffer strBusq = new StringBuffer("CONSULTA DE PARTIDA-");
+		
+		strBusq.append("Ofic Reg: ").append(nombreOficina(bean.getRegPubId(), bean.getOficRegId(), myConn));
+		
+		if(bean.getTipoConsPartida().equals("1"))
+						strBusq.append(" NUMERO DE PARTIDA ").append(bean.getNumPartFic());
+
+		if(bean.getTipoConsPartida().equals("2"))
+						strBusq.append(" NUMERO DE FICHA ").append(bean.getNumPartFic());
+
+		if(bean.getTipoConsPartida().equals("3")){
+			StringTokenizer stk = new StringTokenizer(bean.getLibTomFol(), "|");
+			String aux[] = new String[3];
+			int i = 0;
+				  
+			while (stk.hasMoreTokens()) {
+				aux[i++] = stk.nextToken();
+			}
+			
+			strBusq.append(" LIBRO ").append(aux[0]).append(" TOMO: ").append(aux[1]).append(" FOLIO: ").append(aux[2]);
+		}
+		
+		long idTran = grabaTransaccion(strBusq.toString(), (TransactionBean) bean, myConn);
+		
+		DboAudConsultaPartida tablaAudit = new DboAudConsultaPartida(myConn);
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_LIB_TOM_FOL, bean.getLibTomFol());
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_NUM_PART_FICHA, bean.getNumPartFic());
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_OFIC_REG_ID, bean.getOficRegId());
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_REG_PUB_ID, bean.getRegPubId());
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_TIPO_BUSQ, bean.getTipoBusq());
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_TRANS_ID, Long.toString(idTran));
+		tablaAudit.add();
+	}
+	
+	//Auditoria: Publicidad Certificada
+	/** Kuma 08/07/2003**/
+	private void registraLogAuditoriaPubliCerti (LogAuditoriaCertificadoBean bean, DBConnection myConn) throws DBException, Throwable{
+	//Se prepara el String de Búsqueda
+		StringBuffer strBusq = new StringBuffer("PUBLICIDAD CERTIFICADA - ");
+		
+		strBusq.append("OFICINA: ").append(nombreOficina(bean.getRegPubId(), bean.getOficRegId(), myConn));
+		
+		strBusq.append(" SOLICITUD: ").append(bean.getSolicitud_id());
+		
+		int tipo = bean.getCodigoServicio();
+		switch (tipo)
+		{
+			case TipoServicio.COPIA_LITERAL_CERTIFICADA:
+				strBusq.append(" SERVICIO: COPIA LITERAL CERTIFICADA");
+				break;
+			case TipoServicio.CERT_NEG_TESTAMENTO:
+				strBusq.append(" SERVICIO: CERT. NEG. DE TESTAMENTO");
+				break;
+			case TipoServicio.CERT_NEG_SUC_INTEST:
+				strBusq.append(" SERVICIO: CERT. NEG. DE SUCECION INTESTADA");
+				break;
+			case TipoServicio.CERT_NEG_REGIS_PERS:
+				strBusq.append(" SERVICIO: CERT. NEG. DE REGISTRO DE PERSONAL");
+				break;
+			case TipoServicio.CERT_NEG_PERS_JURID:
+				strBusq.append(" SERVICIO: CERT. NEG. DE PERSONA JURIDICA");
+				break;
+			case TipoServicio.CERT_NEG_PROP_INMUE:
+				strBusq.append(" SERVICIO: CERT. NEG. DE PROPIEDAD INMUEBLE");
+				break;
+			case TipoServicio.CERT_NEG_PROP_VEHIC:
+				strBusq.append(" SERVICIO: CERT. NEG. DE PROPIEDAD VEHICULAR");
+				break;
+			case TipoServicio.DELIVERY_CERT:
+				strBusq.append(" SERVICIO: ENVIO DE CERTIFICADOS");
+				break;
+							
+		}
+		
+		long idTran = grabaTransaccion(strBusq.toString(), (TransactionBean) bean, myConn);
+		//FALTA QUE HARLIN LO CREE
+		/*
+		DboAudConsultaPartida tablaAudit = new DboAudConsultaPartida(myConn);
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_LIB_TOM_FOL, bean.getLibTomFol());
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_NUM_PART_FICHA, bean.getNumPartFic());
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_OFIC_REG_ID, bean.getOficRegId());
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_REG_PUB_ID, bean.getRegPubId());
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_TIPO_BUSQ, bean.getTipoBusq());
+		tablaAudit.setField(DboAudConsultaPartida.CAMPO_TRANS_ID, Long.toString(idTran));
+		tablaAudit.add();
+		*/
+	}
+	
+}

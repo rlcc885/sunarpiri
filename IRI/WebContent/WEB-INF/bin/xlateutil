@@ -1,0 +1,4 @@
+# Run XlateUtil utility
+java -classpath /home/expresso/expresso/expresso-web/WEB-INF/classes com.jcorporate.expresso.core.utility.XlateUtil /home/expresso/expresso/expresso-web/WEB-INF/classes/com/jcorporate/econtent/ fr
+
+

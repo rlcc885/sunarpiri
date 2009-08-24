@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META name="GENERATOR" content="IBM WebSphere Studio">
+<META HTTP-EQUIV="CONTENT-Type" CONTENT="text/html; CHARSET=ISO-8859-1">
+<TITLE>prueba.html</TITLE>
+<script language="javascript">
+function ingresar()
+{   document.form1.method = "POST";
+  document.form1.action = "/iri/IncrementarSaldo.do?state=inicioAbono";
+  document.form1.submit();
+}
+</script>
+
+</HEAD>
+<BODY>
+
+<form name="form1">
+<input type="button" onclick="ingresar()">
+</form>
+Place prueba.html's content here
+</BODY>
+</HTML>

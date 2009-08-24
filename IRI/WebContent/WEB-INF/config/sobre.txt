@@ -1,0 +1,23 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    No. Solicitud : [NO_SOLICITUD]
+                                    Atencion      : [DESTINATARIO]
+                                    Direccion     : [DIRECCION1]
+                                                            [DIRECCION2]
+                                                            [DIRECCION3]
+                                                            
+                                               Gracias por hacer uso de nuestro servicio - SUNARP.
