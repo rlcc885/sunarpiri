@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<faceted-project>
-  <runtime name="WebSphere Application Server v6.1"/>
-  <fixed facet="jst.ear"/>
-  <installed facet="jst.ear" version="1.4"/>
-  <installed facet="com.ibm.websphere.extended.ear" version="6.1"/>
-  <installed facet="com.ibm.websphere.coexistence.ear" version="6.1"/>
-</faceted-project>

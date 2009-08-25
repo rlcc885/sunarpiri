@@ -1,3 +1,0 @@
-# Expresso tests
-java com.jcorporate.expresso.core.utility.JobHandler configDir=/home/expresso/expresso/expresso-web/WEB-INF/config webAppDir=/home/expresso/expresso/expresso-web db=site 
-

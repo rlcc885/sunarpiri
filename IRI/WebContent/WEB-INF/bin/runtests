@@ -1,9 +1,0 @@
-# Expresso tests
-java com.jcorporate.expresso.core.utility.ControllerRun configDir=/home/expresso/expresso/expresso-web/WEB-INF/config webAppDir=/home/expresso/expresso/expresso-web db=site controller=com.jcorporate.expresso.ext.controller.RunTests state=runtests sets=2,3,4,12 repeats=1 threads=2
-
-# eForum Tests
-#java com.jcorporate.expresso.core.utility.ControllerRun configDir=/home/expresso/expresso/expresso-web/WEB-INF/config webAppDir=/home/expresso/expresso/expresso-web db=site controller=com.jcorporate.expresso.ext.controller.RunTests state=runtests sets=5 repeats=1 threads=1
-
-# eContent Tests
-java -Xmx32M com.jcorporate.expresso.core.utility.ControllerRun configDir=/home/expresso/expresso/expresso-web/WEB-INF/config webAppDir=/home/expresso/expresso/expresso-web db=site controller=com.jcorporate.expresso.ext.controller.RunTests state=runtests sets=2 repeats=1 threads=1
-
