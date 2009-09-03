@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.ibm.etools.webservice.wsext:WsExtension xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:com.ibm.etools.webservice.wsext="http://www.ibm.com/websphere/appserver/schemas/5.0.2/wsext.xmi" xmi:id="WsExtension_1187967297685">
+  <wsDescExt xmi:id="WsDescExt_1204749710968" wsDescNameLink="BusquedaDetallePartidaServiceProviderService">
+    <pcBinding xmi:id="PcBinding_1204749710968" pcNameLink="BusquedaDetallePartidaServiceProvider"/>
+  </wsDescExt>
+  <wsDescExt xmi:id="WsDescExt_1204749735609" wsDescNameLink="BusquedaDirectaServiceProviderService">
+    <pcBinding xmi:id="PcBinding_1204749735609" pcNameLink="BusquedaDirectaServiceProvider"/>
+  </wsDescExt>
+  <wsDescExt xmi:id="WsDescExt_1204749758968" wsDescNameLink="BusquedaIndicesServiceProviderService">
+    <pcBinding xmi:id="PcBinding_1204749758968" pcNameLink="BusquedaIndicesServiceProvider"/>
+  </wsDescExt>
+  <wsDescExt xmi:id="WsDescExt_1204749780218" wsDescNameLink="BusquedaNacionalIndicesServiceProviderService">
+    <pcBinding xmi:id="PcBinding_1204749780218" pcNameLink="BusquedaNacionalIndicesServiceProvider"/>
+  </wsDescExt>
+  <wsDescExt xmi:id="WsDescExt_1204749798109" wsDescNameLink="SunarpServiceProviderService">
+    <pcBinding xmi:id="PcBinding_1204749798109" pcNameLink="SunarpServiceProvider"/>
+  </wsDescExt>
+  <wsDescExt xmi:id="WsDescExt_1230054364906" wsDescNameLink="WSDenominacionService">
+    <pcBinding xmi:id="PcBinding_1230054364906" pcNameLink="WSDenominacion"/>
+  </wsDescExt>
+  <wsDescExt xmi:id="WsDescExt_1230574114859" wsDescNameLink="WSFactoryService">
+    <pcBinding xmi:id="PcBinding_1230574114859" pcNameLink="WSFactory"/>
+  </wsDescExt>
+</com.ibm.etools.webservice.wsext:WsExtension>

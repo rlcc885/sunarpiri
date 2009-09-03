@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+     DTD for the Expresso Application Configuration File, Version 1.0
+
+     To support validation of your configuration file, include the following
+     DOCTYPE element at the beginning (after the "xml" declaration):
+
+     <!DOCTYPE expresso-config PUBLIC
+       "-//Jcorporate Ltd//DTD Expresso Configuration 1.0//EN"
+       "http://www.jcorporate.com/dtds/expresso-config_1_0.dtd">
+-->
+<!-- ========== Defined Types ============================================= -->
+<!-- A "Boolean" is the string representation of a boolean (true or false)
+     variable.
+-->
+<!ENTITY % Boolean "(true|false|yes|no|y|n)">
+<!-- A "connectFormat" string determines the type of JDBC connect string to be created for a 
+     particular JDBC configuration. See com.jcorporate.expresso.core.db.DBConnection for details -->
+<!ENTITY % ConnectFormat "(1|2|3|4)">
+<!-- ========== Top Level Element ======================================== -->
+<!-- The "expresso-config" element is the root of the configuration file
+     hierarchy, and contains nested elements for all of the other
+     configuration settings.
+-->
+<!ELEMENT expresso-config (logDirectory, strongCrypto?, servletAPI?, cryptoKey?, encryptMode?, class-handlers?, context*)>
+<!ATTLIST expresso-config
+	id ID #IMPLIED
+>
+<!-- logDirectory specifies the pathname of the directory used for each application to create -->
+<!-- it's own log4j log file -->
+<!ELEMENT logDirectory (#PCDATA)>
+<!-- Strong crypto indicates a fully capable cryptography sub-system will be used, rather than a -->
+<!-- basic obfuscation, such as base64. See the "Securing Expresso" document for details -->
+<!-- Setting this option to true requires a cryptographic security provider be installed -->
+<!ELEMENT strongCrypto (#PCDATA)>
+<!ELEMENT servletAPI (#PCDATA)>
+<!ELEMENT cryptoKey (#PCDATA)>
+<!ELEMENT encryptMode (#PCDATA)>
+<!ELEMENT hasSetupTables (#PCDATA)>
+<!ELEMENT class-handlers (class-handler)+>
+<!ELEMENT class-handler (handler-parameter)*>
+<!ATTLIST class-handler
+	name CDATA #REQUIRED
+	classHandler CDATA #REQUIRED
+>
+
+<!ELEMENT handler-parameter EMPTY>
+<!ATTLIST handler-parameter
+	paramName CDATA #REQUIRED
+	paramValue CDATA #REQUIRED
+>
+<!-- The "context" element is the root of each defined context - a context is ordinarily associated
+     with one database (or other persistant store) and a user is logged in to one specific context
+     at a time -->
+<!ENTITY % contextName "CDATA">
+<!ELEMENT context (description?, hasSetupTables?, jdbc?, type-mapping*, images, startJobHandler?, showStackTrace?, mailDebug?, customProperty*, expressoDir?, setupDefault*)>
+<!ATTLIST context
+	id ID #IMPLIED
+	name %contextName; #REQUIRED
+	active %Boolean; #IMPLIED
+	setup CDATA #IMPLIED
+	language CDATA #IMPLIED
+	country CDATA #IMPLIED
+	minPasswordSize CDATA #IMPLIED
+	styleSheet CDATA #IMPLIED
+	useEmailAsLogin %Boolean; #IMPLIED
+>
+<!ELEMENT setupDefault EMPTY>
+<!ATTLIST setupDefault
+	schema CDATA #REQUIRED
+	name CDATA #REQUIRED
+	value CDATA #REQUIRED
+>
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT expressoDir (#PCDATA)>
+<!-- The "jdbc" sub-element of the context element specifies the connect information for a JDBC data source -->
+<!ELEMENT jdbc (dbWildcard*)>
+<!ATTLIST jdbc
+	driver CDATA #REQUIRED
+	url CDATA #REQUIRED
+	connectFormat %ConnectFormat; #REQUIRED
+	login CDATA #REQUIRED
+	password CDATA #REQUIRED
+	cache %Boolean; #REQUIRED
+	dbTest CDATA #IMPLIED
+	dateSelectFormat CDATA #IMPLIED
+	dateSelectFunction CDATA #IMPLIED
+	dateUpdateFormat CDATA #IMPLIED
+	dateUpdateFunction CDATA #IMPLIED
+	timeSelectFormat CDATA #IMPLIED
+	timeSelectFunction CDATA #IMPLIED
+	timeUpdateFormat CDATA #IMPLIED
+	timeUpdateFunction CDATA #IMPLIED
+	dateTimeSelectFormat CDATA #IMPLIED
+	dateTimeSelectFunction CDATA #IMPLIED
+	dateTimeUpdateFormat CDATA #IMPLIED
+	dateTimeUpdateFunction CDATA #IMPLIED
+	dbStats %Boolean; #IMPLIED
+	createTableIndicies %Boolean; #IMPLIED
+	limitationPosition CDATA #IMPLIED
+	limitationSyntax CDATA #IMPLIED
+	uniqueRowKeyword CDATA #IMPLIED
+>
+<!ELEMENT ldap EMPTY>
+<!ATTLIST ldap
+	server CDATA #REQUIRED
+	user CDATA #REQUIRED
+	password CDATA #REQUIRED
+	root CDATA #REQUIRED
+>
+<!-- skipText is set if the search criteria for "text" type fields should be ignored for this database -->
+<!-- Don't do it unless you need to -->
+<!ATTLIST jdbc
+	skipText %Boolean; #IMPLIED
+>
+<!ELEMENT dbWildcard (#PCDATA)>
+<!ELEMENT cacheManager EMPTY>
+<!ATTLIST cacheManager
+	minMemoryPercentage CDATA #IMPLIED
+	maxRetries CDATA #IMPLIED
+>
+<!-- A "customProperty" element specifies an application-specific custom property -->
+<!ELEMENT customProperty (name, value)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT value (#PCDATA)>
+<!ELEMENT startJobHandler (#PCDATA)>
+<!ELEMENT showStackTrace (#PCDATA)>
+<!ELEMENT mailDebug (#PCDATA)>
+<!ELEMENT images (#PCDATA)>
+<!ELEMENT type-mapping (java-type?, expresso-type?, db-type?)>
+<!ELEMENT java-type (#PCDATA)>
+<!ELEMENT expresso-type (#PCDATA)>
+<!ELEMENT db-type (#PCDATA)>

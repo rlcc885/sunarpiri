@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<webservices xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://www.ibm.com/webservices/xsd/j2ee_web_services_1_1.xsd">
+	<webservice-description>
+		<webservice-description-name>BusquedaDetallePartidaServiceProviderService</webservice-description-name>
+		<wsdl-file>WEB-INF/wsdl/BusquedaDetallePartidaServiceProvider.wsdl</wsdl-file>
+		<jaxrpc-mapping-file>WEB-INF/BusquedaDetallePartidaServiceProvider_mapping.xml</jaxrpc-mapping-file>
+		<port-component>
+			<port-component-name>BusquedaDetallePartidaServiceProvider</port-component-name>
+			<wsdl-port xmlns:pfx="http://webservices.extranet.sunarp.pe.gob">
+			pfx:BusquedaDetallePartidaServiceProvider</wsdl-port>
+			<service-endpoint-interface>gob.pe.sunarp.extranet.webservices.BusquedaDetallePartidaServiceProvider</service-endpoint-interface>
+			<service-impl-bean>
+				<servlet-link>
+				gob_pe_sunarp_extranet_webservices_BusquedaDetallePartidaServiceProvider</servlet-link>
+			</service-impl-bean>
+		</port-component>
+	</webservice-description>
+	<webservice-description>
+		<webservice-description-name>BusquedaDirectaServiceProviderService</webservice-description-name>
+		<wsdl-file>WEB-INF/wsdl/BusquedaDirectaServiceProvider.wsdl</wsdl-file>
+		<jaxrpc-mapping-file>WEB-INF/BusquedaDirectaServiceProvider_mapping.xml</jaxrpc-mapping-file>
+		<port-component>
+			<port-component-name>BusquedaDirectaServiceProvider</port-component-name>
+			<wsdl-port xmlns:pfx="http://webservices.extranet.sunarp.pe.gob">
+			pfx:BusquedaDirectaServiceProvider</wsdl-port>
+			<service-endpoint-interface>gob.pe.sunarp.extranet.webservices.BusquedaDirectaServiceProvider</service-endpoint-interface>
+			<service-impl-bean>
+				<servlet-link>
+				gob_pe_sunarp_extranet_webservices_BusquedaDirectaServiceProvider</servlet-link>
+			</service-impl-bean>
+		</port-component>
+	</webservice-description>
+	<webservice-description>
+		<webservice-description-name>BusquedaIndicesServiceProviderService</webservice-description-name>
+		<wsdl-file>WEB-INF/wsdl/BusquedaIndicesServiceProvider.wsdl</wsdl-file>
+		<jaxrpc-mapping-file>WEB-INF/BusquedaIndicesServiceProvider_mapping.xml</jaxrpc-mapping-file>
+		<port-component>
+			<port-component-name>BusquedaIndicesServiceProvider</port-component-name>
+			<wsdl-port xmlns:pfx="http://webservices.extranet.sunarp.pe.gob">
+			pfx:BusquedaIndicesServiceProvider</wsdl-port>
+			<service-endpoint-interface>gob.pe.sunarp.extranet.webservices.BusquedaIndicesServiceProvider</service-endpoint-interface>
+			<service-impl-bean>
+				<servlet-link>
+				gob_pe_sunarp_extranet_webservices_BusquedaIndicesServiceProvider</servlet-link>
+			</service-impl-bean>
+		</port-component>
+	</webservice-description>
+	<webservice-description>
+		<webservice-description-name>BusquedaNacionalIndicesServiceProviderService</webservice-description-name>
+		<wsdl-file>WEB-INF/wsdl/BusquedaNacionalIndicesServiceProvider.wsdl</wsdl-file>
+		<jaxrpc-mapping-file>WEB-INF/BusquedaNacionalIndicesServiceProvider_mapping.xml</jaxrpc-mapping-file>
+		<port-component>
+			<port-component-name>BusquedaNacionalIndicesServiceProvider</port-component-name>
+			<wsdl-port xmlns:pfx="http://webservices.extranet.sunarp.pe.gob">
+			pfx:BusquedaNacionalIndicesServiceProvider</wsdl-port>
+			<service-endpoint-interface>gob.pe.sunarp.extranet.webservices.BusquedaNacionalIndicesServiceProvider</service-endpoint-interface>
+			<service-impl-bean>
+				<servlet-link>
+				gob_pe_sunarp_extranet_webservices_BusquedaNacionalIndicesServiceProvider</servlet-link>
+			</service-impl-bean>
+		</port-component>
+	</webservice-description>
+	<webservice-description>
+		<webservice-description-name>SunarpServiceProviderService</webservice-description-name>
+		<wsdl-file>WEB-INF/wsdl/SunarpServiceProvider.wsdl</wsdl-file>
+		<jaxrpc-mapping-file>WEB-INF/SunarpServiceProvider_mapping.xml</jaxrpc-mapping-file>
+		<port-component>
+			<port-component-name>SunarpServiceProvider</port-component-name>
+			<wsdl-port xmlns:pfx="http://webservices.extranet.sunarp.pe.gob">
+			pfx:SunarpServiceProvider</wsdl-port>
+			<service-endpoint-interface>gob.pe.sunarp.extranet.webservices.SunarpServiceProvider</service-endpoint-interface>
+			<service-impl-bean>
+				<servlet-link>
+				gob_pe_sunarp_extranet_webservices_SunarpServiceProvider</servlet-link>
+			</service-impl-bean>
+		</port-component>
+	</webservice-description>
+</webservices>

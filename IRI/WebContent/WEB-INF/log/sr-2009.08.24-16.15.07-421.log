@@ -1,0 +1,522 @@
+20090824.161837.812 gob.pe.sunarp.extranet.acceso.controller.IngresoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: null
+REQ: /iri/IngresoIRI.do GET
+20090824.161837.609 framework.session.ExpressoHttpSessionBean IN No existe datos de usuario en sesion.
+20090824.161837.609 ranet.acceso.controller.IngresoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.IngresoController STATE: validaIngreso USERID: [NO_HAY_USUARIOBEAN_EN_SESION]
+20090824.161837.609 ranet.acceso.controller.IngresoController TR inicia proceso de Login
+20090824.161837.609 ranet.acceso.controller.IngresoController TR login sin TAM
+
+
+20090824.161841.140 gob.pe.sunarp.extranet.acceso.controller.IngresoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: null
+REQ: /iri/IngresoIRI.do POST application/x-www-form-urlencoded user=INFORMATICA:: clave=CLAVE1::
+20090824.161840.578 framework.session.ExpressoHttpSessionBean IN No existe datos de usuario en sesion.
+20090824.161840.578 ranet.acceso.controller.IngresoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.IngresoController STATE: validaIngreso USERID: [NO_HAY_USUARIOBEAN_EN_SESION]
+20090824.161840.578 ranet.acceso.controller.IngresoController TR inicia proceso de Login
+20090824.161840.578 ranet.acceso.controller.IngresoController TR login sin TAM
+20090824.161840.671 ranet.acceso.controller.IngresoController TR ...buscando cuenta...
+20090824.161840.859 ranet.acceso.controller.IngresoController TR ...buscando datos adicionales...
+20090824.161840.890 ranet.acceso.controller.IngresoController TR Usuario es Externo: Tipo Usuario : 1XXX
+20090824.161840.937 ranet.acceso.controller.IngresoController TR Usuario Es Persona Natural Usuario: X1XX
+
+
+20090824.161841.421 gob.pe.sunarp.extranet.acceso.controller.IngresoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/IngresoIRI.do GET state=cabecera::
+20090824.161841.296 ranet.acceso.controller.IngresoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.IngresoController STATE: cabecera USERID: INFORMATICA
+
+
+20090824.161841.515 gob.pe.sunarp.extranet.acceso.controller.MenuDinamicoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/MenuDinamicoIRI.do GET
+20090824.161841.250 .acceso.controller.MenuDinamicoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.MenuDinamicoController STATE: muestraMenu USERID: INFORMATICA
+
+
+20090824.161841.890 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPartidaController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadIRI.do GET state=solicitarFormulario::
+20090824.161841.578 dad.controller.ConsultarPartidaController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPartidaController STATE: solicitarFormulario USERID: INFORMATICA
+
+
+20090824.161846.937 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.161846.625 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.161856.984 gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/BusquedaTituloIRI.do GET
+20090824.161856.750 licidad.controller.BuscarTituloController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController STATE: selecciona USERID: INFORMATICA
+
+
+20090824.161857.078 gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/BusquedaTituloIRI.do GET
+20090824.161856.750 licidad.controller.BuscarTituloController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController STATE: selecciona USERID: INFORMATICA
+
+
+20090824.161900.046 gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/BusquedaTituloIRI.do GET
+20090824.161859.765 licidad.controller.BuscarTituloController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController STATE: selecciona USERID: INFORMATICA
+
+
+20090824.161900.140 gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/BusquedaTituloIRI.do GET
+20090824.161859.765 licidad.controller.BuscarTituloController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController STATE: selecciona USERID: INFORMATICA
+
+
+20090824.161901.093 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.161900.765 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.161902.046 gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/BusquedaTituloIRI.do GET
+20090824.161901.781 licidad.controller.BuscarTituloController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController STATE: selecciona USERID: INFORMATICA
+
+
+20090824.161902.203 gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/BusquedaTituloIRI.do GET
+20090824.161901.781 licidad.controller.BuscarTituloController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController STATE: selecciona USERID: INFORMATICA
+
+
+20090824.163113.625 gob.pe.sunarp.extranet.acceso.controller.IngresoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/IngresoIRI.do POST application/x-www-form-urlencoded user=INFORMATICA:: clave=CLAVE1::
+20090824.163113.218 ranet.acceso.controller.IngresoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.IngresoController STATE: validaIngreso USERID: INFORMATICA
+20090824.163113.218 ranet.acceso.controller.IngresoController TR inicia proceso de Login
+20090824.163113.218 ranet.acceso.controller.IngresoController TR login sin TAM
+20090824.163113.328 ranet.acceso.controller.IngresoController TR ...buscando cuenta...
+20090824.163113.437 ranet.acceso.controller.IngresoController TR ...buscando datos adicionales...
+20090824.163113.453 ranet.acceso.controller.IngresoController TR Usuario es Externo: Tipo Usuario : 1XXX
+20090824.163113.484 ranet.acceso.controller.IngresoController TR Usuario Es Persona Natural Usuario: X1XX
+
+
+20090824.163113.921 gob.pe.sunarp.extranet.acceso.controller.IngresoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/IngresoIRI.do GET state=cabecera::
+20090824.163113.828 ranet.acceso.controller.IngresoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.IngresoController STATE: cabecera USERID: INFORMATICA
+
+
+20090824.163114.015 gob.pe.sunarp.extranet.acceso.controller.MenuDinamicoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/MenuDinamicoIRI.do GET
+20090824.163113.656 .acceso.controller.MenuDinamicoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.MenuDinamicoController STATE: muestraMenu USERID: INFORMATICA
+
+
+20090824.163114.343 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPartidaController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadIRI.do GET state=solicitarFormulario::
+20090824.163114.015 dad.controller.ConsultarPartidaController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPartidaController STATE: solicitarFormulario USERID: INFORMATICA
+
+
+20090824.163116.359 gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/BusquedaTituloIRI.do GET
+20090824.163116.125 licidad.controller.BuscarTituloController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController STATE: selecciona USERID: INFORMATICA
+
+
+20090824.163116.453 gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/BusquedaTituloIRI.do GET
+20090824.163116.125 licidad.controller.BuscarTituloController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController STATE: selecciona USERID: INFORMATICA
+
+
+20090824.163118.140 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.163117.781 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.163135.218 gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/BusquedaTituloIRI.do GET
+20090824.163134.625 licidad.controller.BuscarTituloController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController STATE: selecciona USERID: INFORMATICA
+
+
+20090824.163135.453 gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/BusquedaTituloIRI.do GET
+20090824.163134.625 licidad.controller.BuscarTituloController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController STATE: selecciona USERID: INFORMATICA
+
+
+20090824.173100.875 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController ER
+******* LOG DE EVENTOS ************************************************************************************************
+USR: null
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.173100.703 framework.session.ExpressoHttpSessionBean IN No existe datos de usuario en sesion.
+20090824.173100.703 framework.session.ExpressoHttpSessionBean IN No existe datos de usuario en sesion.
+20090824.173100.703 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: [NO_HAY_USUARIOBEAN_EN_SESION]
+20090824.173100.703 framework.session.ExpressoHttpSessionBean IN No existe datos de usuario en sesion.
+20090824.173100.703 ultarPublicidadMasivaRelacionalController ER (E00004) No existe una sesion valida
+
+
+20090824.173106.562 gob.pe.sunarp.extranet.acceso.controller.IngresoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: null
+REQ: /iri/IngresoIRI.do POST application/x-www-form-urlencoded user=INFORMATICA:: clave=CLAVE1::
+20090824.173104.203 framework.session.ExpressoHttpSessionBean IN No existe datos de usuario en sesion.
+20090824.173104.203 ranet.acceso.controller.IngresoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.IngresoController STATE: validaIngreso USERID: [NO_HAY_USUARIOBEAN_EN_SESION]
+20090824.173104.203 ranet.acceso.controller.IngresoController TR inicia proceso de Login
+20090824.173104.203 ranet.acceso.controller.IngresoController TR login sin TAM
+20090824.173104.656 ranet.acceso.controller.IngresoController TR ...buscando cuenta...
+20090824.173105.265 ranet.acceso.controller.IngresoController TR ...buscando datos adicionales...
+20090824.173105.390 ranet.acceso.controller.IngresoController TR Usuario es Externo: Tipo Usuario : 1XXX
+20090824.173105.609 ranet.acceso.controller.IngresoController TR Usuario Es Persona Natural Usuario: X1XX
+
+
+20090824.173107.015 gob.pe.sunarp.extranet.acceso.controller.IngresoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/IngresoIRI.do GET state=cabecera::
+20090824.173106.734 ranet.acceso.controller.IngresoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.IngresoController STATE: cabecera USERID: INFORMATICA
+
+
+20090824.173107.921 gob.pe.sunarp.extranet.acceso.controller.MenuDinamicoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/MenuDinamicoIRI.do GET
+20090824.173106.734 .acceso.controller.MenuDinamicoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.MenuDinamicoController STATE: muestraMenu USERID: INFORMATICA
+
+
+20090824.173108.296 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPartidaController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadIRI.do GET state=solicitarFormulario::
+20090824.173107.281 dad.controller.ConsultarPartidaController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPartidaController STATE: solicitarFormulario USERID: INFORMATICA
+
+
+20090824.173112.406 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.173111.156 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.173607.625 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.173606.968 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.174006.796 gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/BusquedaTituloIRI.do GET
+20090824.174006.562 licidad.controller.BuscarTituloController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController STATE: selecciona USERID: INFORMATICA
+
+
+20090824.174006.906 gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/BusquedaTituloIRI.do GET
+20090824.174006.562 licidad.controller.BuscarTituloController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController STATE: selecciona USERID: INFORMATICA
+
+
+20090824.174118.250 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.174117.859 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.174120.609 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.174120.312 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.174210.390 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.174210.062 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.174414.218 gob.pe.sunarp.extranet.acceso.controller.IngresoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/IngresoIRI.do POST application/x-www-form-urlencoded user=INFORMATICA:: clave=CLAVE1::
+20090824.174413.906 ranet.acceso.controller.IngresoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.IngresoController STATE: validaIngreso USERID: INFORMATICA
+20090824.174413.906 ranet.acceso.controller.IngresoController TR inicia proceso de Login
+20090824.174413.906 ranet.acceso.controller.IngresoController TR login sin TAM
+20090824.174413.984 ranet.acceso.controller.IngresoController TR ...buscando cuenta...
+20090824.174414.046 ranet.acceso.controller.IngresoController TR ...buscando datos adicionales...
+20090824.174414.062 ranet.acceso.controller.IngresoController TR Usuario es Externo: Tipo Usuario : 1XXX
+20090824.174414.093 ranet.acceso.controller.IngresoController TR Usuario Es Persona Natural Usuario: X1XX
+
+
+20090824.174414.468 gob.pe.sunarp.extranet.acceso.controller.IngresoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/IngresoIRI.do GET state=cabecera::
+20090824.174414.265 ranet.acceso.controller.IngresoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.IngresoController STATE: cabecera USERID: INFORMATICA
+
+
+20090824.174414.546 gob.pe.sunarp.extranet.acceso.controller.MenuDinamicoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/MenuDinamicoIRI.do GET
+20090824.174414.250 .acceso.controller.MenuDinamicoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.MenuDinamicoController STATE: muestraMenu USERID: INFORMATICA
+
+
+20090824.174414.843 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPartidaController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadIRI.do GET state=solicitarFormulario::
+20090824.174414.562 dad.controller.ConsultarPartidaController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPartidaController STATE: solicitarFormulario USERID: INFORMATICA
+
+
+20090824.174419.234 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.174418.937 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.174452.953 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.174452.656 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.174628.312 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.174628.015 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.174727.937 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.174727.640 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.174757.000 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.174756.687 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.174818.671 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.174818.343 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.174848.000 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.174847.703 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.175021.515 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.175020.718 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.175147.296 gob.pe.sunarp.extranet.acceso.controller.IngresoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/IngresoIRI.do POST application/x-www-form-urlencoded user=INFORMATICA:: clave=CLAVE1::
+20090824.175146.953 ranet.acceso.controller.IngresoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.IngresoController STATE: validaIngreso USERID: INFORMATICA
+20090824.175146.953 ranet.acceso.controller.IngresoController TR inicia proceso de Login
+20090824.175146.953 ranet.acceso.controller.IngresoController TR login sin TAM
+20090824.175147.046 ranet.acceso.controller.IngresoController TR ...buscando cuenta...
+20090824.175147.125 ranet.acceso.controller.IngresoController TR ...buscando datos adicionales...
+20090824.175147.125 ranet.acceso.controller.IngresoController TR Usuario es Externo: Tipo Usuario : 1XXX
+20090824.175147.156 ranet.acceso.controller.IngresoController TR Usuario Es Persona Natural Usuario: X1XX
+
+
+20090824.175147.500 gob.pe.sunarp.extranet.acceso.controller.IngresoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/IngresoIRI.do GET state=cabecera::
+20090824.175147.328 ranet.acceso.controller.IngresoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.IngresoController STATE: cabecera USERID: INFORMATICA
+
+
+20090824.175147.578 gob.pe.sunarp.extranet.acceso.controller.MenuDinamicoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/MenuDinamicoIRI.do GET
+20090824.175147.328 .acceso.controller.MenuDinamicoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.MenuDinamicoController STATE: muestraMenu USERID: INFORMATICA
+
+
+20090824.175148.156 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPartidaController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadIRI.do GET state=solicitarFormulario::
+20090824.175147.578 dad.controller.ConsultarPartidaController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPartidaController STATE: solicitarFormulario USERID: INFORMATICA
+
+
+20090824.175159.218 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.175158.921 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.175230.593 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.175230.250 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.175433.546 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.175433.156 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.175519.953 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.175519.593 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.175807.781 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.175807.437 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.181559.921 gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/BusquedaTituloIRI.do GET
+20090824.181559.359 licidad.controller.BuscarTituloController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController STATE: selecciona USERID: INFORMATICA
+
+
+20090824.181600.031 gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/BusquedaTituloIRI.do GET
+20090824.181559.359 licidad.controller.BuscarTituloController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.BuscarTituloController STATE: selecciona USERID: INFORMATICA
+
+
+20090824.181602.093 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.181601.218 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.181605.312 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPartidaController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadIRI.do GET state=solicitarFormulario::
+20090824.181604.625 dad.controller.ConsultarPartidaController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPartidaController STATE: solicitarFormulario USERID: INFORMATICA
+
+
+20090824.181609.265 gob.pe.sunarp.extranet.publicidad.controller.BuscarXIndiceController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/BuscaPartidasXIndicesIRI.do GET state=verFormulario::
+20090824.181607.656 icidad.controller.BuscarXIndiceController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.BuscarXIndiceController STATE: verFormulario USERID: INFORMATICA
+
+
+20090824.181610.875 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.181610.234 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.181746.390 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.181745.625 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.181819.671 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.181818.906 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090824.182031.281 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadMasivaRelacionalIRI.do GET
+20090824.182030.515 ultarPublicidadMasivaRelacionalController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPublicidadMasivaRelacionalController STATE: formularioInicial USERID: INFORMATICA
+
+
+20090825.102121.406 gob.pe.sunarp.extranet.acceso.controller.IngresoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: null
+REQ: /iri/IngresoIRI.do POST application/x-www-form-urlencoded user=INFORMATICA:: clave=CLAVE1::
+20090825.102121.015 framework.session.ExpressoHttpSessionBean IN No existe datos de usuario en sesion.
+20090825.102121.015 ranet.acceso.controller.IngresoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.IngresoController STATE: validaIngreso USERID: [NO_HAY_USUARIOBEAN_EN_SESION]
+20090825.102121.015 ranet.acceso.controller.IngresoController TR inicia proceso de Login
+20090825.102121.015 ranet.acceso.controller.IngresoController TR login sin TAM
+20090825.102121.093 ranet.acceso.controller.IngresoController TR ...buscando cuenta...
+20090825.102121.187 ranet.acceso.controller.IngresoController TR ...buscando datos adicionales...
+20090825.102121.203 ranet.acceso.controller.IngresoController TR Usuario es Externo: Tipo Usuario : 1XXX
+20090825.102121.234 ranet.acceso.controller.IngresoController TR Usuario Es Persona Natural Usuario: X1XX
+
+
+20090825.102121.625 gob.pe.sunarp.extranet.acceso.controller.IngresoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/IngresoIRI.do GET state=cabecera::
+20090825.102121.546 ranet.acceso.controller.IngresoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.IngresoController STATE: cabecera USERID: INFORMATICA
+
+
+20090825.102121.921 gob.pe.sunarp.extranet.publicidad.controller.ConsultarPartidaController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/PublicidadIRI.do GET state=solicitarFormulario::
+20090825.102121.640 dad.controller.ConsultarPartidaController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.publicidad.controller.ConsultarPartidaController STATE: solicitarFormulario USERID: INFORMATICA
+
+
+20090825.102143.031 gob.pe.sunarp.extranet.acceso.controller.MenuDinamicoController IN
+******* LOG DE EVENTOS ************************************************************************************************
+USR: user:INFORMATICA org:null 0101
+REQ: /iri/MenuDinamicoIRI.do GET
+20090825.102142.781 .acceso.controller.MenuDinamicoController IN __Procesando CONTROLLER: gob.pe.sunarp.extranet.acceso.controller.MenuDinamicoController STATE: muestraMenu USERID: INFORMATICA
+
+

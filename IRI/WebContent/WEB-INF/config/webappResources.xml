@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<webappResources>
+
+	<!-- datos requeridos por TAM -->
+	<tam>
+		<usuario>aplicativoextranet2</usuario>
+		<password>aplicativo01.</password>
+		<usuarioAutorizacion>aplicativoextranet2/SNRPWASP</usuarioAutorizacion>
+		<passwordAutorizacion>aplicativo01.</passwordAutorizacion>		
+		<ruta>extranet/SNRPEXT01</ruta>
+		<localeIdioma>SPANISH</localeIdioma>
+		<localePais>PE</localePais>
+		<rutaConfigFile>/WEB-INF/config/pd.properties</rutaConfigFile>
+	</tam>
+
+	<!-- 
+	Datos para Pool Content Manager
+         expiryTime en segundos 
+	     timeOut    en segundos
+	     enabled    Se activa el acceso a Content Manager, y por lo tanto se puede ver imagenes
+	-->
+	<!--  jacaceres - Parametros del CM8 - 22/02/07 -->
+	<!-- 
+	<poolCM libserver="LIBSRVRX"
+    		user="CLIWEBD"
+    		pass="CW2U"
+    		poolSize="5"
+    		expiryTime="600000"
+    		timeOut="300000"
+    		enabled="true"
+	/>
+	 -->
+	<poolCM libserver="icmnlsdb"
+                user="cmweb"
+                pass="sun4rpWeb"
+    		poolSize="5"
+    		expiryTime="600000"
+    		timeOut="300000"
+    		enabled="false"
+	/>	
+	 
+	<!--  jacaceres - CM8 -->
+
+	<consolaCentral>
+		<errorManejado codigo="E94003" descripcion="Error E94003"/>
+		<errorManejado codigo="E94019" descripcion="Error E94019"/>
+		<oficina codigo="0101" urlDB="jdbc:oracle:thin:@172.20.141.20:1521:desa"    userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0102" urlDB="jdbc:oracle:thin:@172.20.98.22:1521:orcl"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0103" urlDB="jdbc:oracle:thin:@172.20.97.22:1521:orcl"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0104" urlDB="jdbc:oracle:thin:@172.20.96.22:1521:orcl"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0105" urlDB="jdbc:oracle:thin:@172.20.95.22:1521:orcl"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0106" urlDB="jdbc:oracle:thin:@172.20.94.22:1521:orcl"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0201" urlDB="jdbc:oracle:thin:@172.20.80.21:1521:or0201"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0202" urlDB="jdbc:oracle:thin:@172.20.81.22:1521:or0202"  userDB="extranet" pwdDB="extranet"/>
+		<!--<oficina codigo="0203" urlDB="jdbc:oracle:thin:@172.20.80.22:1521:or0203" userDB="extranet" pwdDB="extranet"/>-->
+		<oficina codigo="0204" urlDB="jdbc:oracle:thin:@172.20.86.22:1521:or0201"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0205" urlDB="jdbc:oracle:thin:@172.20.84.22:1521:or0201"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0206" urlDB="jdbc:oracle:thin:@172.20.82.22:1521:or0201"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0207" urlDB="jdbc:oracle:thin:@172.20.85.22:1521:or0201"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0208" urlDB="jdbc:oracle:thin:@172.20.83.22:1521:or0201"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0301" urlDB="jdbc:oracle:thin:@172.20.120.21:1521:or0301" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0302" urlDB="jdbc:oracle:thin:@172.20.121.22:1521:or0301" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0303" urlDB="jdbc:oracle:thin:@172.20.123.22:1521:or0301" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0304" urlDB="jdbc:oracle:thin:@172.20.122.22:1521:or0301" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0401" urlDB="jdbc:oracle:thin:@172.20.70.21:1521:or0401"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0402" urlDB="jdbc:oracle:thin:@172.20.72.23:1521:or0401"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0403" urlDB="jdbc:oracle:thin:@172.20.71.21:1521:or0401"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0501" urlDB="jdbc:oracle:thin:@172.20.10.21:1521:or0501"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0502" urlDB="jdbc:oracle:thin:@172.20.11.22:1521:or0501"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0503" urlDB="jdbc:oracle:thin:@172.20.12.22:1521:or0501"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0601" urlDB="jdbc:oracle:thin:@172.20.100.21:1521:or0601" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0602" urlDB="jdbc:oracle:thin:@172.20.101.22:1521:or0601" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0603" urlDB="jdbc:oracle:thin:@172.20.102.22:1521:or0601" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0604" urlDB="jdbc:oracle:thin:@172.20.103.22:1521:or0601" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0605" urlDB="jdbc:oracle:thin:@172.20.104.22:1521:or0601" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0701" urlDB="jdbc:oracle:thin:@172.20.130.22:1521:or0701" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0702" urlDB="jdbc:oracle:thin:@172.20.132.22:1521:or0701" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0703" urlDB="jdbc:oracle:thin:@172.20.134.22:1521:or0701" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0704" urlDB="jdbc:oracle:thin:@172.20.131.22:1521:or0701" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0705" urlDB="jdbc:oracle:thin:@172.20.133.22:1521:or0701" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0801" urlDB="jdbc:oracle:thin:@172.20.50.21:1521:or0801"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0802" urlDB="jdbc:oracle:thin:@172.20.52.22:1521:or0801"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0803" urlDB="jdbc:oracle:thin:@172.20.54.22:1521:or0801"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0804" urlDB="jdbc:oracle:thin:@172.20.53.22:1521:or0801"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0805" urlDB="jdbc:oracle:thin:@172.20.51.22:1521:or0801"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0901" urlDB="jdbc:oracle:thin:@172.20.40.21:1521:or0901"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="0902" urlDB="jdbc:oracle:thin:@172.20.41.22:1521:or0901"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="1001" urlDB="jdbc:oracle:thin:@172.20.110.21:1521:or1001" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="1002" urlDB="jdbc:oracle:thin:@172.20.111.22:1521:or1001" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="1003" urlDB="jdbc:oracle:thin:@172.20.112.22:1521:or1001" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="1004" urlDB="jdbc:oracle:thin:@172.20.114.22:1521:or1001" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="1005" urlDB="jdbc:oracle:thin:@172.20.113.22:1521:or1001" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="1006" urlDB="jdbc:oracle:thin:@172.20.115.22:1521:or1001" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="1007" urlDB="jdbc:oracle:thin:@172.20.116.22:1521:or1001" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="1008" urlDB="jdbc:oracle:thin:@172.20.117.22:1521:or1001" userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="1101" urlDB="jdbc:oracle:thin:@172.20.20.21:1521:or1101"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="1102" urlDB="jdbc:oracle:thin:@172.20.21.22:1521:or1101"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="1103" urlDB="jdbc:oracle:thin:@172.20.22.22:1521:or1101"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="1104" urlDB="jdbc:oracle:thin:@172.20.24.22:1521:or1101"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="1105" urlDB="jdbc:oracle:thin:@172.20.25.22:1521:or1101"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="1106" urlDB="jdbc:oracle:thin:@172.20.23.22:1521:or1101"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="1201" urlDB="jdbc:oracle:thin:@172.20.30.22:1521:or1201"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="1202" urlDB="jdbc:oracle:thin:@172.20.31.22:1521:or1201"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="1203" urlDB="jdbc:oracle:thin:@172.20.32.22:1521:or1201"  userDB="extranet" pwdDB="extranet"/>
+		<oficina codigo="1301" urlDB="jdbc:oracle:thin:@172.20.60.22:1521:or1301"  userDB="extranet" pwdDB="extranet"/>		
+	</consolaCentral>
+		
+	<!-- propiedades generales para el sistema 
+	     CADA VEZ QUE CAMBIE ESTAS PROPIEDADES
+	     DEBE REVISAR LA CLASES:
+	        *gob.pe.sunarp.extranet.framework.xml.XPropiedades.java
+			*gob.pe.sunarp.extranet.util.Propiedades.java 
+			*gob.pe.sunarp.extranet.framework.InitSystemResources.java-->
+	<propiedades>
+	
+		<!--FLAGS-->
+		
+		<!--flag01, true : los passwords SI se graban en tabla CUENTA
+		            false: los passwords se graban como "*" en tabla CUENTA
+		            nota: este flag NO influye el comportamiento con el TAM
+
+		    flag02, true : Configuracion para Produccion
+		            false: Configura el sistema para poder ejecutarse
+		                   en un ambiente de desarrollo:
+		                    - No se conecta al TAM
+		                    - Login normal y NO por TAM
+		                    - No se graban registros en la tabla transaccion
+		                    - No se graban registros en la tabla uso servicio
+		                    - No se graban registros en la tabla mail
+		                    - No se activa el job de envio de email
+		                    - No se conecta a bases de datos produccion, sino a las
+		                      de desarrollo
+		-->
+		<flag01>true</flag01>
+		<flag02>false</flag02>
+		<!--             
+		<flag01>false</flag01>
+		<flag02>true</flag02>
+		 -->
+		<!--VALORES-->
+		
+		<!--value01, number : numero de registros por pagina (PAGINEO)-->
+		<!--value02, direccion IP del SMTP SERVER para enviar mail-->				
+		<!--value03, usuario del SMTP server para envio de mail-->		
+		<!--value04, password de usuario del SMTP-->		
+		<!--value05, valor en minutos, indica cada cuanto tiempo va a 
+		             ejecutarse el job de envio de mail-->	
+		<!--value06, correo origen para envio de email -->	
+		<!--value07, correo destino (DEFAULT) para envio de email -->	
+		<!--value08, lugar donde se encuentran los templates para mails -->	
+		<!--value09, lugar donde se escribe el archivo de log -->	
+		<!--value10, nivel de log
+					 posibles valores:
+							TRACE = 0
+							INFORMATIONAL = 1
+							WARNING = 2
+							ERROR = 3
+							FATAL_ERROR = 4
+					       -->	
+	    <!--value11, Maximo numero de registros que devuelve una
+	                 busqueda de partidas, titulos. -->	
+	    <!--value12, grabar en transaccion
+	    			 true = si graba en transaccion (tambien los jobs)
+	    			 false = no graba en transaccion -->	
+	    <!--value13, emails que van a recibir las consultas -->	
+	    <!--value14, emails que van a recibir las quejas -->	
+	    <!--value15, emails que van a recibiar las observaciones -->		                 	                 	                 	                 
+	    <!--value16, factor de escala para imagenes ASIENTO -->
+	    <!--value17, factor de escala para imagenes FICHA -->
+	    <!--value18, factor de escala para imagenes FOLIO -->
+	    <!--value19, direcciones de email del buzon de RPV -->
+		<!--value20, valor en minutos, indica cada cuanto tiempo va a 
+		             ejecutarse el job de envio de mail NO WEB-->	
+		<!--value21, valor en dias, indica cuantos dias hacia atras de la fecha actual 
+		             se considerarÃ­an los emails WEB vÃ¡lidos para ser enviados-->	
+		<!--value22, valor en dias, indica cuantos dias hacia atras de la fecha actual 
+		             se considerarÃ­an los emails NO WEB vÃ¡lidos para ser enviados-->	
+		<!--value23, direccion del archivo de template para sobres -->	
+
+		<value01>15</value01>
+		<value02>192.168.10.24</value02>		
+		<value03>extranet</value03>
+		<value04>extranet</value04>
+		<value05>15</value05>
+		<value06>extranetsunarp@sunarp.gob.pe</value06>
+		<value07>rbahamonde@sunarp.gob.pe,rhuertas@sunarp.gob.pe</value07>
+		<value08>/WEB-INF/templates</value08>	
+		<value09>/WEB-INF/log/sr</value09>
+		<value10>0</value10>	
+		<value11>200</value11>
+		<value12>true</value12>
+		<value13>enlinea@sunarp.gob.pe</value13>
+		<value14>enlinea@sunarp.gob.pe</value14>
+		<value15>enlinea@sunarp.gob.pe</value15>
+		<value16>0.497</value16>
+		<value17>0.498</value17>
+		<value18>0.5</value18>
+		<value19>enlinea@sunarp.gob.pe</value19>
+		<value20>45</value20>
+		<value21>7</value21>
+		<value22>7</value22>
+		<!-- esta ruta cambia en produccion -->
+		<!-- <value23>usr/IBM/WebSphere/AppServer/Profiles/SNRPEXT/installedApps/SunarpExtranetWeb.EAR/SunarpExtranetWeb.WAR/WEB-INF/config/sobre.txt</value23>  -->
+		<!-- <value23>/usr/IBM/WebSphere/AppServer/profiles/SNRPEXT/installedApps/SNRPWASCell/SunarpExtranetWebEAR.ear/SunarpExtranetWeb.war/WEB-INF/config/sobre.txt</value23> -->
+		<value23>D:/IBM/Application Developer/workspace/SunarpExtranetWeb/webApplication/WEB-INF/config/sobre.txt</value23>
+		<subjectIncludeUsr>true</subjectIncludeUsr>
+		<subjectIncludeReq>false</subjectIncludeReq>
+		<subjectIncludeErr>true</subjectIncludeErr>
+	</propiedades>
+	
+	
+	
+	<!-- Informacion para los Pools de conexiones a la base de datos
+		
+		       codigo     : codigo numerico que identifica a la base de datos, debe ser unico
+		       driver     : driver de conexion
+		       url        : url de conexion a la base de datos
+		       user       : usuario de conexion
+		       password   : password del usuario
+		       max        : cantidad maxima de conexiones abiertas por el pool
+		       expiryTime : tiempo de expiracion en segundos
+		       timeOut    : tiempo de timeout en segundos
+	-->	
+	<conexionesBD>
+		<!-- base de datos de produccion -->
+		<!-- <base codigo="1" driver="oracle.jdbc.driver.OracleDriver" url="jdbc:oracle:thin:@192.168.1.220:1521:" user="user1" password="user1" max="100" expiryTime="600000" timeOut="300000" /> -->
+		<!-- produccion -->
+        <!--  <base codigo="1" driver="oracle.jdbc.driver.OracleDriver" url="jdbc:oracle:thin:@SNRPORAP:1521:dbsp" user="user1" password="user12002" max="50" expiryTime="300000" timeOut="200000" /> -->
+		<!-- base de datos de desarrollo -->
+		<!-- <base codigo="2" driver="oracle.jdbc.driver.OracleDriver" url="jdbc:oracle:thin:@192.168.1.220:1521:orcl" user="user1" password="user1" max="100" expiryTime="600000" timeOut="300000" /> -->
+		<!-- produccion -->
+        <!-- datasource de desarrollo 
+        <base codigo="2" driver="oracle.jdbc.driver.OracleDriver" url="jdbc:oracle:thin:@192.168.171.221:1521:orcl" user="user1" password="user1" max="100" expiryTime="600000" timeOut="300000" />		
+        -->
+		
+		<base codigo="2" driver="oracle.jdbc.driver.OracleDriver" url="jdbc:oracle:thin:@172.18.1.37:1521:dbspdesa" user="user1" password="user1" max="100" expiryTime="600000" timeOut="300000" />
+
+		 <!--  
+		<base codigo="2" driver="oracle.jdbc.driver.OracleDriver" url="jdbc:oracle:thin:@172.18.1.55:1521:dbsp" user="user1" password="user12002" max="100" expiryTime="600000" timeOut="300000" />		
+		 -->		
+		<!--base codigo="2" driver="oracle.jdbc.driver.OracleDriver" url="jdbc:oracle:thin:@172.18.1.45:1521:DBS06" user="user1" password="user12002" max="100" expiryTime="600000" timeOut="300000" /-->
+		
+	</conexionesBD>
+	
+	<dirVisa>
+		<dir1Desa>/iri/PruebaIRI.do</dir1Desa>
+		<dir2Desa>/iri/IncrementarSaldoIRI.do?state=continuaAbonoCredito</dir2Desa>
+		<dir1Prod>https://www.alignet-mpi.com/3DSecure/MPI.do</dir1Prod>
+		<dir2Prod>https://www.multimerchantvisanet.com/webapp/PaymentVisa/PVirtual</dir2Prod>
+		<!--dir1Desa>http://localhost/iri/Prueba.do</dir1Desa>
+		<dir2Desa>http://localhost/iri/IncrementarSaldo.do?state=continuaAbonoCredito</dir2Desa>
+		<dir1Prod>http://localhost/iri/Prueba.do</dir1Prod>
+		<dir2Prod>http://localhost/iri/IncrementarSaldo.do?state=continuaAbonoCredito</dir2Prod-->
+		<dirDesa>http://localhost:9080/iri/</dirDesa>
+	</dirVisa>
+</webappResources>
